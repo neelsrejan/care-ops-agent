@@ -1,0 +1,23 @@
+name: CI
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12"]
+    services:
+      postgres:
+        image: postgres:17
+        env: {POSTGRES_HOST_AUTH_METHOD: trust, POSTGRES_DB: care_ops}
+        ports: ["5433:5432"]
+        options: --health-cmd pg_isready --health-interval 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "${{ matrix.python-version }}"}
+      - run: python -m pip install --upgrade pip && python -m pip install -e ".[dev]"
+      - name: Unit tests (no DB needed)
+        run: python -m pytest
+      # Data download + load is run locally (85 MB FHIR sample); the DB test skips in CI when views are absent.

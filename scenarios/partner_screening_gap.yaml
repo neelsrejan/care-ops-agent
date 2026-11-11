@@ -1,0 +1,12 @@
+id: partner_screening_gap
+label: SYNTHETIC SIMULATION
+seed: 37
+weeks: 20
+program_start_week: 14
+baseline_met: {hba1c_control: 0.62, bp_control: 0.66, breast_cancer_screening: 0.58}
+injection:
+  type: partner_drop
+  partner_index: 1
+  measure: breast_cancer_screening
+  met_prob_after: 0.30
+truth: {kind: care_gap, partner_index: 1, clinic: null, measure: breast_cancer_screening}

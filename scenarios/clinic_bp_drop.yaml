@@ -1,0 +1,13 @@
+id: clinic_bp_drop
+label: SYNTHETIC SIMULATION
+seed: 11
+weeks: 20
+program_start_week: 14
+baseline_met: {hba1c_control: 0.62, bp_control: 0.66, breast_cancer_screening: 0.58}
+injection:
+  type: clinic_drop
+  partner_index: 3
+  clinic: C2
+  measure: bp_control
+  met_prob_after: 0.35
+truth: {kind: care_gap, partner_index: 3, clinic: C2, measure: bp_control}

@@ -1,0 +1,38 @@
+0 0
+Jira|0|0
+Asana|0|0
+Smartsheet|0|0
+Monday.com|0|0
+ClickUp|0|0
+MS Project|0|0
+Wrike|0|0
+Airtable|0|0
+Notion|0|0
+Linear|0|0
+Confluence|0|0
+Tableau|0|0
+Power BI|0|0
+Looker|0|0
+Hex|0|0
+Mode|0|0
+Sigma (BI)|0|0
+Snowflake|0|0
+BigQuery|0|0
+Databricks|0|0
+SQL|0|0
+dbt|0|0
+Python|0|0
+R|0|0
+Salesforce|0|0
+HubSpot|0|0
+Zapier|0|0
+Power Automate|0|0
+n8n|0|0
+Epic|0|0
+FHIR/HL7|0|0
+HEDIS|0|0
+Cerner/Oracle Health|0|0
+Excel|0|0
+Lean/Six Sigma|0|0
+Visio|0|0
+Agile/Scrum|0|0

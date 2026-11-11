@@ -1,0 +1,21 @@
+id: hold_feed_a1c_p4
+label: SYNTHETIC SIMULATION
+family: missing_feed
+seed: 314
+weeks: 20
+program_start_week: 14
+baseline_met:
+  hba1c_control: 0.62
+  bp_control: 0.66
+  breast_cancer_screening: 0.58
+held_out: true
+injection:
+  type: missing_feed
+  partner_index: 3
+  measure: hba1c_control
+  missing_share_after: 0.8
+truth:
+  kind: data_issue
+  partner_index: 3
+  clinic: null
+  measure: hba1c_control

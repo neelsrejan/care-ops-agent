@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Session 7 · Outreach A/B on gaps closed</title>
+<link rel="stylesheet" href="css/academy.css">
+
+<script>
+(function () {
+  var session = 7;
+  var ok = false;
+  try {
+    var raw = localStorage.getItem("coa-academy-progress-v1");
+    var data = raw ? JSON.parse(raw) : null;
+    var prev = data && data.sessions && data.sessions[String(session - 1)];
+    ok = !!(prev && prev.passed);
+  } catch (e) { ok = false; }
+  if (!ok) document.documentElement.classList.add("is-locked");
+})();
+</script>
+</head>
+<body data-page="session" data-session="7">
+<div class="app">
+<aside class="nav">
+<a class="brand" href="index.html"><div class="mark">co</div><div><strong>care-ops-agent</strong><span>Academy</span></div></a>
+<a class="item" href="index.html">Home</a>
+<div class="week">Week 1</div>
+<a class="item" data-session="1" href="session-1.html"><i class="dot"></i>S1 · Frame the program and keep numbers out of the model</a>
+<a class="item" data-session="2" href="session-2.html"><i class="dot"></i>S2 · Local FHIR into tested SQL views</a>
+<a class="item" data-session="3" href="session-3.html"><i class="dot"></i>S3 · A synthetic network and a care-versus-data call</a>
+<div class="week">Week 2</div>
+<a class="item" data-session="4" href="session-4.html"><i class="dot"></i>S4 · A Salesforce-shaped pipeline next to the open gaps</a>
+<a class="item" data-session="5" href="session-5.html"><i class="dot"></i>S5 · Charter, WBS, RAID, change log, and an Asana file</a>
+<a class="item" data-session="6" href="session-6.html"><i class="dot"></i>S6 · Weekly PDSA and three audiences</a>
+<a class="item active" data-session="7" href="session-7.html"><i class="dot"></i>S7 · Outreach A/B on gaps closed</a>
+<div class="week">Week 3</div>
+<a class="item" data-session="8" href="session-8.html"><i class="dot"></i>S8 · An RFP library that cites or flags</a>
+<a class="item" data-session="9" href="session-9.html"><i class="dot"></i>S9 · Held-out score and an MS Project file</a>
+<a class="item" data-session="10" href="session-10.html"><i class="dot"></i>S10 · Extracts, a no-go, and resume lines</a>
+<div class="nav-foot" id="nav-progress">Progress stays in this browser</div>
+</aside>
+<main class="main">
+
+<p class="kicker">Week 2 · Session 7</p>
+<h1>Outreach A/B on gaps closed</h1>
+<p class="lede">Script rates are scenario parameters. The trial is a PDSA cycle: scale the winner, or abandon the change when the test does not clear alpha.</p>
+<p class="note">Ticket COA-111 · about 40–55 minutes · artifact: Sample size, randomization, two-proportion readout</p>
+<div class="lock-screen">
+  <div class="panel">
+    <h2>This session is locked</h2>
+    <p>Pass Session 6 at 80% or better (5 of 6) to open the videos, the logic trace, the practice task, and this quiz. Retries on the earlier quiz are unlimited. If you already passed it on another computer, import that progress code from the home page.</p>
+    <p><a class="button" href="session-6.html">Go to Session 6</a> <a class="button secondary" href="index.html">Home</a></p>
+  </div>
+</div>
+<div class="lesson">
+<h2>Read first</h2>
+<ul><li>src/care_ops_agent/experiment/ab.py — the size formula and the decision rule.</li></ul>
+<h2>Watch in this order</h2>
+<p class="note">Read the architecture note, then play the clip. The note says what the file is for. The video walks the lines. Line numbers match <code>main</code> as this site was built.</p>
+<article class="clip">
+<h3>1. Session 7 · Size the test before the draw</h3>
+<div class="overview"><h4>Architecture</h4><p>ab.py is the outreach experiment. It is a PDSA cycle, not a side spreadsheet. The sample size is a normal approximation from the two planned rates. The draw happens after. Eval repeats the trial so one lucky seed is not the resume line. A null trial reuses the size, because the formula cannot divide by a zero difference.</p></div>
+<video controls preload="metadata" src="videos/session-7/01_power.mp4">
+<a href="videos/session-7/01_power.mp4">Download clip 1</a>
+</video>
+<p class="meta">0:33 · Andrew · <a href="https://github.com/neelsrejan/care-ops-agent/blob/main/src/care_ops_agent/experiment/ab.py">src/care_ops_agent/experiment/ab.py</a> on <code>main</code></p>
+</article><article class="clip">
+<h3>2. Session 7 · Randomize, then decide</h3>
+<div class="overview"><h4>Architecture</h4><p>The second half of the same module is the trial itself and the bridge back to PDSA. Arms are shuffled first, then each synthetic patient draws an outcome at that arm&#x27;s rate. The decision is scale B, scale A, or no difference. pdsa_from_trial maps a winner to adopt and a null result to abandon, so the experiment does not become a permanent change just because it was run.</p></div>
+<video controls preload="metadata" src="videos/session-7/02_trial.mp4">
+<a href="videos/session-7/02_trial.mp4">Download clip 2</a>
+</video>
+<p class="meta">0:28 · Andrew · <a href="https://github.com/neelsrejan/care-ops-agent/blob/main/src/care_ops_agent/experiment/ab.py">src/care_ops_agent/experiment/ab.py</a> on <code>main</code></p>
+</article>
+<h2>Logic trace</h2>
+<p class="note"><a href="https://github.com/neelsrejan/care-ops-agent/blob/main/docs/sessions/session-7/LOGIC_TRACE.md">LOGIC_TRACE.md</a></p>
+<div class="prose"><h1>Session 7 logic trace — outreach A/B as a PDSA cycle</h1>
+<ol>
+<li><strong>Goal.</strong> Size a two-arm outreach test, randomize synthetic patients, and read gaps closed. Recover a seeded effect. Stay quiet when the two scripts match.</li>
+<li><strong>Needed next.</strong> A place to file the method when a payer asks (S8).</li>
+<li><strong>Libraries.</strong> numpy for the draws, scipy for the normal quantiles and the two-proportion p-value. No experiment platform.</li>
+<li><strong>Code.</strong> <code>experiment/ab.py</code> computes the equal-arm sample size for a two-sided test at 90% power, shuffles arm labels, and draws a closed-gap outcome per patient. The decision is scale B, scale A, or no difference. <code>pdsa_from_trial</code> maps that decision onto adopt or abandon so the test is a PDSA cycle, not a side analysis.</li>
+<li><strong>Docs.</strong> The seeded rates (0.22 and 0.48, null 0.35) are scenario parameters, not Synthea outputs.</li>
+<li><strong>Buy-in.</strong> None. There is no live outreach vendor.</li>
+<li><strong>Capability added.</strong> <code>out/ab_trial.json</code>, and the repeat counts in the eval report.</li>
+<li><strong>What it proves.</strong> Power, randomization, and a readout whose numbers are not written by a model.</li>
+</ol></div>
+<h2>Code on main</h2>
+<p><a href="https://github.com/neelsrejan/care-ops-agent/tree/main">Browse the repository</a></p>
+<ul><li><a href="https://github.com/neelsrejan/care-ops-agent/blob/main/src/care_ops_agent/experiment/ab.py"><code>src/care_ops_agent/experiment/ab.py</code></a></li></ul>
+<h2>Practice, on a private branch</h2>
+<div class="prose"><pre><code class="language-bash">pytest tests/test_pdsa_ab_rfp.py::test_ab_power_recovers_effect_and_reports_null
+</code></pre>
+<p><strong>Extra.</strong> Why can't the null trial ask the sample-size formula for a number?</p></div>
+<h2>Quiz</h2>
+<p class="note">Six questions on architecture and design. 5 of 6 to pass. Explanations show after you submit. The salted hash is a self-study speed bump, not protection.</p>
+<div id="quiz"></div>
+</div>
+
+</main>
+</div>
+<script src="js/site-config.js"></script>
+<script src="js/quiz-data.js"></script>
+<script src="js/academy.js"></script>
+</body>
+</html>

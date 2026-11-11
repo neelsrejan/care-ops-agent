@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Session 8 · An RFP library that cites or flags</title>
+<link rel="stylesheet" href="css/academy.css">
+
+<script>
+(function () {
+  var session = 8;
+  var ok = false;
+  try {
+    var raw = localStorage.getItem("coa-academy-progress-v1");
+    var data = raw ? JSON.parse(raw) : null;
+    var prev = data && data.sessions && data.sessions[String(session - 1)];
+    ok = !!(prev && prev.passed);
+  } catch (e) { ok = false; }
+  if (!ok) document.documentElement.classList.add("is-locked");
+})();
+</script>
+</head>
+<body data-page="session" data-session="8">
+<div class="app">
+<aside class="nav">
+<a class="brand" href="index.html"><div class="mark">co</div><div><strong>care-ops-agent</strong><span>Academy</span></div></a>
+<a class="item" href="index.html">Home</a>
+<div class="week">Week 1</div>
+<a class="item" data-session="1" href="session-1.html"><i class="dot"></i>S1 · Frame the program and keep numbers out of the model</a>
+<a class="item" data-session="2" href="session-2.html"><i class="dot"></i>S2 · Local FHIR into tested SQL views</a>
+<a class="item" data-session="3" href="session-3.html"><i class="dot"></i>S3 · A synthetic network and a care-versus-data call</a>
+<div class="week">Week 2</div>
+<a class="item" data-session="4" href="session-4.html"><i class="dot"></i>S4 · A Salesforce-shaped pipeline next to the open gaps</a>
+<a class="item" data-session="5" href="session-5.html"><i class="dot"></i>S5 · Charter, WBS, RAID, change log, and an Asana file</a>
+<a class="item" data-session="6" href="session-6.html"><i class="dot"></i>S6 · Weekly PDSA and three audiences</a>
+<a class="item" data-session="7" href="session-7.html"><i class="dot"></i>S7 · Outreach A/B on gaps closed</a>
+<div class="week">Week 3</div>
+<a class="item active" data-session="8" href="session-8.html"><i class="dot"></i>S8 · An RFP library that cites or flags</a>
+<a class="item" data-session="9" href="session-9.html"><i class="dot"></i>S9 · Held-out score and an MS Project file</a>
+<a class="item" data-session="10" href="session-10.html"><i class="dot"></i>S10 · Extracts, a no-go, and resume lines</a>
+<div class="nav-foot" id="nav-progress">Progress stays in this browser</div>
+</aside>
+<main class="main">
+
+<p class="kicker">Week 3 · Session 8</p>
+<h1>An RFP library that cites or flags</h1>
+<p class="lede">Overlap against approved entries. A weak or tied match is flagged. Finance and accreditation questions are in the set so the drafter is not tempted to invent them.</p>
+<p class="note">Ticket COA-112 · about 40–55 minutes · artifact: 40 synthetic questions, citations, a tracker</p>
+<div class="lock-screen">
+  <div class="panel">
+    <h2>This session is locked</h2>
+    <p>Pass Session 7 at 80% or better (5 of 6) to open the videos, the logic trace, the practice task, and this quiz. Retries on the earlier quiz are unlimited. If you already passed it on another computer, import that progress code from the home page.</p>
+    <p><a class="button" href="session-7.html">Go to Session 7</a> <a class="button secondary" href="index.html">Home</a></p>
+  </div>
+</div>
+<div class="lesson">
+<h2>Read first</h2>
+<ul><li>docs/sessions/session-8/LOGIC_TRACE.md</li><li>docs/samples/rfp_tracker.xlsx</li></ul>
+<h2>Watch in this order</h2>
+<p class="note">Read the architecture note, then play the clip. The note says what the file is for. The video walks the lines. Line numbers match <code>main</code> as this site was built.</p>
+<article class="clip">
+<h3>1. Session 8 · Cite an entry or flag the question</h3>
+<div class="overview"><h4>Architecture</h4><p>library.py is the retrieval boundary. Questions come from the bank. Scoring is token overlap against the approved title and body. There is no embedding call. A weak or tied score is flagged so the closest entry is not automatically an answer. A cited draft must contain the entry id, which is what a reviewer can check.</p></div>
+<video controls preload="metadata" src="videos/session-8/01_library.mp4">
+<a href="videos/session-8/01_library.mp4">Download clip 1</a>
+</video>
+<p class="meta">0:44 · Andrew · <a href="https://github.com/neelsrejan/care-ops-agent/blob/main/src/care_ops_agent/rfp/library.py">src/care_ops_agent/rfp/library.py</a> on <code>main</code></p>
+</article><article class="clip">
+<h3>2. Session 8 · The only sentences a draft may use</h3>
+<div class="overview"><h4>Architecture</h4><p>bank.py is the content boundary. The retriever does not own the wording. Eighteen entries cover the measures, the guard, the feeds, the pipeline, the experiment, and the decision not to upload FHIR. Forty questions include four that the library should refuse: a loss ratio, malpractice, accreditation, and a dividend. Those exist so a confident draft cannot wander into claims this project does not make.</p></div>
+<video controls preload="metadata" src="videos/session-8/02_bank.mp4">
+<a href="videos/session-8/02_bank.mp4">Download clip 2</a>
+</video>
+<p class="meta">0:35 · Andrew · <a href="https://github.com/neelsrejan/care-ops-agent/blob/main/src/care_ops_agent/rfp/bank.py">src/care_ops_agent/rfp/bank.py</a> on <code>main</code></p>
+</article>
+<h2>Logic trace</h2>
+<p class="note"><a href="https://github.com/neelsrejan/care-ops-agent/blob/main/docs/sessions/session-8/LOGIC_TRACE.md">LOGIC_TRACE.md</a></p>
+<div class="prose"><h1>Session 8 logic trace — RFP response library</h1>
+<ol>
+<li><strong>Goal.</strong> Answer a synthetic payer questionnaire only from approved entries, and flag everything else.</li>
+<li><strong>Needed next.</strong> A score for the rest of the agent (S9).</li>
+<li><strong>Libraries.</strong> The standard library for tokens. No embedding API.</li>
+<li><strong>Code.</strong> <code>rfp/bank.py</code> holds 18 approved entries and 40 questions (36 in library, 4 deliberately outside: medical-loss ratio, malpractice, Joint Commission, a dividend). <code>rfp/library.py</code> scores token overlap. A hit must clear a threshold and a margin over the runner-up, or the question is flagged. A cited draft must contain the entry id. The tracker assigns a synthetic owner role and a due date. It does not invent a person's name.</li>
+<li><strong>Docs.</strong> The workbook <code>out/rfp_tracker.xlsx</code>.</li>
+<li><strong>Buy-in.</strong> A real RFP library would be reviewed by counsel. This one is a simulation of the workflow.</li>
+<li><strong>Capability added.</strong> Retrieval that refuses to answer when the library does not cover the question.</li>
+<li><strong>What it proves.</strong> Proposal hygiene: cite or flag. The four out-of-scope questions are the test that the drafter does not improvise finance or accreditation claims.</li>
+</ol></div>
+<h2>Code on main</h2>
+<p><a href="https://github.com/neelsrejan/care-ops-agent/tree/main">Browse the repository</a></p>
+<ul><li><a href="https://github.com/neelsrejan/care-ops-agent/blob/main/src/care_ops_agent/rfp/library.py"><code>src/care_ops_agent/rfp/library.py</code></a></li><li><a href="https://github.com/neelsrejan/care-ops-agent/blob/main/src/care_ops_agent/rfp/bank.py"><code>src/care_ops_agent/rfp/bank.py</code></a></li></ul>
+<h2>Practice, on a private branch</h2>
+<div class="prose"><pre><code class="language-bash">pytest tests/test_pdsa_ab_rfp.py::test_rfp_library_cites_or_flags
+</code></pre>
+<p><strong>Extra.</strong> What would a closer-but-wrong entry do if the margin rule were removed?</p></div>
+<h2>Quiz</h2>
+<p class="note">Six questions on architecture and design. 5 of 6 to pass. Explanations show after you submit. The salted hash is a self-study speed bump, not protection.</p>
+<div id="quiz"></div>
+</div>
+
+</main>
+</div>
+<script src="js/site-config.js"></script>
+<script src="js/quiz-data.js"></script>
+<script src="js/academy.js"></script>
+</body>
+</html>

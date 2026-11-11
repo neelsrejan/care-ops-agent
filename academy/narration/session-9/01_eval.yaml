@@ -1,0 +1,26 @@
+title: Session 9 · Score what the rule was not tuned on
+file: ../../../src/care_ops_agent/eval/harness.py
+overview: harness.py is the score. It refuses the four dev scenario ids, runs the
+  held-out catalog, and names the failure when a case misses. Top-1 is only for single-cause
+  cases. Mixed shocks, stalls, leaks, fidelity, and the outreach repeats have their
+  own counts. The resume and the go or no-go sheet are functions of this report, so
+  they cannot quote a number the harness did not produce.
+voice: en-US-AndrewNeural
+rate: +0%
+pause: 0.35
+segments:
+- lines: 1-36
+  say: Dev ids are listed so a scenario cannot quietly enter the score. The repeat
+    seeds for the experiment are fixed, which is why the resume counts are stable.
+- lines: 39-83
+  say: Matching helpers compare a verdict or a flagged set with the seeded truth.
+    The taxonomy distinguishes a wrong partner from a wrong measure, a false alarm,
+    a missed signal, and a mixed case that did not find both shocks.
+- lines: 86-135
+  say: score_scenario builds the network, writes the memo, checks fidelity, applies
+    a stall if the scenario has one, and renders partner notes to count leaks. A dev
+    id raises instead of being scored as a win.
+- lines: 154-192
+  say: run_eval aggregates the denominators separately. Quiet scenarios are the false-alarm
+    gate. Single-cause rows are the top-1 gate. The experiment block is appended from
+    the same process so the report is one dict.

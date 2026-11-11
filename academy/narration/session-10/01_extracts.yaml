@@ -1,0 +1,22 @@
+title: Session 10 · Rows a dashboard can import
+file: ../../../src/care_ops_agent/export/tableau.py
+overview: tableau.py is the handoff to a dashboard tool this repo cannot log into.
+  It flattens weekly rates, the pipeline, the PDSA log, and the burn into scalar columns.
+  A hyper extract is created later inside Tableau from these CSVs. The local HTML
+  preview is a different module and is not this file. Publishing remains a manual
+  step.
+voice: en-US-AndrewNeural
+rate: +0%
+pause: 0.35
+segments:
+- lines: 1-16
+  say: The docstring draws the line. These files are extracts. They are not a published
+    workbook and they do not call Tableau Public.
+- lines: 19-48
+  say: care_gap_weekly groups to the cell and uses the same rate helper as triage.
+    The label column is SYNTHETIC on every row. Nested objects are not written, so
+    an extract does not need a JSON parse.
+- lines: 51-105
+  say: The other frames are the pipeline, the cycle log, and the burn. write_extracts
+    is a thin CSV writer. The dashboard spec, not this module, decides which sheet
+    uses which file.

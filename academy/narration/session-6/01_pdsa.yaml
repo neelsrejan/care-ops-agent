@@ -1,0 +1,23 @@
+title: Session 6 · A week is a cycle
+file: ../../../src/care_ops_agent/pdsa/cycle.py
+overview: cycle.py turns the triage output into plan, do, study, and act for each
+  program week. It does not invent a new statistic. It reuses analyze on the results
+  up to that week, then chooses adopt, adapt, or abandon from the flags. The sentence
+  it writes still goes through the fidelity guard, so the cycle log cannot drift from
+  the counts.
+voice: en-US-AndrewNeural
+rate: +0%
+pause: 0.35
+segments:
+- lines: 1-18
+  say: The file owns the weekly rhythm. A data issue and a care gap are different
+    acts. The guard is imported because the memo is prose about numbers.
+- lines: 31-55
+  say: Each week slices the results, runs the same triage, and compares the flag set
+    with last week. A data issue adapts the plan and holds outreach. A care gap adopts
+    targeted outreach. A flag that disappeared is abandoned. A week that was always
+    quiet just keeps monitoring.
+- lines: 56-89
+  say: The memo is filled from a facts dict and passed to narrate. If the guard fails,
+    the run raises. The returned rows are what the extract and the workbook show.
+    The language model is not asked which act to pick.

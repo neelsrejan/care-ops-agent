@@ -52,7 +52,51 @@ def build_network(scenario: dict[str, Any], seeds: dict[str, Any], n_partners: i
     return {"partners": partners, "panel": pd.DataFrame(panel)}
 
 
+def _finish(df: pd.DataFrame, scenario: dict[str, Any]) -> pd.DataFrame:
+    df.attrs["label"] = "SYNTHETIC SIMULATION"
+    df.attrs["scenario_id"] = scenario["id"]
+    return df
+
+
+def _simulate_many(scenario: dict[str, Any], network: dict[str, Any]) -> pd.DataFrame:
+    """Same visit process as the single-injection path, for a list of shocks.
+
+    The single-injection path is left untouched so the original dev scenarios
+    keep their random draws. This branch is only used when a scenario sets
+    ``injections``.
+    """
+    rng = np.random.default_rng(scenario["seed"] + 1)
+    panel = network["panel"]
+    injections = list(scenario["injections"])
+    start = scenario["program_start_week"]
+    rows = []
+    for week in range(1, scenario["weeks"] + 1):
+        visits = panel[rng.random(len(panel)) < VISIT_PROB]
+        for r in visits.itertuples(index=False):
+            p_met = scenario["baseline_met"][r.measure]
+            missing_p = 0.0
+            if week >= start:
+                for inj in injections:
+                    target = f"P{inj['partner_index'] + 1}"
+                    if r.partner_id != target or r.measure != inj.get("measure"):
+                        continue
+                    kind = inj["type"]
+                    if kind == "clinic_drop" and r.clinic == inj["clinic"]:
+                        p_met = inj["met_prob_after"]
+                    elif kind == "partner_drop":
+                        p_met = inj["met_prob_after"]
+                    elif kind == "missing_feed":
+                        missing_p = inj["missing_share_after"]
+            missing = bool(rng.random() < missing_p) if missing_p else False
+            met = None if missing else bool(rng.random() < p_met)
+            rows.append({"week": week, "partner_id": r.partner_id, "clinic": r.clinic, "measure": r.measure,
+                         "patient_key": r.patient_key, "result_recorded": not missing, "met": met})
+    return _finish(pd.DataFrame(rows), scenario)
+
+
 def simulate_results(scenario: dict[str, Any], network: dict[str, Any]) -> pd.DataFrame:
+    if scenario.get("injections"):
+        return _simulate_many(scenario, network)
     rng = np.random.default_rng(scenario["seed"] + 1)
     panel = network["panel"]
     inj = scenario.get("injection") or {"type": "none"}
@@ -74,7 +118,4 @@ def simulate_results(scenario: dict[str, Any], network: dict[str, Any]) -> pd.Da
             met = None if missing else bool(rng.random() < p_met)
             rows.append({"week": week, "partner_id": r.partner_id, "clinic": r.clinic, "measure": r.measure,
                          "patient_key": r.patient_key, "result_recorded": not missing, "met": met})
-    df = pd.DataFrame(rows)
-    df.attrs["label"] = "SYNTHETIC SIMULATION"
-    df.attrs["scenario_id"] = scenario["id"]
-    return df
+    return _finish(pd.DataFrame(rows), scenario)

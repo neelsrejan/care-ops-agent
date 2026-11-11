@@ -1,0 +1,19 @@
+title: Session 7 · Randomize, then decide
+file: ../../../src/care_ops_agent/experiment/ab.py
+overview: The second half of the same module is the trial itself and the bridge back
+  to PDSA. Arms are shuffled first, then each synthetic patient draws an outcome at
+  that arm's rate. The decision is scale B, scale A, or no difference. pdsa_from_trial
+  maps a winner to adopt and a null result to abandon, so the experiment does not
+  become a permanent change just because it was run.
+voice: en-US-AndrewNeural
+rate: +0%
+pause: 0.35
+segments:
+- lines: 50-91
+  say: 'run_trial shuffles equal arms, draws a closure for each patient, and compares
+    the arms. Equal assignment is checked later in the test. The decision rule is
+    explicit: significance and a higher rate, or no difference.'
+- lines: 99-125
+  say: effect_recovered and null_quiet are how the eval counts repeats. pdsa_from_trial
+    does not recompute the test. It only names the act that follows a decision the
+    code already made.

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Session 2 · Local FHIR into tested SQL views</title>
+<link rel="stylesheet" href="css/academy.css">
+
+<script>
+(function () {
+  var session = 2;
+  var ok = false;
+  try {
+    var raw = localStorage.getItem("coa-academy-progress-v1");
+    var data = raw ? JSON.parse(raw) : null;
+    var prev = data && data.sessions && data.sessions[String(session - 1)];
+    ok = !!(prev && prev.passed);
+  } catch (e) { ok = false; }
+  if (!ok) document.documentElement.classList.add("is-locked");
+})();
+</script>
+</head>
+<body data-page="session" data-session="2">
+<div class="app">
+<aside class="nav">
+<a class="brand" href="index.html"><div class="mark">co</div><div><strong>care-ops-agent</strong><span>Academy</span></div></a>
+<a class="item" href="index.html">Home</a>
+<div class="week">Week 1</div>
+<a class="item" data-session="1" href="session-1.html"><i class="dot"></i>S1 · Frame the program and keep numbers out of the model</a>
+<a class="item active" data-session="2" href="session-2.html"><i class="dot"></i>S2 · Local FHIR into tested SQL views</a>
+<a class="item" data-session="3" href="session-3.html"><i class="dot"></i>S3 · A synthetic network and a care-versus-data call</a>
+<div class="week">Week 2</div>
+<a class="item" data-session="4" href="session-4.html"><i class="dot"></i>S4 · A Salesforce-shaped pipeline next to the open gaps</a>
+<a class="item" data-session="5" href="session-5.html"><i class="dot"></i>S5 · Charter, WBS, RAID, change log, and an Asana file</a>
+<a class="item" data-session="6" href="session-6.html"><i class="dot"></i>S6 · Weekly PDSA and three audiences</a>
+<a class="item" data-session="7" href="session-7.html"><i class="dot"></i>S7 · Outreach A/B on gaps closed</a>
+<div class="week">Week 3</div>
+<a class="item" data-session="8" href="session-8.html"><i class="dot"></i>S8 · An RFP library that cites or flags</a>
+<a class="item" data-session="9" href="session-9.html"><i class="dot"></i>S9 · Held-out score and an MS Project file</a>
+<a class="item" data-session="10" href="session-10.html"><i class="dot"></i>S10 · Extracts, a no-go, and resume lines</a>
+<div class="nav-foot" id="nav-progress">Progress stays in this browser</div>
+</aside>
+<main class="main">
+
+<p class="kicker">Week 1 · Session 2</p>
+<h1>Local FHIR into tested SQL views</h1>
+<p class="lede">Synthea bundles stay on disk. The parser keeps only the codes the three measures need. SQL tests fail the load when a row breaks a rule.</p>
+<p class="note">Ticket COA-102 · about 50–70 minutes · artifact: Flattened bundles, raw tables, measure views, SQL tests</p>
+<div class="lock-screen">
+  <div class="panel">
+    <h2>This session is locked</h2>
+    <p>Pass Session 1 at 80% or better (5 of 6) to open the videos, the logic trace, the practice task, and this quiz. Retries on the earlier quiz are unlimited. If you already passed it on another computer, import that progress code from the home page.</p>
+    <p><a class="button" href="session-1.html">Go to Session 1</a> <a class="button secondary" href="index.html">Home</a></p>
+  </div>
+</div>
+<div class="lesson">
+<h2>Read first</h2>
+<ul><li>docs/MEASURES.md — the simplified definitions, and what they are not.</li><li>DATA_LICENSES.md — CMS and Synthea, and why the raw files are gitignored.</li></ul>
+<h2>Watch in this order</h2>
+<p class="note">Read the architecture note, then play the clip. The note says what the file is for. The video walks the lines. Line numbers match <code>main</code> as this site was built.</p>
+<article class="clip">
+<h3>1. Session 2 · Flatten only what the measures need</h3>
+<div class="overview"><h4>Architecture</h4><p>parse.py is the edge between a FHIR bundle and the relational rows the SQL views expect. It keeps diabetes, hypertension, HbA1c, blood pressure, and mammography codes, and drops the rest of the bundle. Downstream views never see a raw JSON document. That keeps the measure logic in SQL and the file format in one module.</p></div>
+<video controls preload="metadata" src="videos/session-2/01_parse.mp4">
+<a href="videos/session-2/01_parse.mp4">Download clip 1</a>
+</video>
+<p class="meta">0:40 · Andrew · <a href="https://github.com/neelsrejan/care-ops-agent/blob/main/src/care_ops_agent/fhir/parse.py">src/care_ops_agent/fhir/parse.py</a> on <code>main</code></p>
+</article><article class="clip">
+<h3>2. Session 2 · Local files into checked tables</h3>
+<div class="overview"><h4>Architecture</h4><p>load.py is the only place that writes the raw tables. It reads local FHIR files and the CMS csv, copies rows into PostgreSQL, then builds the views and runs the SQL tests. CI does not call it, because the raw download is large and gitignored. The unit tests prove the parser and the rate math on fixtures instead.</p></div>
+<video controls preload="metadata" src="videos/session-2/02_load.mp4">
+<a href="videos/session-2/02_load.mp4">Download clip 2</a>
+</video>
+<p class="meta">0:34 · Andrew · <a href="https://github.com/neelsrejan/care-ops-agent/blob/main/src/care_ops_agent/data/load.py">src/care_ops_agent/data/load.py</a> on <code>main</code></p>
+</article>
+<h2>Logic trace</h2>
+<p class="note"><a href="https://github.com/neelsrejan/care-ops-agent/blob/main/docs/sessions/session-2/LOGIC_TRACE.md">LOGIC_TRACE.md</a></p>
+<div class="prose"><h1>Session 2 logic trace — FHIR R4 → PostgreSQL views (2026-11-03)</h1>
+<p>Snapshot: <code>snapshots/session-2.zip</code>.</p>
+<ol>
+<li><strong>Goal.</strong> Real public data in tested tables: Synthea patients over FHIR R4 and CMS facility seeds in PostgreSQL, with three HEDIS-style measures as views.</li>
+<li><strong>Needed next.</strong> S3 needs each measure's denominator roster and partner seeds without recomputing them.</li>
+<li><strong>Libraries.</strong> psycopg 3 (COPY is fast and safe), PostgreSQL 17 (approved stack; plain SQL views instead of dbt), httpx (downloads, HAPI check). The box runs PG 17 from the official binaries on port 5433 because apt mirrors were failing.</li>
+<li><strong>Code.</strong>
+   - <code>fhir/parse.py</code>: flattens bundles; keeps diabetes/hypertension conditions, HbA1c, BP panel components (85354-9, or 55284-4 in the 2019 sample; the first load caught this when BP rows were zero), mammography.
+   - <code>fhir/hapi.py</code>: capability check (HTTP 200); upload off by default.
+   - <code>data/download.py</code>: CMS link from the metastore; Synthea CSV + FHIR R4 zips.
+   - <code>data/load.py</code>: schema → COPY → views → SQL tests.
+   - <code>sql/views/*</code>: patient-level rows (who is in the denominator, latest result, met).
+   - <code>metrics/measures.py</code>: counts and Wilson CIs in Python.</li>
+<li><strong>Docs.</strong> DATA_LICENSES (CMS public domain; Synthea Apache-2.0), data/README with row counts and the baseline check, MEASURES.md, ADR 0003.</li>
+<li><strong>Finding.</strong> Synthea's HbA1c control is 58 of 58 (values 2.5–7.6%). Screening is 13 of 142. Synthea is used for rosters only, and outcome probabilities come from labeled scenario parameters.</li>
+<li><strong>Capability added.</strong> <code>python -m care_ops_agent.data.load</code>: 6 SQL tests, all 0 failing rows.</li>
+<li><strong>What it proves.</strong> FHIR R4 parsing, SQL measure logic, data tests, honest data-quality call.</li>
+</ol></div>
+<h2>Code on main</h2>
+<p><a href="https://github.com/neelsrejan/care-ops-agent/tree/main">Browse the repository</a></p>
+<ul><li><a href="https://github.com/neelsrejan/care-ops-agent/blob/main/src/care_ops_agent/fhir/parse.py"><code>src/care_ops_agent/fhir/parse.py</code></a></li><li><a href="https://github.com/neelsrejan/care-ops-agent/blob/main/src/care_ops_agent/data/load.py"><code>src/care_ops_agent/data/load.py</code></a></li></ul>
+<h2>Practice, on a private branch</h2>
+<div class="prose"><p>The unit tests do not need the 1.5 GB download.</p>
+<pre><code class="language-bash">pytest tests/test_fhir_parse.py tests/test_measures.py
+</code></pre>
+<p>Read <code>sql/tests/patient_unique.sql</code> and say what a non-zero result would mean for every rate downstream.</p>
+<p><strong>Extra.</strong> Why is the HAPI upload function a hard block rather than a flag?</p></div>
+<h2>Quiz</h2>
+<p class="note">Six questions on architecture and design. 5 of 6 to pass. Explanations show after you submit. The salted hash is a self-study speed bump, not protection.</p>
+<div id="quiz"></div>
+</div>
+
+</main>
+</div>
+<script src="js/site-config.js"></script>
+<script src="js/quiz-data.js"></script>
+<script src="js/academy.js"></script>
+</body>
+</html>

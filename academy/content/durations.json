@@ -1,0 +1,22 @@
+{
+  "session-1/01_config": 57.9,
+  "session-1/02_fidelity": 39.7,
+  "session-10/01_extracts": 33.92,
+  "session-10/02_closeout": 41.02,
+  "session-2/01_parse": 39.52,
+  "session-2/02_load": 34.37,
+  "session-3/01_network": 61.69,
+  "session-3/02_triage": 53.22,
+  "session-4/01_crm": 49.87,
+  "session-4/02_pipeline": 33.09,
+  "session-5/01_plan": 67.58,
+  "session-5/02_asana": 43.62,
+  "session-6/01_pdsa": 39.48,
+  "session-6/02_audience": 45.29,
+  "session-7/01_power": 32.88,
+  "session-7/02_trial": 28.32,
+  "session-8/01_library": 43.89,
+  "session-8/02_bank": 35.49,
+  "session-9/01_eval": 51.55,
+  "session-9/02_mspdi": 35.42
+}

@@ -1,0 +1,21 @@
+id: hold_partner_a1c_p3
+label: SYNTHETIC SIMULATION
+family: partner_gap
+seed: 207
+weeks: 20
+program_start_week: 14
+baseline_met:
+  hba1c_control: 0.62
+  bp_control: 0.66
+  breast_cancer_screening: 0.58
+held_out: true
+injection:
+  type: partner_drop
+  partner_index: 2
+  measure: hba1c_control
+  met_prob_after: 0.3
+truth:
+  kind: care_gap
+  partner_index: 2
+  clinic: null
+  measure: hba1c_control

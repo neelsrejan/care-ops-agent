@@ -1,0 +1,14 @@
+label,week,role,hours,cost,cumulative_cost
+SYNTHETIC,1,Quality analyst,40,3800,3800
+SYNTHETIC,2,Data engineer,40,4800,8600
+SYNTHETIC,2,Partner success,16,1360,9960
+SYNTHETIC,2,Program lead,40,4400,14360
+SYNTHETIC,3,Partner success,40,3400,17760
+SYNTHETIC,3,Program lead,16,1760,19520
+SYNTHETIC,3,Quality analyst,40,3800,23320
+SYNTHETIC,4,Data engineer,40,4800,28120
+SYNTHETIC,4,Partner success,16,1360,29480
+SYNTHETIC,4,Program lead,16,1760,31240
+SYNTHETIC,4,Quality analyst,24,2280,33520
+SYNTHETIC,5,Quality analyst,40,3800,37320
+SYNTHETIC,6,Program lead,24,2640,39960

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Session 5 · Charter, WBS, RAID, change log, and an Asana file</title>
+<link rel="stylesheet" href="css/academy.css">
+
+<script>
+(function () {
+  var session = 5;
+  var ok = false;
+  try {
+    var raw = localStorage.getItem("coa-academy-progress-v1");
+    var data = raw ? JSON.parse(raw) : null;
+    var prev = data && data.sessions && data.sessions[String(session - 1)];
+    ok = !!(prev && prev.passed);
+  } catch (e) { ok = false; }
+  if (!ok) document.documentElement.classList.add("is-locked");
+})();
+</script>
+</head>
+<body data-page="session" data-session="5">
+<div class="app">
+<aside class="nav">
+<a class="brand" href="index.html"><div class="mark">co</div><div><strong>care-ops-agent</strong><span>Academy</span></div></a>
+<a class="item" href="index.html">Home</a>
+<div class="week">Week 1</div>
+<a class="item" data-session="1" href="session-1.html"><i class="dot"></i>S1 · Frame the program and keep numbers out of the model</a>
+<a class="item" data-session="2" href="session-2.html"><i class="dot"></i>S2 · Local FHIR into tested SQL views</a>
+<a class="item" data-session="3" href="session-3.html"><i class="dot"></i>S3 · A synthetic network and a care-versus-data call</a>
+<div class="week">Week 2</div>
+<a class="item" data-session="4" href="session-4.html"><i class="dot"></i>S4 · A Salesforce-shaped pipeline next to the open gaps</a>
+<a class="item active" data-session="5" href="session-5.html"><i class="dot"></i>S5 · Charter, WBS, RAID, change log, and an Asana file</a>
+<a class="item" data-session="6" href="session-6.html"><i class="dot"></i>S6 · Weekly PDSA and three audiences</a>
+<a class="item" data-session="7" href="session-7.html"><i class="dot"></i>S7 · Outreach A/B on gaps closed</a>
+<div class="week">Week 3</div>
+<a class="item" data-session="8" href="session-8.html"><i class="dot"></i>S8 · An RFP library that cites or flags</a>
+<a class="item" data-session="9" href="session-9.html"><i class="dot"></i>S9 · Held-out score and an MS Project file</a>
+<a class="item" data-session="10" href="session-10.html"><i class="dot"></i>S10 · Extracts, a no-go, and resume lines</a>
+<div class="nav-foot" id="nav-progress">Progress stays in this browser</div>
+</aside>
+<main class="main">
+
+<p class="kicker">Week 2 · Session 5</p>
+<h1>Charter, WBS, RAID, change log, and an Asana file</h1>
+<p class="lede">Hours and dollars are synthetic project-controls figures. A change request sits outside the baseline so the variance is visible. The Asana client writes a file unless a token is actually configured.</p>
+<p class="note">Ticket COA-108 · about 50–70 minutes · artifact: Controls workbook and Asana CSV</p>
+<div class="lock-screen">
+  <div class="panel">
+    <h2>This session is locked</h2>
+    <p>Pass Session 4 at 80% or better (5 of 6) to open the videos, the logic trace, the practice task, and this quiz. Retries on the earlier quiz are unlimited. If you already passed it on another computer, import that progress code from the home page.</p>
+    <p><a class="button" href="session-4.html">Go to Session 4</a> <a class="button secondary" href="index.html">Home</a></p>
+  </div>
+</div>
+<div class="lesson">
+<h2>Read first</h2>
+<ul><li>docs/adr/0005-offline-asana-and-salesforce.md</li><li>docs/samples/program_controls.xlsx — open the RAID and the change log.</li></ul>
+<h2>Watch in this order</h2>
+<p class="note">Read the architecture note, then play the clip. The note says what the file is for. The video walks the lines. Line numbers match <code>main</code> as this site was built.</p>
+<article class="clip">
+<h3>1. Session 5 · One schedule, several sheets</h3>
+<div class="overview"><h4>Architecture</h4><p>plan.py is the source of truth for the charter, the WBS, the RAID log, the change log, the burn, and the capacity check. Excel, MS Project XML, and the Asana file are views of this object. Hours times a synthetic rate produce the dollars. An approved change stays outside the baseline so the variance is a calculated difference, not an edited cell.</p></div>
+<video controls preload="metadata" src="videos/session-5/01_plan.mp4">
+<a href="videos/session-5/01_plan.mp4">Download clip 1</a>
+</video>
+<p class="meta">1:08 · Andrew · <a href="https://github.com/neelsrejan/care-ops-agent/blob/main/src/care_ops_agent/controls/plan.py">src/care_ops_agent/controls/plan.py</a> on <code>main</code></p>
+</article><article class="clip">
+<h3>2. Session 5 · A tracker file, and a live client that waits</h3>
+<div class="overview"><h4>Architecture</h4><p>asana.py is the boundary with the tracker. The offline client writes a CSV and SIM identifiers so a reviewer can see that no board was updated. The live client knows the REST shape and reads the token from the environment. The demo and the tests construct only the offline client. Switching later is an environment variable, not a rewrite.</p></div>
+<video controls preload="metadata" src="videos/session-5/02_asana.mp4">
+<a href="videos/session-5/02_asana.mp4">Download clip 2</a>
+</video>
+<p class="meta">0:44 · Andrew · <a href="https://github.com/neelsrejan/care-ops-agent/blob/main/src/care_ops_agent/pm/asana.py">src/care_ops_agent/pm/asana.py</a> on <code>main</code></p>
+</article>
+<h2>Logic trace</h2>
+<p class="note"><a href="https://github.com/neelsrejan/care-ops-agent/blob/main/docs/sessions/session-5/LOGIC_TRACE.md">LOGIC_TRACE.md</a></p>
+<div class="prose"><h1>Session 5 logic trace — program controls and the Asana stand-in</h1>
+<ol>
+<li><strong>Goal.</strong> Give the simulated program a charter, a dated WBS, a RAID log, a change log, and a budget that a reviewer can open in Excel, plus a task file Asana can import.</li>
+<li><strong>Needed next.</strong> The weekly PDSA loop that spends those tasks (S6).</li>
+<li><strong>Libraries.</strong> openpyxl for the workbook. The standard library for dates and, later, MS Project XML. No Asana SDK.</li>
+<li><strong>Code.</strong> <code>controls/plan.py</code> schedules business days from Monday 2026-11-02, prices each leaf at a synthetic hourly rate, and refuses a plan whose assigned hours exceed funded capacity. CR-001 (lab-feed remediation) is outside the baseline, so forecast = baseline + change. <code>pm/asana.py</code> writes <code>SIM-</code> tasks and a CSV. <code>ASANA_BACKEND=live</code> is a separate class that reads <code>ASANA_ACCESS_TOKEN</code> and is not called here.</li>
+<li><strong>Docs.</strong> ADR 0005. Sample workbook in <code>docs/samples/</code>.</li>
+<li><strong>Buy-in.</strong> A live Asana workspace needs Neel's token. The CSV is the deliverable until then.</li>
+<li><strong>Capability added.</strong> <code>python -m care_ops_agent.run_program</code> writes <code>out/program_controls.xlsx</code> and <code>out/asana/asana_import.csv</code>.</li>
+<li><strong>What it proves.</strong> Project controls (WBS, RAID, change control, budget burn, capacity) on a synthetic care-gap program, with the dollars computed rather than typed into the narrative.</li>
+</ol></div>
+<h2>Code on main</h2>
+<p><a href="https://github.com/neelsrejan/care-ops-agent/tree/main">Browse the repository</a></p>
+<ul><li><a href="https://github.com/neelsrejan/care-ops-agent/blob/main/src/care_ops_agent/controls/plan.py"><code>src/care_ops_agent/controls/plan.py</code></a></li><li><a href="https://github.com/neelsrejan/care-ops-agent/blob/main/src/care_ops_agent/pm/asana.py"><code>src/care_ops_agent/pm/asana.py</code></a></li></ul>
+<h2>Practice, on a private branch</h2>
+<div class="prose"><pre><code class="language-bash">pytest tests/test_controls.py tests/test_clients.py
+</code></pre>
+<p><strong>Extra.</strong> What happens to the forecast if CR-001 is folded into the baseline instead of kept beside it?</p></div>
+<h2>Quiz</h2>
+<p class="note">Six questions on architecture and design. 5 of 6 to pass. Explanations show after you submit. The salted hash is a self-study speed bump, not protection.</p>
+<div id="quiz"></div>
+</div>
+
+</main>
+</div>
+<script src="js/site-config.js"></script>
+<script src="js/quiz-data.js"></script>
+<script src="js/academy.js"></script>
+</body>
+</html>

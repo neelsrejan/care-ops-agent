@@ -1,0 +1,15 @@
+id: hold_quiet_b
+label: SYNTHETIC SIMULATION
+family: no_signal
+seed: 617
+weeks: 20
+program_start_week: 14
+baseline_met:
+  hba1c_control: 0.62
+  bp_control: 0.66
+  breast_cancer_screening: 0.58
+held_out: true
+injection:
+  type: none
+truth:
+  kind: none

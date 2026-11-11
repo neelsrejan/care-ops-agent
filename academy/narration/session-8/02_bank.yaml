@@ -1,0 +1,22 @@
+title: Session 8 · The only sentences a draft may use
+file: ../../../src/care_ops_agent/rfp/bank.py
+overview: 'bank.py is the content boundary. The retriever does not own the wording.
+  Eighteen entries cover the measures, the guard, the feeds, the pipeline, the experiment,
+  and the decision not to upload FHIR. Forty questions include four that the library
+  should refuse: a loss ratio, malpractice, accreditation, and a dividend. Those exist
+  so a confident draft cannot wander into claims this project does not make.'
+voice: en-US-AndrewNeural
+rate: +0%
+pause: 0.35
+segments:
+- lines: 1-12
+  say: The docstring says the questions are what a payer might ask and the entries
+    are the only sentences the drafter may use. Editing an entry is a content change.
+    Editing the threshold is a mechanism change. They are separate on purpose.
+- lines: 14-160
+  say: Each entry is a short approved answer with an id. The ids are what drafts cite.
+    If two entries shared the same rare words, the margin rule would flag the question
+    instead of guessing.
+- lines: 205-223
+  say: questions builds the forty rows. The last four have an empty expected id. The
+    test requires those to come back flagged. That is the restraint check.

@@ -1,0 +1,23 @@
+title: Session 10 · The decision and the resume are the same report
+file: ../../../src/care_ops_agent/run_program.py
+overview: run_program.py is the close-out command. It builds the plan, the tracker
+  file, the PDSA packet, the experiment, the RFP workbook, and the extracts without
+  PostgreSQL and without a live account. The eval flag reruns the harness and writes
+  the go or no-go workbook from those gates. One failed gate stays a no-go. The resume
+  text is rendered from the same report so a hand-edited number cannot drift.
+voice: en-US-AndrewNeural
+rate: +0%
+pause: 0.35
+segments:
+- lines: 1-22
+  say: The command is the demo path. It says the roster is the fixture, not the large
+    download, and that outcome rates still come from the scenario. The eval flag is
+    optional because the score is slower than the weekly pack.
+- lines: 52-99
+  say: The body asks the plan, the offline Asana client, the network, the cycle, the
+    CRM, and the audience renderer to write their files. A live Asana client is refused
+    here. Partner leaks are counted in the summary.
+- lines: 101-152
+  say: The experiment, the RFP answers, and the extracts follow. With the eval flag,
+    decision and resume_bullets are called on one report. The scaling workbook is
+    that decision, not a separate opinion.

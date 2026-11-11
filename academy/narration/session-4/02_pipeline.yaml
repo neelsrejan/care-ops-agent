@@ -1,0 +1,21 @@
+title: Session 4 · Stage next to open gaps
+file: ../../../src/care_ops_agent/metrics/pipeline.py
+overview: 'pipeline.py answers a program question the CRM rows alone do not: who can
+  take outreach now, and who is stuck. Conversion, aging, and open gaps are computed
+  here in Python. The readiness view joins them. PDSA and the Tableau extract both
+  read this view, so the definition of stalled lives in one place.'
+voice: en-US-AndrewNeural
+rate: +0%
+pause: 0.35
+segments:
+- lines: 1-14
+  say: Stalled means more than fourteen days and not Live. The constant is the rule.
+    Changing it changes the workbook, the eval, and the partner note together.
+- lines: 17-32
+  say: Conversion counts who reached each stage and who moved on. Aging turns the
+    entered date into days and sets the stalled flag. Live never stalls, even if the
+    date is old.
+- lines: 35-53
+  say: Open gaps use each patient's latest result. A missing result counts as open.
+    readiness_view attaches those gaps to the stage and sorts partners who can start
+    outreach ahead of the rest.

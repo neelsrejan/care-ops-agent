@@ -1,0 +1,23 @@
+title: Session 6 · Three views, one analysis
+file: ../../../src/care_ops_agent/pdsa/audience.py
+overview: audience.py is the permissions boundary. Steering, internal, and partner
+  notes are rendered from the same analysis, but the partner function only receives
+  that partner's rows. A scan then looks for every other partner id. The matrix at
+  the top is the spec the renderer is supposed to obey. A leak fails the eval even
+  if the triage was right.
+voice: en-US-AndrewNeural
+rate: +0%
+pause: 0.35
+segments:
+- lines: 1-22
+  say: The dictionary is the spec. Partner notes may not see other partners or the
+    budget. Steering may see flagged partners and the budget rollup, and may not see
+    patient keys. Internal may see the working set.
+- lines: 25-66
+  say: 'permissions_markdown is the same matrix written down for a reader. network_rates
+    rolls the recent window up to the measure, which is the grain steering needs.
+    leak_findings is the backstop: another partner id or name in the text is a finding.'
+- lines: 73-160
+  say: render_updates builds facts, writes steering and internal through the guard,
+    then one note per partner from that partner's flags only. The leaks map is returned
+    to the caller. The eval sums it and treats any hit as a failed gate.

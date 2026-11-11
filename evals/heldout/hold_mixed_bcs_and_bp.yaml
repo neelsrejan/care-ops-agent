@@ -1,0 +1,31 @@
+id: hold_mixed_bcs_and_bp
+label: SYNTHETIC SIMULATION
+family: mixed
+seed: 522
+weeks: 20
+program_start_week: 14
+baseline_met:
+  hba1c_control: 0.62
+  bp_control: 0.66
+  breast_cancer_screening: 0.58
+held_out: true
+injections:
+- type: partner_drop
+  partner_index: 1
+  measure: breast_cancer_screening
+  met_prob_after: 0.28
+- type: missing_feed
+  partner_index: 6
+  measure: bp_control
+  missing_share_after: 0.7
+truth:
+  kind: mixed
+  signals:
+  - kind: care_gap
+    partner_index: 1
+    clinic: null
+    measure: breast_cancer_screening
+  - kind: data_issue
+    partner_index: 6
+    clinic: null
+    measure: bp_control

@@ -1,9 +1,12 @@
 .venv*/
 __pycache__/
+*.egg-info/
 *.pyc
 .env
 out/
 data/raw/
+academy/build/
+academy/snapshots/
 data/processed/
 dbt/target/
 dbt/logs/

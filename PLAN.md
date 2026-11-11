@@ -117,13 +117,13 @@ care_ops_agent/
 - **S3 — Network sim + care-gap triage. DONE.** 8 SYNTHETIC partners × 3 clinics; weekly results; per-level Bonferroni two-proportion test + Wilson CI + p-chart; care-gap vs data-issue call; memo through the guard. *Success:* 4 dev scenarios recovered (dev set, tuned against; NOT an eval number). ✔
 **Sprint 2**
 - **S4 — Salesforce-shaped partner pipeline. DONE.** Account/Contact/Opportunity/stage history; conversion, aging, stalled (>14 days); readiness × open gaps; Data Import Wizard CSVs; Excel workbook; Tableau CSV; account plan + stakeholder map per partner. *Success:* hand-checked conversion and aging tests pass. ✔
-- **S5 — Program controls in Excel + Asana plan.** Charter, WBS, RAID, change log, budget burn (synthetic, project-controls only) as an openpyxl workbook; Asana tasks via API once the account exists (CSV import until then).
-- **S6 — Weekly PDSA loop + per-audience updates.** PDSA cycle log (plan/do/study/act per week); partner-safe vs internal vs steering updates with a role filter; permissions spec.
-- **S7 — Outreach A/B as a PDSA cycle.** Power calc, randomization, two-proportion readout on gaps closed; recovers seeded effect / reports null.
+- **S5 — Program controls in Excel + Asana plan. DONE.** Charter, WBS, RAID, change log, budget burn (synthetic, project-controls only) as an openpyxl workbook. Asana tasks go through the offline client and a CSV import. The live API client exists and is not called.
+- **S6 — Weekly PDSA loop + per-audience updates. DONE.** PDSA cycle log (plan/do/study/act per week); partner-safe vs internal vs steering updates with a role filter; permissions spec.
+- **S7 — Outreach A/B as a PDSA cycle. DONE.** Power calc, randomization, two-proportion readout on gaps closed; recovers the seeded effect and reports null on an equal-rate repeat.
 **Sprint 3**
-- **S8 — RFP response library.** ~40 synthetic payer RFP questions; answers cite library entries or are flagged.
-- **S9 — Eval harness + MS Project XML.** ~20 held-out seeded scenarios; failure taxonomy; regression cases.
-- **S10 — Tableau Public dashboard + scaling go/no-go workbook.** Published dashboard on synthetic data; README; résumé bullets filled from the eval report.
+- **S8 — RFP response library. DONE.** 40 synthetic payer RFP questions; answers cite library entries or are flagged.
+- **S9 — Eval harness + MS Project XML. DONE.** 20 held-out seeded scenarios; failure taxonomy; MS Project XML export of the WBS.
+- **S10 — Tableau-ready extracts + scaling go/no-go workbook. DONE.** CSV extracts, a dashboard spec, and a local preview. Publishing to Tableau Public is a manual step. README and resume bullets are filled from the eval report.
 
 ## 9. Eval design
 Seeded scenarios (≈20, 20% held out; the 4 S3 dev scenarios are excluded from scoring): one-clinic care gap ×3, partner-wide gap ×3, missing-feed data issue ×3, data issue on a different measure ×2, onboarding stall ×2, mixed causes ×2, no-signal ×3, near-threshold ×2.
@@ -132,30 +132,27 @@ Metrics: right partner/clinic/measure (top-1/top-3); care-vs-data call accuracy;
 ## 10. Epics (portable; import to Asana)
 COA-E1 Product framing · E2 Data layer (FHIR → PostgreSQL views) · E3 Network sim + care-gap triage · E4 Partner pipeline (Salesforce) · E5 Program controls (Lean/PDSA) · E6 Weekly partner updates · E7 Outreach experiment · E8 RFP library · E9 Evals · E10 Tableau dashboard + scaling go/no-go.
 
-## 11. Draft résumé bullets (patient-outcomes framing; [__] only from eval output)
-- Built a simulated care-gap closure program across [__] partner practices that finds where patients are falling behind on diabetes control, blood-pressure control and breast cancer screening; flagged the right practice and measure in [__] of [__] held-out scenarios.
-- Pulled synthetic patient records over FHIR R4 into PostgreSQL and wrote the SQL queries the work needs for three HEDIS-style measures, with automated data checks; every rate is computed in Python.
-- Separated true care gaps from missing lab-result feeds so outreach went only where care was missed; [__]% correct care-vs-data calls, [__] false alarms on [__] no-signal scenarios.
-- Ran the program in weekly PDSA cycles, tracked simulated partner onboarding in Salesforce and the plan in Asana, and reported progress in Tableau Public and Excel.
-- Designed a simulated outreach A/B test on gaps closed (power calculation, readout) that recovered the seeded effect in [__] of [__] runs.
+## 11. Résumé bullets
+
+Filled from the eval report. See `RESUME_BULLETS.md`. Do not edit those numbers by hand. The draft that used to live here is retired.
 
 ## 12. Interview story (~2 min)
 - **Situation:** Healthcare delivery roles kept asking for people who can move outcomes across a network: care gaps, partner readiness, data feeds, reporting.
 - **Task:** Show I can run a care-gap program end to end and measure whether my tool points effort at the right patients.
 - **Action:** I built a simulated network of 8 partner groups from public CMS data and Synthea synthetic patients over FHIR R4, wrote three HEDIS-style measures as PostgreSQL views, and kept every rate in Python. I ran weekly PDSA cycles: a clinic whose patients lost BP control, a partner whose HbA1c results stopped arriving (a data problem, not a care problem), a stalled onboarding, and an outreach A/B test. Partners lived in Salesforce, the plan in Asana, results in Tableau and Excel.
-- **Result:** [__ from eval report]. One thing I learned early: the public Synthea sample shows 100% diabetes control, so I couldn't trust it for outcomes. I used it for patient rosters and stated where the outcome rates came from. It's a simulation, and I say so.
+- **Result:** On the held-out set, triage named the right practice and measure in 11 of 11 single-cause scenarios, with 1 false alarm on 5 quiet scenarios, so the scaling rule says no-go. The seeded outreach effect was recovered in 20 of 20 runs, and the equal-rate version stayed quiet in 28 of 30. One thing I learned early: the public Synthea sample shows 100% diabetes control, so I couldn't trust it for outcomes. I used it for patient rosters and stated where the outcome rates came from. It's a simulation, and I say so.
 
 ## 13. Risks
 - Synthea outcome realism (found in S2) → roster/denominators only; outcomes from labeled scenario parameters; optional fresh Synthea run later (needs Java).
 - Multiple comparisons across 96 cells → per-level Bonferroni; clinic-level power needs ~300 patients per partner per measure (synthetic panel size chosen for this; documented).
 - Overfitting to dev scenarios → eval uses held-out scenarios only.
-- Free tiers: Asana Personal has no Timeline/dependencies (Gantt stays in Excel/MS Project XML); Salesforce Dev Edition needs regular logins; Tableau Public dashboards are public (fine: synthetic data); HAPI public server purges data and is world-readable.
+- Free tiers: Asana Personal has no Timeline/dependencies (Gantt stays in Excel/MS Project XML); Salesforce Dev Edition needs regular logins; Tableau Public dashboards are public (fine: synthetic data). FHIR bundles stay local; upload to a public server is blocked.
 - Optics: "SIMULATION", "SYNTHETIC", "HEDIS-style", "simulated" everywhere.
 
 ## 14. Sequencing
-invalid-agent core S1–S9 is built (snapshots 1–9); its add-ons S10–S12 are not. care-ops-agent S1–S4 were built 2026-11-03 in parallel. S5 waits for Neel's go and the Asana/Salesforce accounts (stand-ins work without them).
+invalid-agent core S1–S9 is built (snapshots 1–9); its add-ons S10–S12 are not. care-ops-agent S1–S4 were built 2026-11-03. S5–S10 are in this repo with offline stand-ins. Live Asana, Salesforce, and Tableau Public still wait on accounts.
 
 ## 15. Inputs needed from Neel
 1. Free accounts (Neel signs up; the agent never creates accounts): Asana Personal https://asana.com/pricing · Salesforce Developer Edition https://developer.salesforce.com/free-trials · Tableau Public https://public.tableau.com/app/discover (Desktop Public Edition).
 2. ~20 min to sanity-check the 4 S3 scenarios and baseline rates (scenarios/*.yaml).
-3. OK to upload Synthea bundles to the public HAPI test server (world-readable, synthetic only), or keep FHIR local.
+3. FHIR stays local. Do not upload bundles to a public test server.

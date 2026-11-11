@@ -1,0 +1,20 @@
+title: Session 9 · Dependencies the free tracker does not store
+file: ../../../src/care_ops_agent/export/mspdi.py
+overview: mspdi.py is a view of the same plan object Excel already shows. Asana's
+  free plan has no dependencies, so the Gantt lives in MS Project XML. Finish-to-start
+  links are type 1. The file does not introduce dates that the scheduler did not compute.
+  If the WBS changes, this export changes with it.
+voice: en-US-AndrewNeural
+rate: +0%
+pause: 0.35
+segments:
+- lines: 1-19
+  say: The namespace is the Project XML namespace. Durations are hours from the business-day
+    count. The stamp helper only formats dates the plan already decided.
+- lines: 22-43
+  say: Each task writes outline level, start, finish, duration, and predecessor links.
+    The link type is finish to start. Notes carry the synthetic label and the role.
+- lines: 46-80
+  say: project_xml adds a project summary and then the WBS. write_project_xml is what
+    the program command calls. Opening the file in Project is a manual step, like
+    the Tableau publish.

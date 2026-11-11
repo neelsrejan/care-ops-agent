@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Session 1 · Frame the program and keep numbers out of the model</title>
+<link rel="stylesheet" href="css/academy.css">
+
+</head>
+<body data-page="session" data-session="1">
+<div class="app">
+<aside class="nav">
+<a class="brand" href="index.html"><div class="mark">co</div><div><strong>care-ops-agent</strong><span>Academy</span></div></a>
+<a class="item" href="index.html">Home</a>
+<div class="week">Week 1</div>
+<a class="item active" data-session="1" href="session-1.html"><i class="dot"></i>S1 · Frame the program and keep numbers out of the model</a>
+<a class="item" data-session="2" href="session-2.html"><i class="dot"></i>S2 · Local FHIR into tested SQL views</a>
+<a class="item" data-session="3" href="session-3.html"><i class="dot"></i>S3 · A synthetic network and a care-versus-data call</a>
+<div class="week">Week 2</div>
+<a class="item" data-session="4" href="session-4.html"><i class="dot"></i>S4 · A Salesforce-shaped pipeline next to the open gaps</a>
+<a class="item" data-session="5" href="session-5.html"><i class="dot"></i>S5 · Charter, WBS, RAID, change log, and an Asana file</a>
+<a class="item" data-session="6" href="session-6.html"><i class="dot"></i>S6 · Weekly PDSA and three audiences</a>
+<a class="item" data-session="7" href="session-7.html"><i class="dot"></i>S7 · Outreach A/B on gaps closed</a>
+<div class="week">Week 3</div>
+<a class="item" data-session="8" href="session-8.html"><i class="dot"></i>S8 · An RFP library that cites or flags</a>
+<a class="item" data-session="9" href="session-9.html"><i class="dot"></i>S9 · Held-out score and an MS Project file</a>
+<a class="item" data-session="10" href="session-10.html"><i class="dot"></i>S10 · Extracts, a no-go, and resume lines</a>
+<div class="nav-foot" id="nav-progress">Progress stays in this browser</div>
+</aside>
+<main class="main">
+
+<p class="kicker">Week 1 · Session 1</p>
+<h1>Frame the program and keep numbers out of the model</h1>
+<p class="lede">The north star is a care-gap rate on a simulated network. The model, if you attach one, only rewrites sentences that already survived the guard.</p>
+<p class="note">Ticket COA-101, COA-105 · about 45–60 minutes · artifact: PRD, portable backlog, green tests, fidelity guard</p>
+<div class="lock-screen">
+  <div class="panel">
+    <h2>This session is locked</h2>
+    <p>Pass Session 0 at 80% or better (5 of 6) to open the videos, the logic trace, the practice task, and this quiz. Retries on the earlier quiz are unlimited. If you already passed it on another computer, import that progress code from the home page.</p>
+    <p><a class="button" href="session-0.html">Go to Session 0</a> <a class="button secondary" href="index.html">Home</a></p>
+  </div>
+</div>
+<div class="lesson">
+<h2>Read first</h2>
+<ul><li>PRD.md — users, measures, and the non-goals.</li><li>docs/backlog/backlog.csv — the build board, separate from the later program-control tasks.</li></ul>
+<h2>Watch in this order</h2>
+<p class="note">Read the architecture note, then play the clip. The note says what the file is for. The video walks the lines. Line numbers match <code>main</code> as this site was built.</p>
+<article class="clip">
+<h3>1. Session 1 · Where settings live</h3>
+<div class="overview"><h4>Architecture</h4><p>config.py is the boundary between the process environment and the rest of the program. Measure targets, the model switch, and the output folder are read here so triage, the CRM, and the exporters do not each invent their own paths. Secrets are not stored. A missing variable falls back to the deterministic demo, which is what CI runs.</p></div>
+<video controls preload="metadata" src="videos/session-1/01_config.mp4">
+<a href="videos/session-1/01_config.mp4">Download clip 1</a>
+</video>
+<p class="meta">0:58 · Andrew · <a href="https://github.com/neelsrejan/care-ops-agent/blob/main/src/care_ops_agent/config.py">src/care_ops_agent/config.py</a> on <code>main</code></p>
+</article><article class="clip">
+<h3>2. Session 1 · Numbers stay in the code</h3>
+<div class="overview"><h4>Architecture</h4><p>The fidelity guard sits between any prose and the reader. Triage, PDSA notes, and steering updates all pass through it. It does not compute rates. It only checks that every number in a sentence already exists in the facts Python produced. That is why a model is allowed to rewrite wording and not allowed to invent a percentage.</p></div>
+<video controls preload="metadata" src="videos/session-1/02_fidelity.mp4">
+<a href="videos/session-1/02_fidelity.mp4">Download clip 2</a>
+</video>
+<p class="meta">0:40 · Andrew · <a href="https://github.com/neelsrejan/care-ops-agent/blob/main/src/care_ops_agent/guards/numeric_fidelity.py">src/care_ops_agent/guards/numeric_fidelity.py</a> on <code>main</code></p>
+</article>
+<h2>Logic trace</h2>
+<p class="note"><a href="https://github.com/neelsrejan/care-ops-agent/blob/main/docs/sessions/session-1/LOGIC_TRACE.md">LOGIC_TRACE.md</a></p>
+<div class="prose"><h1>Session 1 logic trace (2026-11-03)</h1>
+<p>Snapshot: <code>snapshots/session-1.zip</code> (no git repo yet; tag <code>session-1</code> when the public repo is created). Laptop copy to <code>Grok_Bot\Project_Agent_2\Session 1\</code> pending (laptop offline).</p>
+<ol>
+<li><strong>Goal.</strong> Frame the project around patient outcomes (closing care gaps), not product quality, and stand up a tested skeleton.</li>
+<li><strong>Needed next.</strong> A data source that can produce HbA1c, BP and screening gaps (S2), and a stack decision different from invalid-agent.</li>
+<li><strong>Libraries.</strong> pandas/numpy/scipy (reused math), pyyaml, httpx, pytest. No LangGraph, Jira, Streamlit, pptx or dbt: those are invalid-agent's tools; the approved stack is in ADR 0002.</li>
+<li><strong>Code.</strong> <code>config.py</code> (adapted: measure targets, rules-only default, no tracker creds) · <code>llm.py</code> (slimmed: template-first, guard on every draft, fallback recorded) · reused unchanged from invalid-agent: <code>metrics/rates.py</code> (Wilson CI, chi-square), <code>metrics/spc.py</code> (p-chart + Western Electric), <code>metrics/pareto.py</code>, <code>guards/numeric_fidelity.py</code>.</li>
+<li><strong>Docs.</strong> PRD (outcome north star, users, Gherkin stories), ROADMAP v0, MEASURES.md, SIMULATION_DISCLAIMER, DATA_LICENSES, ADRs 0001–0002, portable backlog CSV/MD.</li>
+<li><strong>Buy-in.</strong> Stack approved 18:38 PT (ADR 0002). Backlog imports into Asana (docs/backlog/asana_import.csv) once Neel has an account.</li>
+<li><strong>Capability added.</strong> <code>pytest</code> green; guard rejects a planted number.</li>
+<li><strong>What it proves.</strong> Writing a PRD with outcome metrics and acceptance criteria, and keeping numbers out of the LLM.</li>
+</ol></div>
+<h2>Code on main</h2>
+<p><a href="https://github.com/neelsrejan/care-ops-agent/tree/main">Browse the repository</a></p>
+<ul><li><a href="https://github.com/neelsrejan/care-ops-agent/blob/main/src/care_ops_agent/config.py"><code>src/care_ops_agent/config.py</code></a></li><li><a href="https://github.com/neelsrejan/care-ops-agent/blob/main/src/care_ops_agent/guards/numeric_fidelity.py"><code>src/care_ops_agent/guards/numeric_fidelity.py</code></a></li></ul>
+<h2>Practice, on a private branch</h2>
+<div class="prose"><p>Work on a branch. Do not commit practice edits to main.</p>
+<pre><code class="language-bash">python -m venv .venv &amp;&amp; source .venv/bin/activate
+pip install -e &quot;.[dev]&quot;
+pytest tests/test_fidelity.py tests/test_config.py
+</code></pre>
+<ol>
+<li>In a scratch script, call <code>check_narrative</code> with a sentence that adds a percentage the facts do not contain.</li>
+<li>Confirm the result is not ok, and that the same sentence passes when that percentage is added to the facts.</li>
+</ol>
+<p><strong>Extra.</strong> Why does the template get checked before <code>ollama</code> is ever called?</p></div>
+<h2>Quiz</h2>
+<p class="note">Six questions on architecture and design. 5 of 6 to pass. Explanations show after you submit. The salted hash is a self-study speed bump, not protection.</p>
+<div id="quiz"></div>
+</div>
+
+</main>
+</div>
+<script src="js/site-config.js"></script>
+<script src="js/quiz-data.js"></script>
+<script src="js/academy.js"></script>
+</body>
+</html>

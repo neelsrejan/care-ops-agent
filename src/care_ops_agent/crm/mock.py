@@ -48,6 +48,41 @@ def build_crm(partners: list[dict[str, Any]], seed: int, as_of: date, n_prospect
     return {"Account": accounts, "Contact": contacts, "Opportunity": opps, "StageHistory": history}
 
 
+def apply_pipeline_stall(crm: dict[str, list[dict[str, Any]]], scenario: dict[str, Any], as_of: date) -> dict[str, list[dict[str, Any]]]:
+    """Force one synthetic opportunity into a stalled onboarding stage.
+
+    Used by held-out scenarios and the program story. Dev scenarios omit
+    ``pipeline_stall``, so their CRM draws stay as ``build_crm`` left them.
+    """
+    spec = scenario.get("pipeline_stall")
+    if not spec:
+        return crm
+    stage = spec.get("stage", "Data Onboarding")
+    if stage not in STAGES or stage == "Live":
+        raise ValueError(f"stall stage must be an onboarding stage, got {stage!r}")
+    pid = f"P{int(spec['partner_index']) + 1}"
+    days = int(spec.get("days_in_stage", 21))
+    entered = (as_of - timedelta(days=days)).isoformat()
+    opp_id = f"O-{pid}"
+    created = None
+    for opp in crm["Opportunity"]:
+        if opp["AccountId"] != pid:
+            continue
+        created = opp["CreatedDate"]
+        opp["StageName"] = stage
+        opp["StageEnteredDate"] = entered
+    if created is None:
+        raise KeyError(pid)
+    crm["StageHistory"] = [row for row in crm["StageHistory"] if row["OpportunityId"] != opp_id]
+    for name in STAGES[: STAGES.index(stage) + 1]:
+        crm["StageHistory"].append({
+            "OpportunityId": opp_id,
+            "StageName": name,
+            "EnteredDate": entered if name == stage else created,
+        })
+    return crm
+
+
 def export_salesforce_csv(crm: dict[str, list[dict[str, Any]]], folder: Path) -> list[Path]:
     """Write one CSV per object for Salesforce Data Import Wizard / Data Loader (external ids kept as columns)."""
     folder.mkdir(parents=True, exist_ok=True)

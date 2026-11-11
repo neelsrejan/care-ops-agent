@@ -1,9 +1,11 @@
-# Roadmap v0 (Session 1) · SIMULATION · goal: close care gaps (patient outcomes)
+# Roadmap (SIMULATION) · goal: close care gaps (patient outcomes)
 
-| Horizon | Items | Sessions |
+| Horizon | Items | Status |
 |---|---|---|
-| **Now** | PRD + portable backlog · CMS + Synthea → tested SQL marts with the 3 care-gap measures · partner network sim + care-gap triage memo | S1–S3 |
-| **Next** | Partner pipeline (Salesforce-shaped CRM) tied to open gaps · program controls + PDSA cycles · weekly loop with per-audience updates · outreach A/B on gap closure | S4–S7 |
-| **Later** | RFP library · eval harness · dashboard + scaling go/no-go | S8–S10 |
+| **Now** | PRD, FHIR-to-PostgreSQL views, network sim, care-gap triage, Salesforce-shaped pipeline | S1–S4 done |
+| **Next** | Program controls, weekly PDSA with per-audience updates, outreach A/B | S5–S7 done |
+| **Later** | RFP library, held-out eval, MS Project XML, Tableau-ready extracts, scaling go/no-go | S8–S10 done |
 
-Stack approved 2026-11-03 (ADR 0002): Asana, Tableau Public, Excel (openpyxl), PostgreSQL views, Salesforce Developer Edition, FHIR R4, Lean/PDSA, plain Python.
+Live Asana, Salesforce, and Tableau Public are still manual steps. See the README.
+
+Stack approved 2026-11-03 (ADR 0002): Asana, Tableau Public, Excel (openpyxl), PostgreSQL views, Salesforce Developer Edition, FHIR R4 kept local, Lean/PDSA, plain Python.

@@ -1,0 +1,31 @@
+label,account_id,stage,days_in_stage,stalled,outreach_ready,measure,open_gaps
+SYNTHETIC,P6,Live,19,False,True,bp_control,99
+SYNTHETIC,P6,Live,19,False,True,breast_cancer_screening,142
+SYNTHETIC,P6,Live,19,False,True,hba1c_control,221
+SYNTHETIC,P2,Data Onboarding,13,False,True,bp_control,90
+SYNTHETIC,P2,Data Onboarding,13,False,True,breast_cancer_screening,203
+SYNTHETIC,P2,Data Onboarding,13,False,True,hba1c_control,119
+SYNTHETIC,P4,Live,11,False,True,bp_control,141
+SYNTHETIC,P4,Live,11,False,True,breast_cancer_screening,138
+SYNTHETIC,P4,Live,11,False,True,hba1c_control,102
+SYNTHETIC,P3,Data Onboarding,21,True,True,bp_control,110
+SYNTHETIC,P3,Data Onboarding,21,True,True,breast_cancer_screening,117
+SYNTHETIC,P3,Data Onboarding,21,True,True,hba1c_control,105
+SYNTHETIC,P5,Agreement (simulated),4,False,False,bp_control,109
+SYNTHETIC,P5,Agreement (simulated),4,False,False,breast_cancer_screening,134
+SYNTHETIC,P5,Agreement (simulated),4,False,False,hba1c_control,107
+SYNTHETIC,P7,Agreement (simulated),28,True,False,bp_control,94
+SYNTHETIC,P7,Agreement (simulated),28,True,False,breast_cancer_screening,135
+SYNTHETIC,P7,Agreement (simulated),28,True,False,hba1c_control,120
+SYNTHETIC,P1,Agreement (simulated),25,True,False,bp_control,94
+SYNTHETIC,P1,Agreement (simulated),25,True,False,breast_cancer_screening,128
+SYNTHETIC,P1,Agreement (simulated),25,True,False,hba1c_control,108
+SYNTHETIC,P8,Agreement (simulated),23,True,False,bp_control,103
+SYNTHETIC,P8,Agreement (simulated),23,True,False,breast_cancer_screening,116
+SYNTHETIC,P8,Agreement (simulated),23,True,False,hba1c_control,103
+SYNTHETIC,X4,Prospect,30,True,False,,0
+SYNTHETIC,X2,Agreement (simulated),27,True,False,,0
+SYNTHETIC,X1,Qualified,21,True,False,,0
+SYNTHETIC,X5,Prospect,14,False,False,,0
+SYNTHETIC,X3,Qualified,9,False,False,,0
+SYNTHETIC,X6,Agreement (simulated),9,False,False,,0

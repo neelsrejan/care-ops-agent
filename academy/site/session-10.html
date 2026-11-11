@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Session 10 · Extracts, a no-go, and resume lines</title>
+<link rel="stylesheet" href="css/academy.css">
+
+<script>
+(function () {
+  var session = 10;
+  var ok = false;
+  try {
+    var raw = localStorage.getItem("coa-academy-progress-v1");
+    var data = raw ? JSON.parse(raw) : null;
+    var prev = data && data.sessions && data.sessions[String(session - 1)];
+    ok = !!(prev && prev.passed);
+  } catch (e) { ok = false; }
+  if (!ok) document.documentElement.classList.add("is-locked");
+})();
+</script>
+</head>
+<body data-page="session" data-session="10">
+<div class="app">
+<aside class="nav">
+<a class="brand" href="index.html"><div class="mark">co</div><div><strong>care-ops-agent</strong><span>Academy</span></div></a>
+<a class="item" href="index.html">Home</a>
+<div class="week">Week 1</div>
+<a class="item" data-session="1" href="session-1.html"><i class="dot"></i>S1 · Frame the program and keep numbers out of the model</a>
+<a class="item" data-session="2" href="session-2.html"><i class="dot"></i>S2 · Local FHIR into tested SQL views</a>
+<a class="item" data-session="3" href="session-3.html"><i class="dot"></i>S3 · A synthetic network and a care-versus-data call</a>
+<div class="week">Week 2</div>
+<a class="item" data-session="4" href="session-4.html"><i class="dot"></i>S4 · A Salesforce-shaped pipeline next to the open gaps</a>
+<a class="item" data-session="5" href="session-5.html"><i class="dot"></i>S5 · Charter, WBS, RAID, change log, and an Asana file</a>
+<a class="item" data-session="6" href="session-6.html"><i class="dot"></i>S6 · Weekly PDSA and three audiences</a>
+<a class="item" data-session="7" href="session-7.html"><i class="dot"></i>S7 · Outreach A/B on gaps closed</a>
+<div class="week">Week 3</div>
+<a class="item" data-session="8" href="session-8.html"><i class="dot"></i>S8 · An RFP library that cites or flags</a>
+<a class="item" data-session="9" href="session-9.html"><i class="dot"></i>S9 · Held-out score and an MS Project file</a>
+<a class="item active" data-session="10" href="session-10.html"><i class="dot"></i>S10 · Extracts, a no-go, and resume lines</a>
+<div class="nav-foot" id="nav-progress">Progress stays in this browser</div>
+</aside>
+<main class="main">
+
+<p class="kicker">Week 3 · Session 10</p>
+<h1>Extracts, a no-go, and resume lines</h1>
+<p class="lede">One failed gate is a no-go. The resume quotes the harness. Tableau Public is a manual publish, and the HTML file is only a preview.</p>
+<p class="note">Ticket COA-115, COA-116 · about 40–55 minutes · artifact: Tableau-ready CSVs, scaling workbook, resume bullets</p>
+<div class="lock-screen">
+  <div class="panel">
+    <h2>This session is locked</h2>
+    <p>Pass Session 9 at 80% or better (5 of 6) to open the videos, the logic trace, the practice task, and this quiz. Retries on the earlier quiz are unlimited. If you already passed it on another computer, import that progress code from the home page.</p>
+    <p><a class="button" href="session-9.html">Go to Session 9</a> <a class="button secondary" href="index.html">Home</a></p>
+  </div>
+</div>
+<div class="lesson">
+<h2>Read first</h2>
+<ul><li>RESUME_BULLETS.md</li><li>docs/tableau/DASHBOARD_SPEC.md</li></ul>
+<h2>Watch in this order</h2>
+<p class="note">Read the architecture note, then play the clip. The note says what the file is for. The video walks the lines. Line numbers match <code>main</code> as this site was built.</p>
+<article class="clip">
+<h3>1. Session 10 · Rows a dashboard can import</h3>
+<div class="overview"><h4>Architecture</h4><p>tableau.py is the handoff to a dashboard tool this repo cannot log into. It flattens weekly rates, the pipeline, the PDSA log, and the burn into scalar columns. A hyper extract is created later inside Tableau from these CSVs. The local HTML preview is a different module and is not this file. Publishing remains a manual step.</p></div>
+<video controls preload="metadata" src="videos/session-10/01_extracts.mp4">
+<a href="videos/session-10/01_extracts.mp4">Download clip 1</a>
+</video>
+<p class="meta">0:34 · Andrew · <a href="https://github.com/neelsrejan/care-ops-agent/blob/main/src/care_ops_agent/export/tableau.py">src/care_ops_agent/export/tableau.py</a> on <code>main</code></p>
+</article><article class="clip">
+<h3>2. Session 10 · The decision and the resume are the same report</h3>
+<div class="overview"><h4>Architecture</h4><p>run_program.py is the close-out command. It builds the plan, the tracker file, the PDSA packet, the experiment, the RFP workbook, and the extracts without PostgreSQL and without a live account. The eval flag reruns the harness and writes the go or no-go workbook from those gates. One failed gate stays a no-go. The resume text is rendered from the same report so a hand-edited number cannot drift.</p></div>
+<video controls preload="metadata" src="videos/session-10/02_closeout.mp4">
+<a href="videos/session-10/02_closeout.mp4">Download clip 2</a>
+</video>
+<p class="meta">0:41 · Andrew · <a href="https://github.com/neelsrejan/care-ops-agent/blob/main/src/care_ops_agent/run_program.py">src/care_ops_agent/run_program.py</a> on <code>main</code></p>
+</article>
+<h2>Logic trace</h2>
+<p class="note"><a href="https://github.com/neelsrejan/care-ops-agent/blob/main/docs/sessions/session-10/LOGIC_TRACE.md">LOGIC_TRACE.md</a></p>
+<div class="prose"><h1>Session 10 logic trace — extracts, the go/no-go, the README</h1>
+<ol>
+<li><strong>Goal.</strong> Hand a reviewer Tableau-ready files, a written dashboard spec, a scaling decision computed from the eval, and resume bullets whose numbers are that eval.</li>
+<li><strong>Needed next.</strong> Neel's Tableau Public account if the workbook should be a public URL. The spec and the local preview stand until then.</li>
+<li><strong>Libraries.</strong> openpyxl and the csv module. No Tableau SDK.</li>
+<li><strong>Code.</strong> <code>export/tableau.py</code> flattens weekly rates, the pipeline, the PDSA log, and the budget burn to scalar columns. <code>export/preview.py</code> is an HTML table, labeled as not Tableau. <code>eval/harness.py</code> turns gate results into GO or NO-GO. On this build every gate passes except false alarms (1 of 5 quiet scenarios), so the decision is NO-GO. <code>resume_bullets</code> fills the resume from that same dict. <code>run_program.py</code> is the one command that writes the pack without PostgreSQL.</li>
+<li><strong>Docs.</strong> <code>docs/tableau/DASHBOARD_SPEC.md</code>, <code>RESUME_BULLETS.md</code>, <code>README.md</code>.</li>
+<li><strong>Buy-in.</strong> Tableau Public publish, Asana import, and Salesforce import are manual once Neel has the accounts.</li>
+<li><strong>Capability added.</strong> <code>out/tableau/</code>, <code>out/scaling_gonogo.xlsx</code> when <code>--eval</code> is set, and the resume file.</li>
+<li><strong>What it proves.</strong> A close-out pack whose claims match the harness, including the decision not to scale.</li>
+</ol></div>
+<h2>Code on main</h2>
+<p><a href="https://github.com/neelsrejan/care-ops-agent/tree/main">Browse the repository</a></p>
+<ul><li><a href="https://github.com/neelsrejan/care-ops-agent/blob/main/src/care_ops_agent/export/tableau.py"><code>src/care_ops_agent/export/tableau.py</code></a></li><li><a href="https://github.com/neelsrejan/care-ops-agent/blob/main/src/care_ops_agent/run_program.py"><code>src/care_ops_agent/run_program.py</code></a></li></ul>
+<h2>Practice, on a private branch</h2>
+<div class="prose"><pre><code class="language-bash">python -m care_ops_agent.run_program
+</code></pre>
+<p>Open <code>out/tableau/preview.html</code> and <code>out/program_controls.xlsx</code>.</p>
+<p><strong>Extra.</strong> Why would editing a resume number by hand break the test that compares the file to the harness?</p></div>
+<h2>Quiz</h2>
+<p class="note">Six questions on architecture and design. 5 of 6 to pass. Explanations show after you submit. The salted hash is a self-study speed bump, not protection.</p>
+<div id="quiz"></div>
+</div>
+
+</main>
+</div>
+<script src="js/site-config.js"></script>
+<script src="js/quiz-data.js"></script>
+<script src="js/academy.js"></script>
+</body>
+</html>

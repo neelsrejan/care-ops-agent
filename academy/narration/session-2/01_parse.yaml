@@ -1,0 +1,22 @@
+title: Session 2 · Flatten only what the measures need
+file: ../../../src/care_ops_agent/fhir/parse.py
+overview: parse.py is the edge between a FHIR bundle and the relational rows the SQL
+  views expect. It keeps diabetes, hypertension, HbA1c, blood pressure, and mammography
+  codes, and drops the rest of the bundle. Downstream views never see a raw JSON document.
+  That keeps the measure logic in SQL and the file format in one module.
+voice: en-US-AndrewNeural
+rate: +0%
+pause: 0.35
+segments:
+- lines: 1-21
+  say: 'The module docstring states the contract: three measures, and blood pressure
+    stored as components. The code constants are the clinical codes those measures
+    look up. Changing a code here changes who lands in a denominator.'
+- lines: 23-29
+  say: Helpers pull the first coding and the id from a FHIR reference. They are small
+    on purpose. The bundle shape stays in this file so the loader can stay a copy
+    loop.
+- lines: 32-76
+  say: flatten_bundle walks one Synthea bundle into patient, condition, observation,
+    and procedure rows. iter_bundles and flatten_all are how the loader streams a
+    directory of files without posting them anywhere.

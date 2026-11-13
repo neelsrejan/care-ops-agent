@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Project xmlns="http://schemas.microsoft.com/project">
+  <Name>Harbor Health Plan care-gap program (SYNTHETIC)</Name>
+  <Title>SYNTHETIC SIMULATION — not a live project schedule</Title>
+  <ScheduleFromStart>1</ScheduleFromStart>
+  <StartDate>2026-11-02T08:00:00</StartDate>
+  <FinishDate>2026-12-09T17:00:00</FinishDate>
+  <MinutesPerDay>480</MinutesPerDay>
+  <MinutesPerWeek>2400</MinutesPerWeek>
+  <Tasks>
+    <Task>
+      <UID>0</UID>
+      <ID>0</ID>
+      <Name>Harbor Health Plan care-gap program (SYNTHETIC)</Name>
+      <OutlineLevel>0</OutlineLevel>
+      <OutlineNumber>0</OutlineNumber>
+      <Start>2026-11-02T08:00:00</Start>
+      <Finish>2026-12-09T17:00:00</Finish>
+      <Duration>PT104H0M0S</Duration>
+      <Summary>1</Summary>
+      <Notes>SYNTHETIC SIMULATION.</Notes>
+    </Task>
+    <Task>
+      <UID>1</UID>
+      <ID>1</ID>
+      <Name>Charter and controls</Name>
+      <OutlineLevel>1</OutlineLevel>
+      <OutlineNumber>1</OutlineNumber>
+      <Start>2026-11-02T08:00:00</Start>
+      <Finish>2026-11-17T17:00:00</Finish>
+      <Duration>PT96H0M0S</Duration>
+      <Summary>1</Summary>
+      <Notes>SYNTHETIC SIMULATION.</Notes>
+    </Task>
+    <Task>
+      <UID>2</UID>
+      <ID>2</ID>
+      <Name>Confirm the three HEDIS-style measure definitions</Name>
+      <OutlineLevel>2</OutlineLevel>
+      <OutlineNumber>1.1</OutlineNumber>
+      <Start>2026-11-02T08:00:00</Start>
+      <Finish>2026-11-06T17:00:00</Finish>
+      <Duration>PT40H0M0S</Duration>
+      <Summary>0</Summary>
+      <Notes>SYNTHETIC SIMULATION. Role: Quality analyst.</Notes>
+    </Task>
+    <Task>
+      <UID>3</UID>
+      <ID>3</ID>
+      <Name>Write the program charter</Name>
+      <OutlineLevel>2</OutlineLevel>
+      <OutlineNumber>1.2</OutlineNumber>
+      <Start>2026-11-09T08:00:00</Start>
+      <Finish>2026-11-11T17:00:00</Finish>
+      <Duration>PT24H0M0S</Duration>
+      <Summary>0</Summary>
+      <Notes>SYNTHETIC SIMULATION. Role: Program lead.</Notes>
+      <PredecessorLink>
+        <PredecessorUID>2</PredecessorUID>
+        <Type>1</Type>
+      </PredecessorLink>
+    </Task>
+    <Task>
+      <UID>4</UID>
+      <ID>4</ID>
+      <Name>Build the WBS, RAID log, and change log</Name>
+      <OutlineLevel>2</OutlineLevel>
+      <OutlineNumber>1.3</OutlineNumber>
+      <Start>2026-11-12T08:00:00</Start>
+      <Finish>2026-11-17T17:00:00</Finish>
+      <Duration>PT32H0M0S</Duration>
+      <Summary>0</Summary>
+      <Notes>SYNTHETIC SIMULATION. Role: Program lead.</Notes>
+      <PredecessorLink>
+        <PredecessorUID>3</PredecessorUID>
+        <Type>1</Type>
+      </PredecessorLink>
+    </Task>
+    <Task>
+      <UID>5</UID>
+      <ID>5</ID>
+      <Name>Baseline measures and triage</Name>
+      <OutlineLevel>1</OutlineLevel>
+      <OutlineNumber>2</OutlineNumber>
+      <Start>2026-11-09T08:00:00</Start>
+      <Finish>2026-11-20T17:00:00</Finish>
+      <Duration>PT80H0M0S</Duration>
+      <Summary>1</Summary>
+      <Notes>SYNTHETIC SIMULATION.</Notes>
+    </Task>
+    <Task>
+      <UID>6</UID>
+      <ID>6</ID>
+      <Name>Load the synthetic roster and measure views</Name>
+      <OutlineLevel>2</OutlineLevel>
+      <OutlineNumber>2.1</OutlineNumber>
+      <Start>2026-11-09T08:00:00</Start>
+      <Finish>2026-11-13T17:00:00</Finish>
+      <Duration>PT40H0M0S</Duration>
+      <Summary>0</Summary>
+      <Notes>SYNTHETIC SIMULATION. Role: Data engineer.</Notes>
+      <PredecessorLink>
+        <PredecessorUID>2</PredecessorUID>
+        <Type>1</Type>
+      </PredecessorLink>
+    </Task>
+    <Task>
+      <UID>7</UID>
+      <ID>7</ID>
+      <Name>Compute baseline care-gap rates with intervals</Name>
+      <OutlineLevel>2</OutlineLevel>
+      <OutlineNumber>2.2</OutlineNumber>
+      <Start>2026-11-16T08:00:00</Start>
+      <Finish>2026-11-18T17:00:00</Finish>
+      <Duration>PT24H0M0S</Duration>
+      <Summary>0</Summary>
+      <Notes>SYNTHETIC SIMULATION. Role: Quality analyst.</Notes>
+      <PredecessorLink>
+        <PredecessorUID>6</PredecessorUID>
+        <Type>1</Type>
+      </PredecessorLink>
+    </Task>
+    <Task>
+      <UID>8</UID>
+      <ID>8</ID>
+      <Name>Triage the first care-gap and data-feed signals</Name>
+      <OutlineLevel>2</OutlineLevel>
+      <OutlineNumber>2.3</OutlineNumber>
+      <Start>2026-11-19T08:00:00</Start>
+      <Finish>2026-11-20T17:00:00</Finish>
+      <Duration>PT16H0M0S</Duration>
+      <Summary>0</Summary>
+      <Notes>SYNTHETIC SIMULATION. Role: Quality analyst.</Notes>
+      <PredecessorLink>
+        <PredecessorUID>7</PredecessorUID>
+        <Type>1</Type>
+      </PredecessorLink>
+    </Task>
+    <Task>
+      <UID>9</UID>
+      <ID>9</ID>
+      <Name>Partner onboarding</Name>
+      <OutlineLevel>1</OutlineLevel>
+      <OutlineNumber>3</OutlineNumber>
+      <Start>2026-11-12T08:00:00</Start>
+      <Finish>2026-11-27T17:00:00</Finish>
+      <Duration>PT96H0M0S</Duration>
+      <Summary>1</Summary>
+      <Notes>SYNTHETIC SIMULATION.</Notes>
+    </Task>
+    <Task>
+      <UID>10</UID>
+      <ID>10</ID>
+      <Name>Stage the Salesforce-shaped partner pipeline</Name>
+      <OutlineLevel>2</OutlineLevel>
+      <OutlineNumber>3.1</OutlineNumber>
+      <Start>2026-11-12T08:00:00</Start>
+      <Finish>2026-11-17T17:00:00</Finish>
+      <Duration>PT32H0M0S</Duration>
+      <Summary>0</Summary>
+      <Notes>SYNTHETIC SIMULATION. Role: Partner success.</Notes>
+      <PredecessorLink>
+        <PredecessorUID>3</PredecessorUID>
+        <Type>1</Type>
+      </PredecessorLink>
+    </Task>
+    <Task>
+      <UID>11</UID>
+      <ID>11</ID>
+      <Name>Work the stalled data-onboarding accounts</Name>
+      <OutlineLevel>2</OutlineLevel>
+      <OutlineNumber>3.2</OutlineNumber>
+      <Start>2026-11-18T08:00:00</Start>
+      <Finish>2026-11-24T17:00:00</Finish>
+      <Duration>PT40H0M0S</Duration>
+      <Summary>0</Summary>
+      <Notes>SYNTHETIC SIMULATION. Role: Partner success.</Notes>
+      <PredecessorLink>
+        <PredecessorUID>10</PredecessorUID>
+        <Type>1</Type>
+      </PredecessorLink>
+    </Task>
+    <Task>
+      <UID>12</UID>
+      <ID>12</ID>
+      <Name>CR-001 Lab-feed remediation</Name>
+      <OutlineLevel>2</OutlineLevel>
+      <OutlineNumber>3.3</OutlineNumber>
+      <Start>2026-11-23T08:00:00</Start>
+      <Finish>2026-11-27T17:00:00</Finish>
+      <Duration>PT40H0M0S</Duration>
+      <Summary>0</Summary>
+      <Notes>SYNTHETIC SIMULATION. Role: Data engineer. Change: CR-001.</Notes>
+      <PredecessorLink>
+        <PredecessorUID>8</PredecessorUID>
+        <Type>1</Type>
+      </PredecessorLink>
+    </Task>
+    <Task>
+      <UID>13</UID>
+      <ID>13</ID>
+      <Name>Outreach PDSA and scale decision</Name>
+      <OutlineLevel>1</OutlineLevel>
+      <OutlineNumber>4</OutlineNumber>
+      <Start>2026-11-23T08:00:00</Start>
+      <Finish>2026-12-09T17:00:00</Finish>
+      <Duration>PT104H0M0S</Duration>
+      <Summary>1</Summary>
+      <Notes>SYNTHETIC SIMULATION.</Notes>
+    </Task>
+    <Task>
+      <UID>14</UID>
+      <ID>14</ID>
+      <Name>Plan the weekly outreach list from the triage</Name>
+      <OutlineLevel>2</OutlineLevel>
+      <OutlineNumber>4.1</OutlineNumber>
+      <Start>2026-11-23T08:00:00</Start>
+      <Finish>2026-11-24T17:00:00</Finish>
+      <Duration>PT16H0M0S</Duration>
+      <Summary>0</Summary>
+      <Notes>SYNTHETIC SIMULATION. Role: Program lead.</Notes>
+      <PredecessorLink>
+        <PredecessorUID>8</PredecessorUID>
+        <Type>1</Type>
+      </PredecessorLink>
+    </Task>
+    <Task>
+      <UID>15</UID>
+      <ID>15</ID>
+      <Name>Run the simulated outreach A/B test</Name>
+      <OutlineLevel>2</OutlineLevel>
+      <OutlineNumber>4.2</OutlineNumber>
+      <Start>2026-11-25T08:00:00</Start>
+      <Finish>2026-12-04T17:00:00</Finish>
+      <Duration>PT64H0M0S</Duration>
+      <Summary>0</Summary>
+      <Notes>SYNTHETIC SIMULATION. Role: Quality analyst.</Notes>
+      <PredecessorLink>
+        <PredecessorUID>14</PredecessorUID>
+        <Type>1</Type>
+      </PredecessorLink>
+    </Task>
+    <Task>
+      <UID>16</UID>
+      <ID>16</ID>
+      <Name>Steering readout and scale go/no-go</Name>
+      <OutlineLevel>2</OutlineLevel>
+      <OutlineNumber>4.3</OutlineNumber>
+      <Start>2026-12-07T08:00:00</Start>
+      <Finish>2026-12-09T17:00:00</Finish>
+      <Duration>PT24H0M0S</Duration>
+      <Summary>0</Summary>
+      <Notes>SYNTHETIC SIMULATION. Role: Program lead.</Notes>
+      <PredecessorLink>
+        <PredecessorUID>15</PredecessorUID>
+        <Type>1</Type>
+      </PredecessorLink>
+    </Task>
+  </Tasks>
+</Project>

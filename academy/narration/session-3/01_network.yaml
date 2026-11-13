@@ -1,0 +1,30 @@
+title: Session 3 · A network with a known shock
+file: ../../../src/care_ops_agent/sim/network.py
+overview: network.py builds the synthetic panel and the weekly results. Partners are
+  name seeds, patients are resampled denominator ids, and whether a visit meets the
+  measure is drawn from the scenario, not from Synthea. Triage, the pipeline, and
+  the PDSA loop all consume this frame. A second code path exists for scenarios that
+  inject more than one shock, so the original four dev scenarios keep their random
+  draws.
+voice: en-US-AndrewNeural
+rate: +0%
+pause: 0.35
+segments:
+- lines: 1-23
+  say: The header says the panel is synthetic and the outcome probabilities are scenario
+    parameters. Visit probability and panel size are design choices. They set how
+    many observations a clinic week will have, which is what makes a ten-point drop
+    detectable.
+- lines: 26-52
+  say: load_scenario reads YAML. seeds_from_db is the path that uses PostgreSQL when
+    the marts exist. build_network picks eight facilities and assigns each patient
+    to a partner, a clinic, and a measure. The ids are new. The facility name is only
+    a seed.
+- lines: 55-94
+  say: When a scenario lists several injections, this branch applies each one. A clinic
+    drop, a partner drop, and a missing feed can land on different partners in one
+    story. Dev scenarios do not use this branch.
+- lines: 97-121
+  say: The original single-injection loop is unchanged so the four scenarios the rule
+    was tuned on still recover. Missing results are drawn only on the shocked rows.
+    Every other visit uses the baseline probability.

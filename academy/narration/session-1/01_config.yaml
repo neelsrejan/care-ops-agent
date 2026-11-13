@@ -1,0 +1,27 @@
+title: Session 1 · Where settings live
+file: ../../../src/care_ops_agent/config.py
+overview: config.py is the boundary between the process environment and the rest of
+  the program. Measure targets, the model switch, and the output folder are read here
+  so triage, the CRM, and the exporters do not each invent their own paths. Secrets
+  are not stored. A missing variable falls back to the deterministic demo, which is
+  what CI runs.
+voice: en-US-AndrewNeural
+rate: +0%
+pause: 0.35
+segments:
+- lines: 1-27
+  say: This file is the settings boundary. The constants at the top are simulation
+    targets for a synthetic program, not a contract benchmark. Eight partners and
+    three measure goals live here so every later module quotes the same numbers.
+- lines: 29-38
+  say: find_repo_root walks upward until it sees the project file beside the package.
+    That matters because a test, a notebook, and the installed package do not share
+    a working directory. Scenario paths stay correct without a hard-coded laptop folder.
+- lines: 42-63
+  say: Settings is frozen. rules_only is true when the backend is deterministic, which
+    is the default. redacted and the custom repr exist so a future token added to
+    this object is not printed just because someone logged the settings.
+- lines: 66-79
+  say: load_settings reads the environment. Unknown or blank model backends collapse
+    to deterministic. The output directory defaults under the repo. Nothing here opens
+    a network connection.

@@ -1,0 +1,17 @@
+id: program_story
+label: SYNTHETIC SIMULATION
+seed: 7
+weeks: 20
+program_start_week: 14
+baseline_met: {hba1c_control: 0.62, bp_control: 0.66, breast_cancer_screening: 0.58}
+# Three shocks on different partners, plus one stalled onboarding. This is the
+# weekly story the PDSA log reads. It is not one of the four dev scenarios, and
+# it is not in the held-out score.
+injections:
+  - {type: clinic_drop, partner_index: 3, clinic: C2, measure: bp_control, met_prob_after: 0.35}
+  - {type: missing_feed, partner_index: 5, measure: hba1c_control, missing_share_after: 0.7}
+  - {type: partner_drop, partner_index: 1, measure: breast_cancer_screening, met_prob_after: 0.30}
+pipeline_stall: {partner_index: 2, stage: Data Onboarding, days_in_stage: 21}
+truth:
+  kind: program_story
+  note: not scored; the held-out set is evals/heldout

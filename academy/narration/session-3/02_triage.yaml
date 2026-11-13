@@ -1,0 +1,28 @@
+title: Session 3 · Care gap or data issue
+file: ../../../src/care_ops_agent/nodes/triage.py
+overview: triage.py decides where patients are falling behind and whether the cause
+  is care or data. It is the consumer of the weekly frame and the producer of the
+  memo. PDSA, the audience notes, and the eval all call it rather than reimplementing
+  the test. The Bonferroni adjustment and the missing-result rule live here so a quiet
+  week and a broken feed do not become the same outreach list.
+voice: en-US-AndrewNeural
+rate: +0%
+pause: 0.35
+segments:
+- lines: 1-21
+  say: 'Thresholds are the operating rules: a ten-point drop, a missing-result share,
+    and a family-wise alpha. They are constants because the eval scores the rule as
+    it is, not a tuned variant per scenario.'
+- lines: 23-47
+  say: A rate counts an unrecorded visit as not met. The Wilson interval uses that
+    denominator. The two-proportion helper is the one-sided test that the recent rate
+    is lower.
+- lines: 50-97
+  say: analyze builds partner cells and clinic cells, adjusts alpha by how many cells
+    share a level, and flags a large significant drop. A high missing share labels
+    the flag as a data issue. Two clinic flags on the same partner and measure promote
+    the call to the partner.
+- lines: 108-134
+  say: memo turns the top flag into sentences whose numbers are copied into the facts
+    dict, then narrate runs the guard. The verdict is the structured call the eval
+    compares to the seed. The prose is not a second opinion.

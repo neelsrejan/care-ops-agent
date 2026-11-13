@@ -1,0 +1,55 @@
+Name,Description,Section/Column,Tags,Assignee,Due Date
+[COA-E1] Product framing (PRD roadmap ADRs),Epic (milestone),Epics,epic,,
+[COA-E2] Data layer: CMS + Synthea (FHIR) -> PostgreSQL views + SQL tests (PostgreSQL views),Epic (milestone),Epics,epic,,
+[COA-E3] Network sim + care-gap triage,Epic (milestone),Epics,epic,,
+[COA-E4] Partner pipeline (mock CRM),Epic (milestone),Epics,epic,,
+[COA-E5] Program controls (Lean/PDSA cycles),Epic (milestone),Epics,epic,,
+[COA-E6] Weekly partner updates,Epic (milestone),Epics,epic,,
+[COA-E7] Outreach experiment on gap closure,Epic (milestone),Epics,epic,,
+[COA-E8] RFP response library,Epic (milestone),Epics,epic,,
+[COA-E9] Evals,Epic (milestone),Epics,epic,,
+[COA-E10] Dashboard + scaling go/no-go,Epic (milestone),Epics,epic,,
+[COA-101] Repo installs and tests with one command,"Epic: Product framing (PRD roadmap ADRs)
+AC: Given a fresh clone When pip install -e .[dev] && pytest Then all tests pass with no secrets
+Points: 2
+Status: Done",Sprint 1,done,,
+[COA-102] CMS + Synthea loaded into tested SQL marts,"Epic: Data layer: CMS + Synthea (FHIR) -> PostgreSQL views + SQL tests (PostgreSQL views)
+AC: Given downloaded FHIR R4 bundles + CMS CSV When python -m care_ops_agent.data.load Then raw tables load, views build and all SQL tests return 0 rows
+Points: 5
+Status: Done",Sprint 1,done,,
+[COA-103] Per-partner care-gap rates with Wilson CI + p-chart,"Epic: Network sim + care-gap triage
+AC: Given a one-clinic BP scenario When triage runs Then that partner/clinic ranks first
+Points: 5
+Status: Done",Sprint 1,done,,
+[COA-104] Flag data-artifact gaps (missing lab feed),"Epic: Network sim + care-gap triage
+AC: Given a missing-feed scenario When triage runs Then the memo labels it a data issue
+Points: 3
+Status: Done",Sprint 1,done,,
+[COA-105] Numeric-fidelity guard on all narrative,"Epic: Network sim + care-gap triage
+AC: Given a planted wrong number When the guard runs Then the draft is rejected
+Points: 2
+Status: Done",Sprint 1,done,,
+[COA-106] Partner pipeline (Salesforce-shaped stand-in) stages + aging tied to open gaps,"Epic: Partner pipeline (mock CRM)
+AC: Given the mock CRM When the pipeline report runs Then stage conversion and stalled partners (>14 days) list with open gaps
+Points: 5
+Status: Done",Sprint 2,done,,
+[COA-107] Partner account plan + stakeholder map template (simulated),"Epic: Partner pipeline (mock CRM)
+AC: Given a partner id When generated Then a markdown plan with SYNTHETIC label exists
+Points: 2
+Status: Done",Sprint 2,done,,
+[COA-108] Program charter + WBS,"Epic: Program controls (Lean/PDSA cycles)
+AC: 
+Points: 5
+Status: To Do",Sprint 2,to-do,,
+[COA-109] RAID log + change control + PDSA cycle log,"Epic: Program controls (Lean/PDSA cycles)
+AC: 
+Points: 3
+Status: To Do",Sprint 2,to-do,,
+[COA-110] Weekly per-audience partner update,"Epic: Weekly partner updates
+AC: 
+Points: 5
+Status: To Do",Sprint 2,to-do,,
+[COA-111] Outreach A/B power calc + readout,"Epic: Outreach experiment on gap closure
+AC: 
+Points: 5
+Status: To Do",Sprint 2,to-do,,

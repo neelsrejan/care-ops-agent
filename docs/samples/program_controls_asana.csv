@@ -1,0 +1,13 @@
+Name,Description,Section/Column,Tags,Assignee,Due Date
+[1.1] Confirm the three HEDIS-style measure definitions,SYNTHETIC program task for Harbor Health Plan. Role: Quality analyst. Effort hours: 40. Cost USD: 3800. Baseline: yes.,Charter,"synthetic,program-controls",,2026-11-06
+[1.2] Write the program charter,SYNTHETIC program task for Harbor Health Plan. Role: Program lead. Effort hours: 24. Cost USD: 2640. Baseline: yes.,Charter,"synthetic,program-controls",,2026-11-11
+"[1.3] Build the WBS, RAID log, and change log",SYNTHETIC program task for Harbor Health Plan. Role: Program lead. Effort hours: 32. Cost USD: 3520. Baseline: yes.,Charter,"synthetic,program-controls",,2026-11-17
+[2.1] Load the synthetic roster and measure views,SYNTHETIC program task for Harbor Health Plan. Role: Data engineer. Effort hours: 40. Cost USD: 4800. Baseline: yes.,Data,"synthetic,program-controls",,2026-11-13
+[2.2] Compute baseline care-gap rates with intervals,SYNTHETIC program task for Harbor Health Plan. Role: Quality analyst. Effort hours: 24. Cost USD: 2280. Baseline: yes.,Data,"synthetic,program-controls",,2026-11-18
+[2.3] Triage the first care-gap and data-feed signals,SYNTHETIC program task for Harbor Health Plan. Role: Quality analyst. Effort hours: 16. Cost USD: 1520. Baseline: yes.,Data,"synthetic,program-controls",,2026-11-20
+[3.1] Stage the Salesforce-shaped partner pipeline,SYNTHETIC program task for Harbor Health Plan. Role: Partner success. Effort hours: 32. Cost USD: 2720. Baseline: yes.,Onboarding,"synthetic,program-controls",,2026-11-17
+[3.2] Work the stalled data-onboarding accounts,SYNTHETIC program task for Harbor Health Plan. Role: Partner success. Effort hours: 40. Cost USD: 3400. Baseline: yes.,Onboarding,"synthetic,program-controls",,2026-11-24
+[3.3] CR-001 Lab-feed remediation,"SYNTHETIC program task for Harbor Health Plan. Role: Data engineer. Effort hours: 40. Cost USD: 4800. Baseline: no, approved change CR-001.",Onboarding,"synthetic,program-controls",,2026-11-27
+[4.1] Plan the weekly outreach list from the triage,SYNTHETIC program task for Harbor Health Plan. Role: Program lead. Effort hours: 16. Cost USD: 1760. Baseline: yes.,Outreach,"synthetic,program-controls",,2026-11-24
+[4.2] Run the simulated outreach A/B test,SYNTHETIC program task for Harbor Health Plan. Role: Quality analyst. Effort hours: 64. Cost USD: 6080. Baseline: yes.,Outreach,"synthetic,program-controls",,2026-12-04
+[4.3] Steering readout and scale go/no-go,SYNTHETIC program task for Harbor Health Plan. Role: Program lead. Effort hours: 24. Cost USD: 2640. Baseline: yes.,Outreach,"synthetic,program-controls",,2026-12-09

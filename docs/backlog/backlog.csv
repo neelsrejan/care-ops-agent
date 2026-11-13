@@ -1,0 +1,27 @@
+Issue Type,Key,Summary,Epic,Sprint,Story Points,Acceptance Criteria,Status
+Epic,COA-E1,Product framing (PRD roadmap ADRs),,,,,
+Epic,COA-E2,Data layer: CMS + Synthea (FHIR) -> PostgreSQL views + SQL tests (PostgreSQL views),,,,,
+Epic,COA-E3,Network sim + care-gap triage,,,,,
+Epic,COA-E4,Partner pipeline (mock CRM),,,,,
+Epic,COA-E5,Program controls (Lean/PDSA cycles),,,,,
+Epic,COA-E6,Weekly partner updates,,,,,
+Epic,COA-E7,Outreach experiment on gap closure,,,,,
+Epic,COA-E8,RFP response library,,,,,
+Epic,COA-E9,Evals,,,,,
+Epic,COA-E10,Dashboard + scaling go/no-go,,,,,
+Story,COA-101,Repo installs and tests with one command,COA-E1,Sprint 1,2,Given a fresh clone When pip install -e .[dev] && pytest Then all tests pass with no secrets,Done
+Story,COA-102,CMS + Synthea loaded into tested SQL marts,COA-E2,Sprint 1,5,"Given downloaded FHIR R4 bundles + CMS CSV When python -m care_ops_agent.data.load Then raw tables load, views build and all SQL tests return 0 rows",Done
+Story,COA-103,Per-partner care-gap rates with Wilson CI + p-chart,COA-E3,Sprint 1,5,Given a one-clinic BP scenario When triage runs Then that partner/clinic ranks first,Done
+Story,COA-104,Flag data-artifact gaps (missing lab feed),COA-E3,Sprint 1,3,Given a missing-feed scenario When triage runs Then the memo labels it a data issue,Done
+Story,COA-105,Numeric-fidelity guard on all narrative,COA-E3,Sprint 1,2,Given a planted wrong number When the guard runs Then the draft is rejected,Done
+Story,COA-106,Partner pipeline (Salesforce-shaped stand-in) stages + aging tied to open gaps,COA-E4,Sprint 2,5,Given the mock CRM When the pipeline report runs Then stage conversion and stalled partners (>14 days) list with open gaps,Done
+Story,COA-107,Partner account plan + stakeholder map template (simulated),COA-E4,Sprint 2,2,Given a partner id When generated Then a markdown plan with SYNTHETIC label exists,Done
+Story,COA-108,Program charter + WBS,COA-E5,Sprint 2,5,"Given the plan builder When the workbook is written Then charter, WBS, RAID, change log, burn, and capacity are present and forecast equals baseline plus approved changes",Done
+Story,COA-109,RAID log + change control + PDSA cycle log,COA-E5,Sprint 2,3,"Given a program-story run When the PDSA log is written Then each program week has plan, do, study, and act, and a data-issue week adapts",Done
+Story,COA-110,Weekly per-audience partner update,COA-E6,Sprint 2,5,Given three audiences When updates render Then a partner note contains no other partner id and no budget figure,Done
+Story,COA-111,Outreach A/B power calc + readout,COA-E7,Sprint 2,5,Given seeded script rates When the trial repeats Then the effect is recovered and the null trial usually stays quiet,Done
+Story,COA-112,RFP library cites or flags,COA-E8,Sprint 3,3,Given 40 synthetic questions When retrieval runs Then in-library questions cite an entry id and out-of-library questions are flagged,Done
+Story,COA-113,Held-out eval and failure taxonomy,COA-E9,Sprint 3,5,Given 20 held-out scenarios When the harness runs Then dev scenarios are excluded and each miss has a taxonomy label,Done
+Story,COA-114,MS Project XML export,COA-E9,Sprint 3,2,Given the WBS When MSPDI is written Then tasks and finish-to-start links parse,Done
+Story,COA-115,Tableau-ready extracts and go/no-go,COA-E10,Sprint 3,3,Given the eval report When the decision is computed Then a failed gate yields NO-GO and the extracts are flat CSVs,Done
+Story,COA-116,Resume bullets from the eval report,COA-E10,Sprint 3,1,Given the harness output When bullets are rendered Then every count matches the report and no live-customer claim is made,Done

@@ -1,0 +1,1 @@
+SELECT * FROM mart.v_bp_control WHERE last_sbp NOT BETWEEN 60 AND 260 OR last_dbp NOT BETWEEN 30 AND 160

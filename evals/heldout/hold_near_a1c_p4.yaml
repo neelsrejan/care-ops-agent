@@ -1,0 +1,18 @@
+id: hold_near_a1c_p4
+label: SYNTHETIC SIMULATION
+family: near_threshold
+seed: 714
+weeks: 20
+program_start_week: 14
+baseline_met:
+  hba1c_control: 0.62
+  bp_control: 0.66
+  breast_cancer_screening: 0.58
+held_out: true
+injection:
+  type: partner_drop
+  partner_index: 3
+  measure: hba1c_control
+  met_prob_after: 0.6
+truth:
+  kind: none

@@ -1,0 +1,24 @@
+title: Session 5 · A tracker file, and a live client that waits
+file: ../../../src/care_ops_agent/pm/asana.py
+overview: asana.py is the boundary with the tracker. The offline client writes a CSV
+  and SIM identifiers so a reviewer can see that no board was updated. The live client
+  knows the REST shape and reads the token from the environment. The demo and the
+  tests construct only the offline client. Switching later is an environment variable,
+  not a rewrite.
+voice: en-US-AndrewNeural
+rate: +0%
+pause: 0.35
+segments:
+- lines: 1-16
+  say: The module docstring is the operating rule. Offline is the default. Live needs
+    a token and a workspace id. Neither value is hard-coded.
+- lines: 27-67
+  say: OfflineAsanaClient stores tasks with SIM gids and writes the importer columns
+    Asana expects. Assignee is blank on purpose. There is no person to assign.
+- lines: 70-97
+  say: LiveAsanaClient posts to the Asana API only when something calls create_task.
+    Constructing it still requires both secrets. The demo never constructs it.
+- lines: 100-112
+  say: asana_client_from_env is the switch. An unknown backend or a live backend with
+    a blank token raises, instead of quietly writing a file and pretending the board
+    moved.

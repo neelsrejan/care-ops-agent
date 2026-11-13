@@ -1,0 +1,31 @@
+title: Session 5 · One schedule, several sheets
+file: ../../../src/care_ops_agent/controls/plan.py
+overview: plan.py is the source of truth for the charter, the WBS, the RAID log, the
+  change log, the burn, and the capacity check. Excel, MS Project XML, and the Asana
+  file are views of this object. Hours times a synthetic rate produce the dollars.
+  An approved change stays outside the baseline so the variance is a calculated difference,
+  not an edited cell.
+voice: en-US-AndrewNeural
+rate: +0%
+pause: 0.35
+segments:
+- lines: 1-31
+  say: The module states that the dollars are project controls for a simulation, not
+    a bid and not a P and L. Rates and funded full-time equivalents live next to that
+    warning. The start date is a Monday so business-day math has a clean origin.
+- lines: 33-96
+  say: The task table is the WBS. Summaries roll up. Leaves carry a role, a duration,
+    and predecessors. CR-001 is marked out of the baseline. That single flag is what
+    splits forecast from baseline later.
+- lines: 98-133
+  say: Business days skip weekends. A successor starts the next weekday after the
+    predecessor finishes. The program week index is how burn rows group cost. None
+    of this is typed into the spreadsheet by hand.
+- lines: 136-189
+  say: Leaves are scheduled in dependency order. Summaries then span their children.
+    Hours are duration times eight. Cost is hours times the role rate. A summary does
+    not add a second copy of the money.
+- lines: 321-349
+  say: build_plan assembles the sheets and raises if any role is assigned more hours
+    than the funded capacity. That check is the control. A pretty Gantt that overbooks
+    the team does not leave this function.

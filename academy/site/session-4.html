@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Session 4 · A Salesforce-shaped pipeline next to the open gaps</title>
+<link rel="stylesheet" href="css/academy.css">
+
+<script>
+(function () {
+  var session = 4;
+  var ok = false;
+  try {
+    var raw = localStorage.getItem("coa-academy-progress-v1");
+    var data = raw ? JSON.parse(raw) : null;
+    var prev = data && data.sessions && data.sessions[String(session - 1)];
+    ok = !!(prev && prev.passed);
+  } catch (e) { ok = false; }
+  if (!ok) document.documentElement.classList.add("is-locked");
+})();
+</script>
+</head>
+<body data-page="session" data-session="4">
+<div class="app">
+<aside class="nav">
+<a class="brand" href="index.html"><div class="mark">co</div><div><strong>care-ops-agent</strong><span>Academy</span></div></a>
+<a class="item" href="index.html">Home</a>
+<div class="week">Week 1</div>
+<a class="item" data-session="1" href="session-1.html"><i class="dot"></i>S1 · Frame the program and keep numbers out of the model</a>
+<a class="item" data-session="2" href="session-2.html"><i class="dot"></i>S2 · Local FHIR into tested SQL views</a>
+<a class="item" data-session="3" href="session-3.html"><i class="dot"></i>S3 · A synthetic network and a care-versus-data call</a>
+<div class="week">Week 2</div>
+<a class="item active" data-session="4" href="session-4.html"><i class="dot"></i>S4 · A Salesforce-shaped pipeline next to the open gaps</a>
+<a class="item" data-session="5" href="session-5.html"><i class="dot"></i>S5 · Charter, WBS, RAID, change log, and an Asana file</a>
+<a class="item" data-session="6" href="session-6.html"><i class="dot"></i>S6 · Weekly PDSA and three audiences</a>
+<a class="item" data-session="7" href="session-7.html"><i class="dot"></i>S7 · Outreach A/B on gaps closed</a>
+<div class="week">Week 3</div>
+<a class="item" data-session="8" href="session-8.html"><i class="dot"></i>S8 · An RFP library that cites or flags</a>
+<a class="item" data-session="9" href="session-9.html"><i class="dot"></i>S9 · Held-out score and an MS Project file</a>
+<a class="item" data-session="10" href="session-10.html"><i class="dot"></i>S10 · Extracts, a no-go, and resume lines</a>
+<div class="nav-foot" id="nav-progress">Progress stays in this browser</div>
+</aside>
+<main class="main">
+
+<p class="kicker">Week 2 · Session 4</p>
+<h1>A Salesforce-shaped pipeline next to the open gaps</h1>
+<p class="lede">Accounts, contacts, and opportunities mirror a CRM shape so the same files can be imported later. Stalled means more than 14 days and not Live.</p>
+<p class="note">Ticket COA-106, COA-107 · about 45–60 minutes · artifact: Stage conversion, aging, readiness × gaps, import CSVs</p>
+<div class="lock-screen">
+  <div class="panel">
+    <h2>This session is locked</h2>
+    <p>Pass Session 3 at 80% or better (5 of 6) to open the videos, the logic trace, the practice task, and this quiz. Retries on the earlier quiz are unlimited. If you already passed it on another computer, import that progress code from the home page.</p>
+    <p><a class="button" href="session-3.html">Go to Session 3</a> <a class="button secondary" href="index.html">Home</a></p>
+  </div>
+</div>
+<div class="lesson">
+<h2>Read first</h2>
+<ul><li>docs/adr/0004-salesforce-shaped-crm-stand-in.md</li><li>src/care_ops_agent/metrics/pipeline.py — conversion, aging, open gaps.</li></ul>
+<h2>Watch in this order</h2>
+<p class="note">Read the architecture note, then play the clip. The note says what the file is for. The video walks the lines. Line numbers match <code>main</code> as this site was built.</p>
+<article class="clip">
+<h3>1. Session 4 · A CRM shape without a login</h3>
+<div class="overview"><h4>Architecture</h4><p>mock.py is the Salesforce-shaped store. Accounts, contacts, opportunities, and stage history are ordinary rows so the same files can be imported later. Pipeline metrics read these rows. The live HTTP client lives in a different module and is not called. apply_pipeline_stall is how a held-out scenario forces one opportunity to age in stage without changing the random draws of the other accounts.</p></div>
+<video controls preload="metadata" src="videos/session-4/01_crm.mp4">
+<a href="videos/session-4/01_crm.mp4">Download clip 1</a>
+</video>
+<p class="meta">0:50 · Andrew · <a href="https://github.com/neelsrejan/care-ops-agent/blob/main/src/care_ops_agent/crm/mock.py">src/care_ops_agent/crm/mock.py</a> on <code>main</code></p>
+</article><article class="clip">
+<h3>2. Session 4 · Stage next to open gaps</h3>
+<div class="overview"><h4>Architecture</h4><p>pipeline.py answers a program question the CRM rows alone do not: who can take outreach now, and who is stuck. Conversion, aging, and open gaps are computed here in Python. The readiness view joins them. PDSA and the Tableau extract both read this view, so the definition of stalled lives in one place.</p></div>
+<video controls preload="metadata" src="videos/session-4/02_pipeline.mp4">
+<a href="videos/session-4/02_pipeline.mp4">Download clip 2</a>
+</video>
+<p class="meta">0:33 · Andrew · <a href="https://github.com/neelsrejan/care-ops-agent/blob/main/src/care_ops_agent/metrics/pipeline.py">src/care_ops_agent/metrics/pipeline.py</a> on <code>main</code></p>
+</article>
+<h2>Logic trace</h2>
+<p class="note"><a href="https://github.com/neelsrejan/care-ops-agent/blob/main/docs/sessions/session-4/LOGIC_TRACE.md">LOGIC_TRACE.md</a></p>
+<div class="prose"><h1>Session 4 logic trace — Salesforce-shaped partner pipeline (2026-11-03)</h1>
+<p>Snapshot: <code>snapshots/session-4.zip</code>.</p>
+<ol>
+<li><strong>Goal.</strong> Know which partners can start outreach now, and where onboarding is stuck.</li>
+<li><strong>Needed next.</strong> S5 controls workbook + Asana plan.</li>
+<li><strong>Libraries.</strong> openpyxl (Excel output, approved instead of pptx), csv (Salesforce Data Import Wizard files, Tableau extract).</li>
+<li><strong>Code.</strong>
+   - <code>crm/mock.py</code>: Account/Contact/Opportunity/stage history in Salesforce shape. Stages: Prospect → Qualified → Agreement (simulated) → Data Onboarding → Live. Exports CSVs.
+   - <code>metrics/pipeline.py</code>:<ul>
+<li>stage counts and stage-to-stage conversion;</li>
+<li>days in stage, with stalled meaning more than 14 days and not Live;</li>
+<li>open gaps per partner, based on each patient's latest result;</li>
+<li>readiness × gaps.</li>
+<li><code>export/workbook.py</code>: banner-labeled xlsx.</li>
+<li><code>run_pipeline.py</code>: writes <code>out/crm_export/</code>, the xlsx, the Tableau CSV, and account plans with a stakeholder map template.</li>
+</ul>
+</li>
+<li><strong>Bug caught.</strong> The first run marked 13 of 14 opportunities stalled because the stage dates were generated forward from the start date. The fix gives time-in-current-stage 1–30 days.</li>
+<li><strong>Buy-in needed.</strong> Neel creates a free Salesforce Developer Edition org to import the CSVs; the agent creates no accounts.</li>
+<li><strong>Capability added.</strong> <code>python -m care_ops_agent.run_pipeline scenarios/clinic_bp_drop.yaml</code>.</li>
+<li><strong>What it proves.</strong> CRM pipeline hygiene tied to patient outcomes (open gaps), not just deal counts.</li>
+</ol></div>
+<h2>Code on main</h2>
+<p><a href="https://github.com/neelsrejan/care-ops-agent/tree/main">Browse the repository</a></p>
+<ul><li><a href="https://github.com/neelsrejan/care-ops-agent/blob/main/src/care_ops_agent/crm/mock.py"><code>src/care_ops_agent/crm/mock.py</code></a></li><li><a href="https://github.com/neelsrejan/care-ops-agent/blob/main/src/care_ops_agent/metrics/pipeline.py"><code>src/care_ops_agent/metrics/pipeline.py</code></a></li></ul>
+<h2>Practice, on a private branch</h2>
+<div class="prose"><pre><code class="language-bash">pytest tests/test_pipeline.py
+</code></pre>
+<p><strong>Extra.</strong> Why can an account be in Data Onboarding and still be marked stalled?</p></div>
+<h2>Quiz</h2>
+<p class="note">Six questions on architecture and design. 5 of 6 to pass. Explanations show after you submit. The salted hash is a self-study speed bump, not protection.</p>
+<div id="quiz"></div>
+</div>
+
+</main>
+</div>
+<script src="js/site-config.js"></script>
+<script src="js/quiz-data.js"></script>
+<script src="js/academy.js"></script>
+</body>
+</html>

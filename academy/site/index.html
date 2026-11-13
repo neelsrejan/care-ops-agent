@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>care-ops-agent Academy</title>
+<link rel="stylesheet" href="css/academy.css">
+
+</head>
+<body data-page="home" data-session="0">
+<div class="app">
+<aside class="nav">
+<a class="brand" href="index.html"><div class="mark">co</div><div><strong>care-ops-agent</strong><span>Academy</span></div></a>
+<a class="item active" href="index.html">Home</a>
+<div class="week">Week 1</div>
+<a class="item" data-session="1" href="session-1.html"><i class="dot"></i>S1 · Frame the program and keep numbers out of the model</a>
+<a class="item" data-session="2" href="session-2.html"><i class="dot"></i>S2 · Local FHIR into tested SQL views</a>
+<a class="item" data-session="3" href="session-3.html"><i class="dot"></i>S3 · A synthetic network and a care-versus-data call</a>
+<div class="week">Week 2</div>
+<a class="item" data-session="4" href="session-4.html"><i class="dot"></i>S4 · A Salesforce-shaped pipeline next to the open gaps</a>
+<a class="item" data-session="5" href="session-5.html"><i class="dot"></i>S5 · Charter, WBS, RAID, change log, and an Asana file</a>
+<a class="item" data-session="6" href="session-6.html"><i class="dot"></i>S6 · Weekly PDSA and three audiences</a>
+<a class="item" data-session="7" href="session-7.html"><i class="dot"></i>S7 · Outreach A/B on gaps closed</a>
+<div class="week">Week 3</div>
+<a class="item" data-session="8" href="session-8.html"><i class="dot"></i>S8 · An RFP library that cites or flags</a>
+<a class="item" data-session="9" href="session-9.html"><i class="dot"></i>S9 · Held-out score and an MS Project file</a>
+<a class="item" data-session="10" href="session-10.html"><i class="dot"></i>S10 · Extracts, a no-go, and resume lines</a>
+<div class="nav-foot" id="nav-progress">Progress stays in this browser</div>
+</aside>
+<main class="main">
+
+<p class="kicker">Care-gap program · ten sessions · synthetic data</p>
+<h1>Learn the care-ops-agent, session by session.</h1>
+<p class="lede">A simulated provider network, narrated against the code that runs it. Each clip opens with what that file is responsible for, then walks the lines. Rates are computed in Python. The pages, the quizzes, and the videos are static files.</p>
+<div class="progress-row">
+  <div class="ring" data-progress style="--p:0"><span id="ring-label">0/10</span></div>
+  <div>
+    <strong id="progress-label">0 of 10 sessions passed</strong>
+    <div class="bar" data-progress style="--p:0"><i></i></div>
+    <p class="note" id="progress-detail">Pass a quiz at 80% or better (5 of 6) to open the next session. Retries are unlimited.</p>
+    <p class="note" id="lock-note"></p>
+  </div>
+</div>
+<div class="cards">
+  <a class="link-card" id="link-github" href="https://github.com/neelsrejan/care-ops-agent"><div class="label">Repository</div><strong>GitHub</strong><p>neelsrejan/care-ops-agent. Clips cite the files on main.</p></a>
+  <a class="link-card" href="https://github.com/neelsrejan/care-ops-agent/blob/main/docs/EVAL_REPORT.md"><div class="label">Score</div><strong>Held-out eval</strong><p>The scaling rule and the resume numbers live in the eval report.</p></a>
+  <a class="link-card" href="https://github.com/neelsrejan/care-ops-agent/blob/main/docs/tableau/DASHBOARD_SPEC.md"><div class="label">Dashboard</div><strong>Tableau spec</strong><p>Extracts and a written spec. Publishing waits on an account.</p></a>
+</div>
+<h2>How to run it locally</h2>
+<div class="panel">
+<p>The default path needs no key and no model. Deterministic templates plus the numbers Python already computed.</p>
+<pre>python -m pip install -e ".[dev]"
+python -m pytest
+python -m care_ops_agent.run_program</pre>
+<p class="note">Practice edits stay on a branch you create from main. Do not merge them.</p>
+</div>
+<h2>Sessions</h2>
+<div class="session-grid">
+<a class="session-card" data-session="1" href="session-1.html">
+<div class="num">01</div>
+<div><h3>Frame the program and keep numbers out of the model</h3>
+<div class="meta">Week 1 · 45–60 min · PRD, portable backlog, green tests, fidelity guard</div></div>
+<div class="pill">Open</div>
+</a><a class="session-card" data-session="2" href="session-2.html">
+<div class="num">02</div>
+<div><h3>Local FHIR into tested SQL views</h3>
+<div class="meta">Week 1 · 50–70 min · Flattened bundles, raw tables, measure views, SQL tests</div></div>
+<div class="pill">Open</div>
+</a><a class="session-card" data-session="3" href="session-3.html">
+<div class="num">03</div>
+<div><h3>A synthetic network and a care-versus-data call</h3>
+<div class="meta">Week 1 · 60–80 min · Triage memo that names the seeded cell</div></div>
+<div class="pill">Open</div>
+</a><a class="session-card" data-session="4" href="session-4.html">
+<div class="num">04</div>
+<div><h3>A Salesforce-shaped pipeline next to the open gaps</h3>
+<div class="meta">Week 2 · 45–60 min · Stage conversion, aging, readiness × gaps, import CSVs</div></div>
+<div class="pill">Open</div>
+</a><a class="session-card" data-session="5" href="session-5.html">
+<div class="num">05</div>
+<div><h3>Charter, WBS, RAID, change log, and an Asana file</h3>
+<div class="meta">Week 2 · 50–70 min · Controls workbook and Asana CSV</div></div>
+<div class="pill">Open</div>
+</a><a class="session-card" data-session="6" href="session-6.html">
+<div class="num">06</div>
+<div><h3>Weekly PDSA and three audiences</h3>
+<div class="meta">Week 2 · 50–70 min · Cycle log and partner, internal, and steering notes</div></div>
+<div class="pill">Open</div>
+</a><a class="session-card" data-session="7" href="session-7.html">
+<div class="num">07</div>
+<div><h3>Outreach A/B on gaps closed</h3>
+<div class="meta">Week 2 · 40–55 min · Sample size, randomization, two-proportion readout</div></div>
+<div class="pill">Open</div>
+</a><a class="session-card" data-session="8" href="session-8.html">
+<div class="num">08</div>
+<div><h3>An RFP library that cites or flags</h3>
+<div class="meta">Week 3 · 40–55 min · 40 synthetic questions, citations, a tracker</div></div>
+<div class="pill">Open</div>
+</a><a class="session-card" data-session="9" href="session-9.html">
+<div class="num">09</div>
+<div><h3>Held-out score and an MS Project file</h3>
+<div class="meta">Week 3 · 55–75 min · Eval report and MSPDI schedule</div></div>
+<div class="pill">Open</div>
+</a><a class="session-card" data-session="10" href="session-10.html">
+<div class="num">10</div>
+<div><h3>Extracts, a no-go, and resume lines</h3>
+<div class="meta">Week 3 · 40–55 min · Tableau-ready CSVs, scaling workbook, resume bullets</div></div>
+<div class="pill">Open</div>
+</a>
+</div>
+<h2>Move progress between computers</h2>
+<div class="panel">
+<p>Quiz scores live in this browser. Export a code, and paste it on the other machine. The code is a checksummed copy of your scores, not an account.</p>
+<div class="row">
+  <button type="button" id="export-btn">Export progress</button>
+  <button type="button" class="secondary" id="reset-btn">Clear this browser</button>
+</div>
+<textarea id="export-code" rows="3" readonly placeholder="Your code appears here"></textarea>
+<label for="import-code">Paste a code from your other computer</label>
+<textarea id="import-code" rows="3" placeholder="COA1...."></textarea>
+<div class="row"><button type="button" id="import-btn">Import progress</button></div>
+<p class="note" id="transfer-msg"></p>
+</div>
+
+</main>
+</div>
+<script src="js/site-config.js"></script>
+<script src="js/quiz-data.js"></script>
+<script src="js/academy.js"></script>
+</body>
+</html>

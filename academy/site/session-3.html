@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Session 3 · A synthetic network and a care-versus-data call</title>
+<link rel="stylesheet" href="css/academy.css">
+
+<script>
+(function () {
+  var session = 3;
+  var ok = false;
+  try {
+    var raw = localStorage.getItem("coa-academy-progress-v1");
+    var data = raw ? JSON.parse(raw) : null;
+    var prev = data && data.sessions && data.sessions[String(session - 1)];
+    ok = !!(prev && prev.passed);
+  } catch (e) { ok = false; }
+  if (!ok) document.documentElement.classList.add("is-locked");
+})();
+</script>
+</head>
+<body data-page="session" data-session="3">
+<div class="app">
+<aside class="nav">
+<a class="brand" href="index.html"><div class="mark">co</div><div><strong>care-ops-agent</strong><span>Academy</span></div></a>
+<a class="item" href="index.html">Home</a>
+<div class="week">Week 1</div>
+<a class="item" data-session="1" href="session-1.html"><i class="dot"></i>S1 · Frame the program and keep numbers out of the model</a>
+<a class="item" data-session="2" href="session-2.html"><i class="dot"></i>S2 · Local FHIR into tested SQL views</a>
+<a class="item active" data-session="3" href="session-3.html"><i class="dot"></i>S3 · A synthetic network and a care-versus-data call</a>
+<div class="week">Week 2</div>
+<a class="item" data-session="4" href="session-4.html"><i class="dot"></i>S4 · A Salesforce-shaped pipeline next to the open gaps</a>
+<a class="item" data-session="5" href="session-5.html"><i class="dot"></i>S5 · Charter, WBS, RAID, change log, and an Asana file</a>
+<a class="item" data-session="6" href="session-6.html"><i class="dot"></i>S6 · Weekly PDSA and three audiences</a>
+<a class="item" data-session="7" href="session-7.html"><i class="dot"></i>S7 · Outreach A/B on gaps closed</a>
+<div class="week">Week 3</div>
+<a class="item" data-session="8" href="session-8.html"><i class="dot"></i>S8 · An RFP library that cites or flags</a>
+<a class="item" data-session="9" href="session-9.html"><i class="dot"></i>S9 · Held-out score and an MS Project file</a>
+<a class="item" data-session="10" href="session-10.html"><i class="dot"></i>S10 · Extracts, a no-go, and resume lines</a>
+<div class="nav-foot" id="nav-progress">Progress stays in this browser</div>
+</aside>
+<main class="main">
+
+<p class="kicker">Week 1 · Session 3</p>
+<h1>A synthetic network and a care-versus-data call</h1>
+<p class="lede">Eight partner groups, three clinics, three measures. The flag rule is a drop of at least 10 points plus a Bonferroni-adjusted test. A jump in missing results is a data issue, and outreach waits.</p>
+<p class="note">Ticket COA-103, COA-104 · about 60–80 minutes · artifact: Triage memo that names the seeded cell</p>
+<div class="lock-screen">
+  <div class="panel">
+    <h2>This session is locked</h2>
+    <p>Pass Session 2 at 80% or better (5 of 6) to open the videos, the logic trace, the practice task, and this quiz. Retries on the earlier quiz are unlimited. If you already passed it on another computer, import that progress code from the home page.</p>
+    <p><a class="button" href="session-2.html">Go to Session 2</a> <a class="button secondary" href="index.html">Home</a></p>
+  </div>
+</div>
+<div class="lesson">
+<h2>Read first</h2>
+<ul><li>scenarios/README.md — baseline rates are parameters, because the public Synthea sample shows complete diabetes control.</li><li>scenarios/clinic_bp_drop.yaml and scenarios/missing_a1c_feed.yaml — one shock each.</li></ul>
+<h2>Watch in this order</h2>
+<p class="note">Read the architecture note, then play the clip. The note says what the file is for. The video walks the lines. Line numbers match <code>main</code> as this site was built.</p>
+<article class="clip">
+<h3>1. Session 3 · A network with a known shock</h3>
+<div class="overview"><h4>Architecture</h4><p>network.py builds the synthetic panel and the weekly results. Partners are name seeds, patients are resampled denominator ids, and whether a visit meets the measure is drawn from the scenario, not from Synthea. Triage, the pipeline, and the PDSA loop all consume this frame. A second code path exists for scenarios that inject more than one shock, so the original four dev scenarios keep their random draws.</p></div>
+<video controls preload="metadata" src="videos/session-3/01_network.mp4">
+<a href="videos/session-3/01_network.mp4">Download clip 1</a>
+</video>
+<p class="meta">1:02 · Andrew · <a href="https://github.com/neelsrejan/care-ops-agent/blob/main/src/care_ops_agent/sim/network.py">src/care_ops_agent/sim/network.py</a> on <code>main</code></p>
+</article><article class="clip">
+<h3>2. Session 3 · Care gap or data issue</h3>
+<div class="overview"><h4>Architecture</h4><p>triage.py decides where patients are falling behind and whether the cause is care or data. It is the consumer of the weekly frame and the producer of the memo. PDSA, the audience notes, and the eval all call it rather than reimplementing the test. The Bonferroni adjustment and the missing-result rule live here so a quiet week and a broken feed do not become the same outreach list.</p></div>
+<video controls preload="metadata" src="videos/session-3/02_triage.mp4">
+<a href="videos/session-3/02_triage.mp4">Download clip 2</a>
+</video>
+<p class="meta">0:53 · Andrew · <a href="https://github.com/neelsrejan/care-ops-agent/blob/main/src/care_ops_agent/nodes/triage.py">src/care_ops_agent/nodes/triage.py</a> on <code>main</code></p>
+</article>
+<h2>Logic trace</h2>
+<p class="note"><a href="https://github.com/neelsrejan/care-ops-agent/blob/main/docs/sessions/session-3/LOGIC_TRACE.md">LOGIC_TRACE.md</a></p>
+<div class="prose"><h1>Session 3 logic trace — network sim + care-gap triage (2026-11-03)</h1>
+<p>Snapshot: <code>snapshots/session-3.zip</code>.</p>
+<ol>
+<li><strong>Goal.</strong> Find where patients are falling behind, and say whether it's care or data.</li>
+<li><strong>Needed next.</strong> S4 joins open gaps per partner with pipeline stage.</li>
+<li><strong>Libraries.</strong> numpy (seeded RNG), pandas, scipy (normal tail for the z-test), pyyaml (scenarios as data).</li>
+<li><strong>Code.</strong>
+   - <code>sim/network.py</code>: 8 CA acute-care facilities as SYNTHETIC partner seeds; 3 clinics each; 300 Synthea-roster patients per partner per measure; weekly visits (25%); injected truth from YAML.
+   - <code>nodes/triage.py</code>:<ul>
+<li>baseline (weeks 1–13) vs program (14–20) per partner and clinic cell;</li>
+<li>one-sided two-proportion test with per-level Bonferroni (24 partner cells, 72 clinic cells);</li>
+<li>Wilson CI; p-chart rule hits;</li>
+<li>"data issue" when ≥20% of recent visits lack a result and that share jumped ≥20 points;</li>
+<li>the memo goes through the guard.</li>
+</ul>
+</li>
+<li><strong>Iterations.</strong>
+   - First pass flagged a false alarm on <code>no_signal</code>, which is the multiple-comparisons problem. The fix was Bonferroni.
+   - That then missed the clinic signal at 120 patients per partner per measure, so the panel went to 300 with alpha per level.
+   - All 4 dev scenarios are now recovered. Because these were tuned against, this is NOT an eval result.</li>
+<li><strong>Buy-in needed.</strong> Neel: ~20 min sanity check of scenarios/*.yaml and the baseline rates.</li>
+<li><strong>Capability added.</strong> <code>python -m care_ops_agent.run_triage scenarios/*.yaml</code> → out/*_triage.md.</li>
+<li><strong>What it proves.</strong> Prioritizing patient outreach with statistics a reviewer can check, and not sending outreach for a data problem.</li>
+</ol></div>
+<h2>Code on main</h2>
+<p><a href="https://github.com/neelsrejan/care-ops-agent/tree/main">Browse the repository</a></p>
+<ul><li><a href="https://github.com/neelsrejan/care-ops-agent/blob/main/src/care_ops_agent/sim/network.py"><code>src/care_ops_agent/sim/network.py</code></a></li><li><a href="https://github.com/neelsrejan/care-ops-agent/blob/main/src/care_ops_agent/nodes/triage.py"><code>src/care_ops_agent/nodes/triage.py</code></a></li></ul>
+<h2>Practice, on a private branch</h2>
+<div class="prose"><pre><code class="language-bash">pytest tests/test_triage.py
+</code></pre>
+<p>These four files are the dev set. They are recovered on purpose and they are not the eval score.</p>
+<p><strong>Extra.</strong> Why can two clinic flags on the same partner and measure become a partner-level call?</p></div>
+<h2>Quiz</h2>
+<p class="note">Six questions on architecture and design. 5 of 6 to pass. Explanations show after you submit. The salted hash is a self-study speed bump, not protection.</p>
+<div id="quiz"></div>
+</div>
+
+</main>
+</div>
+<script src="js/site-config.js"></script>
+<script src="js/quiz-data.js"></script>
+<script src="js/academy.js"></script>
+</body>
+</html>

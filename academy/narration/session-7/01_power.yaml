@@ -1,0 +1,21 @@
+title: Session 7 · Size the test before the draw
+file: ../../../src/care_ops_agent/experiment/ab.py
+overview: ab.py is the outreach experiment. It is a PDSA cycle, not a side spreadsheet.
+  The sample size is a normal approximation from the two planned rates. The draw happens
+  after. Eval repeats the trial so one lucky seed is not the resume line. A null trial
+  reuses the size, because the formula cannot divide by a zero difference.
+voice: en-US-AndrewNeural
+rate: +0%
+pause: 0.35
+segments:
+- lines: 1-22
+  say: The seeded rates are parameters. Script A and script B are not estimated from
+    Synthea. Alpha and the power target are design choices written down where the
+    formula can see them.
+- lines: 25-37
+  say: sample_size_per_arm is the usual two-proportion calculation. It refuses equal
+    rates, because the difference in the denominator would be zero. That is why the
+    null trial must be handed a size.
+- lines: 40-47
+  say: The readout is a two-sided test on the closed counts. The p-value is computed
+    here. It is not typed into the JSON after the fact.

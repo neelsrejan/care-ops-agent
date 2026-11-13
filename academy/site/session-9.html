@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Session 9 · Held-out score and an MS Project file</title>
+<link rel="stylesheet" href="css/academy.css">
+
+<script>
+(function () {
+  var session = 9;
+  var ok = false;
+  try {
+    var raw = localStorage.getItem("coa-academy-progress-v1");
+    var data = raw ? JSON.parse(raw) : null;
+    var prev = data && data.sessions && data.sessions[String(session - 1)];
+    ok = !!(prev && prev.passed);
+  } catch (e) { ok = false; }
+  if (!ok) document.documentElement.classList.add("is-locked");
+})();
+</script>
+</head>
+<body data-page="session" data-session="9">
+<div class="app">
+<aside class="nav">
+<a class="brand" href="index.html"><div class="mark">co</div><div><strong>care-ops-agent</strong><span>Academy</span></div></a>
+<a class="item" href="index.html">Home</a>
+<div class="week">Week 1</div>
+<a class="item" data-session="1" href="session-1.html"><i class="dot"></i>S1 · Frame the program and keep numbers out of the model</a>
+<a class="item" data-session="2" href="session-2.html"><i class="dot"></i>S2 · Local FHIR into tested SQL views</a>
+<a class="item" data-session="3" href="session-3.html"><i class="dot"></i>S3 · A synthetic network and a care-versus-data call</a>
+<div class="week">Week 2</div>
+<a class="item" data-session="4" href="session-4.html"><i class="dot"></i>S4 · A Salesforce-shaped pipeline next to the open gaps</a>
+<a class="item" data-session="5" href="session-5.html"><i class="dot"></i>S5 · Charter, WBS, RAID, change log, and an Asana file</a>
+<a class="item" data-session="6" href="session-6.html"><i class="dot"></i>S6 · Weekly PDSA and three audiences</a>
+<a class="item" data-session="7" href="session-7.html"><i class="dot"></i>S7 · Outreach A/B on gaps closed</a>
+<div class="week">Week 3</div>
+<a class="item" data-session="8" href="session-8.html"><i class="dot"></i>S8 · An RFP library that cites or flags</a>
+<a class="item active" data-session="9" href="session-9.html"><i class="dot"></i>S9 · Held-out score and an MS Project file</a>
+<a class="item" data-session="10" href="session-10.html"><i class="dot"></i>S10 · Extracts, a no-go, and resume lines</a>
+<div class="nav-foot" id="nav-progress">Progress stays in this browser</div>
+</aside>
+<main class="main">
+
+<p class="kicker">Week 3 · Session 9</p>
+<h1>Held-out score and an MS Project file</h1>
+<p class="lede">Twenty scenarios the dev set does not include. Each miss has a name. The Gantt is XML because the free Asana plan has no dependencies.</p>
+<p class="note">Ticket COA-113, COA-114 · about 55–75 minutes · artifact: Eval report and MSPDI schedule</p>
+<div class="lock-screen">
+  <div class="panel">
+    <h2>This session is locked</h2>
+    <p>Pass Session 8 at 80% or better (5 of 6) to open the videos, the logic trace, the practice task, and this quiz. Retries on the earlier quiz are unlimited. If you already passed it on another computer, import that progress code from the home page.</p>
+    <p><a class="button" href="session-8.html">Go to Session 8</a> <a class="button secondary" href="index.html">Home</a></p>
+  </div>
+</div>
+<div class="lesson">
+<h2>Read first</h2>
+<ul><li>evals/README.md</li><li>docs/EVAL_REPORT.md</li></ul>
+<h2>Watch in this order</h2>
+<p class="note">Read the architecture note, then play the clip. The note says what the file is for. The video walks the lines. Line numbers match <code>main</code> as this site was built.</p>
+<article class="clip">
+<h3>1. Session 9 · Score what the rule was not tuned on</h3>
+<div class="overview"><h4>Architecture</h4><p>harness.py is the score. It refuses the four dev scenario ids, runs the held-out catalog, and names the failure when a case misses. Top-1 is only for single-cause cases. Mixed shocks, stalls, leaks, fidelity, and the outreach repeats have their own counts. The resume and the go or no-go sheet are functions of this report, so they cannot quote a number the harness did not produce.</p></div>
+<video controls preload="metadata" src="videos/session-9/01_eval.mp4">
+<a href="videos/session-9/01_eval.mp4">Download clip 1</a>
+</video>
+<p class="meta">0:52 · Andrew · <a href="https://github.com/neelsrejan/care-ops-agent/blob/main/src/care_ops_agent/eval/harness.py">src/care_ops_agent/eval/harness.py</a> on <code>main</code></p>
+</article><article class="clip">
+<h3>2. Session 9 · Dependencies the free tracker does not store</h3>
+<div class="overview"><h4>Architecture</h4><p>mspdi.py is a view of the same plan object Excel already shows. Asana&#x27;s free plan has no dependencies, so the Gantt lives in MS Project XML. Finish-to-start links are type 1. The file does not introduce dates that the scheduler did not compute. If the WBS changes, this export changes with it.</p></div>
+<video controls preload="metadata" src="videos/session-9/02_mspdi.mp4">
+<a href="videos/session-9/02_mspdi.mp4">Download clip 2</a>
+</video>
+<p class="meta">0:35 · Andrew · <a href="https://github.com/neelsrejan/care-ops-agent/blob/main/src/care_ops_agent/export/mspdi.py">src/care_ops_agent/export/mspdi.py</a> on <code>main</code></p>
+</article>
+<h2>Logic trace</h2>
+<p class="note"><a href="https://github.com/neelsrejan/care-ops-agent/blob/main/docs/sessions/session-9/LOGIC_TRACE.md">LOGIC_TRACE.md</a></p>
+<div class="prose"><h1>Session 9 logic trace — held-out eval and MS Project XML</h1>
+<ol>
+<li><strong>Goal.</strong> Score about 20 scenarios the dev set did not tune, name the failure when a case misses, and export the WBS as MS Project XML.</li>
+<li><strong>Needed next.</strong> The go/no-go sheet and the resume lines that quote this report (S10).</li>
+<li><strong>Libraries.</strong> The triage, CRM, and A/B modules. <code>xml.etree</code> for MSPDI. No eval SaaS.</li>
+<li><strong>Code.</strong> <code>eval/catalog.py</code> is the 20-scenario list. <code>eval/harness.py</code> scores top-1 on single-cause cases, care-versus-data (the same call), mixed shocks, stalled onboarding, numeric fidelity, and partner-note leaks. The failure taxonomy is correct, false alarm, missed signal, wrong partner, wrong measure, wrong kind, wrong clinic, mixed incomplete, stall miss, fidelity fail, partner leak. Dev scenario ids are refused. <code>export/mspdi.py</code> writes finish-to-start links (type 1) for the same plan Excel already shows. Asana's free plan has no dependencies, so the Gantt lives here.</li>
+<li><strong>Docs.</strong> <code>docs/EVAL_REPORT.md</code> and <code>evals/README.md</code>.</li>
+<li><strong>Buy-in.</strong> None.</li>
+<li><strong>Capability added.</strong> <code>python -m care_ops_agent.eval.harness</code>.</li>
+<li><strong>What it proves.</strong> A labeled held-out set with an explicit failure taxonomy, and a schedule file a desktop Project client can open.</li>
+</ol></div>
+<h2>Code on main</h2>
+<p><a href="https://github.com/neelsrejan/care-ops-agent/tree/main">Browse the repository</a></p>
+<ul><li><a href="https://github.com/neelsrejan/care-ops-agent/blob/main/src/care_ops_agent/eval/harness.py"><code>src/care_ops_agent/eval/harness.py</code></a></li><li><a href="https://github.com/neelsrejan/care-ops-agent/blob/main/src/care_ops_agent/export/mspdi.py"><code>src/care_ops_agent/export/mspdi.py</code></a></li></ul>
+<h2>Practice, on a private branch</h2>
+<div class="prose"><pre><code class="language-bash">pytest tests/test_eval.py::test_heldout_catalog_shape tests/test_controls.py::test_controls_workbook_and_project_xml
+</code></pre>
+<p>The full score test reruns every scenario. Use it when you want the gates, not for a quick edit.</p>
+<p><strong>Extra.</strong> Why is a mixed scenario kept out of the top-1 denominator?</p></div>
+<h2>Quiz</h2>
+<p class="note">Six questions on architecture and design. 5 of 6 to pass. Explanations show after you submit. The salted hash is a self-study speed bump, not protection.</p>
+<div id="quiz"></div>
+</div>
+
+</main>
+</div>
+<script src="js/site-config.js"></script>
+<script src="js/quiz-data.js"></script>
+<script src="js/academy.js"></script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+title: Session 1 · Numbers stay in the code
+file: ../../../src/care_ops_agent/guards/numeric_fidelity.py
+overview: The fidelity guard sits between any prose and the reader. Triage, PDSA notes,
+  and steering updates all pass through it. It does not compute rates. It only checks
+  that every number in a sentence already exists in the facts Python produced. That
+  is why a model is allowed to rewrite wording and not allowed to invent a percentage.
+voice: en-US-AndrewNeural
+rate: +0%
+pause: 0.35
+segments:
+- lines: 1-17
+  say: The guard rejects narrative numbers that are not in the computed facts. Identifiers
+    such as a partner id are masked first so a label is not mistaken for a rate.
+- lines: 27-44
+  say: Walking the facts collects the raw value, a rounded form, and the percent form
+    when the value is a proportion. That is why a sentence may say 62 percent when
+    the fact was 0.62, and why a nearby invention still fails.
+- lines: 66-88
+  say: check_narrative strips dates and known identifier strings, then every remaining
+    number must sit near an allowed value. A miss returns ok false. Callers treat
+    that as a failed draft, not as a warning to ignore.

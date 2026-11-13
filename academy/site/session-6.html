@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Session 6 · Weekly PDSA and three audiences</title>
+<link rel="stylesheet" href="css/academy.css">
+
+<script>
+(function () {
+  var session = 6;
+  var ok = false;
+  try {
+    var raw = localStorage.getItem("coa-academy-progress-v1");
+    var data = raw ? JSON.parse(raw) : null;
+    var prev = data && data.sessions && data.sessions[String(session - 1)];
+    ok = !!(prev && prev.passed);
+  } catch (e) { ok = false; }
+  if (!ok) document.documentElement.classList.add("is-locked");
+})();
+</script>
+</head>
+<body data-page="session" data-session="6">
+<div class="app">
+<aside class="nav">
+<a class="brand" href="index.html"><div class="mark">co</div><div><strong>care-ops-agent</strong><span>Academy</span></div></a>
+<a class="item" href="index.html">Home</a>
+<div class="week">Week 1</div>
+<a class="item" data-session="1" href="session-1.html"><i class="dot"></i>S1 · Frame the program and keep numbers out of the model</a>
+<a class="item" data-session="2" href="session-2.html"><i class="dot"></i>S2 · Local FHIR into tested SQL views</a>
+<a class="item" data-session="3" href="session-3.html"><i class="dot"></i>S3 · A synthetic network and a care-versus-data call</a>
+<div class="week">Week 2</div>
+<a class="item" data-session="4" href="session-4.html"><i class="dot"></i>S4 · A Salesforce-shaped pipeline next to the open gaps</a>
+<a class="item" data-session="5" href="session-5.html"><i class="dot"></i>S5 · Charter, WBS, RAID, change log, and an Asana file</a>
+<a class="item active" data-session="6" href="session-6.html"><i class="dot"></i>S6 · Weekly PDSA and three audiences</a>
+<a class="item" data-session="7" href="session-7.html"><i class="dot"></i>S7 · Outreach A/B on gaps closed</a>
+<div class="week">Week 3</div>
+<a class="item" data-session="8" href="session-8.html"><i class="dot"></i>S8 · An RFP library that cites or flags</a>
+<a class="item" data-session="9" href="session-9.html"><i class="dot"></i>S9 · Held-out score and an MS Project file</a>
+<a class="item" data-session="10" href="session-10.html"><i class="dot"></i>S10 · Extracts, a no-go, and resume lines</a>
+<div class="nav-foot" id="nav-progress">Progress stays in this browser</div>
+</aside>
+<main class="main">
+
+<p class="kicker">Week 2 · Session 6</p>
+<h1>Weekly PDSA and three audiences</h1>
+<p class="lede">The same week is told three ways. The partner note is built from that partner&#x27;s rows only, then scanned. A leaked id fails the run.</p>
+<p class="note">Ticket COA-109, COA-110 · about 50–70 minutes · artifact: Cycle log and partner, internal, and steering notes</p>
+<div class="lock-screen">
+  <div class="panel">
+    <h2>This session is locked</h2>
+    <p>Pass Session 5 at 80% or better (5 of 6) to open the videos, the logic trace, the practice task, and this quiz. Retries on the earlier quiz are unlimited. If you already passed it on another computer, import that progress code from the home page.</p>
+    <p><a class="button" href="session-5.html">Go to Session 5</a> <a class="button secondary" href="index.html">Home</a></p>
+  </div>
+</div>
+<div class="lesson">
+<h2>Read first</h2>
+<ul><li>docs/PERMISSIONS.md</li><li>docs/samples/updates/ — compare P1.md with steering.md.</li></ul>
+<h2>Watch in this order</h2>
+<p class="note">Read the architecture note, then play the clip. The note says what the file is for. The video walks the lines. Line numbers match <code>main</code> as this site was built.</p>
+<article class="clip">
+<h3>1. Session 6 · A week is a cycle</h3>
+<div class="overview"><h4>Architecture</h4><p>cycle.py turns the triage output into plan, do, study, and act for each program week. It does not invent a new statistic. It reuses analyze on the results up to that week, then chooses adopt, adapt, or abandon from the flags. The sentence it writes still goes through the fidelity guard, so the cycle log cannot drift from the counts.</p></div>
+<video controls preload="metadata" src="videos/session-6/01_pdsa.mp4">
+<a href="videos/session-6/01_pdsa.mp4">Download clip 1</a>
+</video>
+<p class="meta">0:39 · Andrew · <a href="https://github.com/neelsrejan/care-ops-agent/blob/main/src/care_ops_agent/pdsa/cycle.py">src/care_ops_agent/pdsa/cycle.py</a> on <code>main</code></p>
+</article><article class="clip">
+<h3>2. Session 6 · Three views, one analysis</h3>
+<div class="overview"><h4>Architecture</h4><p>audience.py is the permissions boundary. Steering, internal, and partner notes are rendered from the same analysis, but the partner function only receives that partner&#x27;s rows. A scan then looks for every other partner id. The matrix at the top is the spec the renderer is supposed to obey. A leak fails the eval even if the triage was right.</p></div>
+<video controls preload="metadata" src="videos/session-6/02_audience.mp4">
+<a href="videos/session-6/02_audience.mp4">Download clip 2</a>
+</video>
+<p class="meta">0:45 · Andrew · <a href="https://github.com/neelsrejan/care-ops-agent/blob/main/src/care_ops_agent/pdsa/audience.py">src/care_ops_agent/pdsa/audience.py</a> on <code>main</code></p>
+</article>
+<h2>Logic trace</h2>
+<p class="note"><a href="https://github.com/neelsrejan/care-ops-agent/blob/main/docs/sessions/session-6/LOGIC_TRACE.md">LOGIC_TRACE.md</a></p>
+<div class="prose"><h1>Session 6 logic trace — PDSA and three audiences</h1>
+<ol>
+<li><strong>Goal.</strong> Turn each program week into plan / do / study / act, and write three updates from the same facts without leaking another partner into a partner note.</li>
+<li><strong>Needed next.</strong> An outreach experiment that is itself a PDSA cycle (S7).</li>
+<li><strong>Libraries.</strong> The existing triage functions and the numeric-fidelity guard. No new service.</li>
+<li><strong>Code.</strong> <code>pdsa/cycle.py</code> reruns triage on results up to that week. A data-issue flag adapts the plan (hold outreach, check the feed). A care-gap flag adopts targeted outreach. A cleared flag abandons the extra work. <code>pdsa/audience.py</code> holds the permissions matrix. Partner text is built only from that partner's rows, then scanned for every other partner id and name.</li>
+<li><strong>Docs.</strong> <code>docs/PERMISSIONS.md</code> matches the matrix in code.</li>
+<li><strong>Buy-in.</strong> None for the offline path. A real Salesforce sharing rule would replace the matrix later, not the leak check.</li>
+<li><strong>Capability added.</strong> Partner, internal, and steering notes under <code>out/updates/</code>.</li>
+<li><strong>What it proves.</strong> Per-audience reporting where the filter is the control, and a leaked partner id fails the run.</li>
+</ol></div>
+<h2>Code on main</h2>
+<p><a href="https://github.com/neelsrejan/care-ops-agent/tree/main">Browse the repository</a></p>
+<ul><li><a href="https://github.com/neelsrejan/care-ops-agent/blob/main/src/care_ops_agent/pdsa/cycle.py"><code>src/care_ops_agent/pdsa/cycle.py</code></a></li><li><a href="https://github.com/neelsrejan/care-ops-agent/blob/main/src/care_ops_agent/pdsa/audience.py"><code>src/care_ops_agent/pdsa/audience.py</code></a></li></ul>
+<h2>Practice, on a private branch</h2>
+<div class="prose"><pre><code class="language-bash">pytest tests/test_pdsa_ab_rfp.py::test_pdsa_and_partner_filter_on_the_program_story
+</code></pre>
+<p><strong>Extra.</strong> Why is abandon used when a flag clears, and not on a week that was quiet from the start?</p></div>
+<h2>Quiz</h2>
+<p class="note">Six questions on architecture and design. 5 of 6 to pass. Explanations show after you submit. The salted hash is a self-study speed bump, not protection.</p>
+<div id="quiz"></div>
+</div>
+
+</main>
+</div>
+<script src="js/site-config.js"></script>
+<script src="js/quiz-data.js"></script>
+<script src="js/academy.js"></script>
+</body>
+</html>

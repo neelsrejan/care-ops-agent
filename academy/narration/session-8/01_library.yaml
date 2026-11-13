@@ -1,0 +1,24 @@
+title: Session 8 · Cite an entry or flag the question
+file: ../../../src/care_ops_agent/rfp/library.py
+overview: library.py is the retrieval boundary. Questions come from the bank. Scoring
+  is token overlap against the approved title and body. There is no embedding call.
+  A weak or tied score is flagged so the closest entry is not automatically an answer.
+  A cited draft must contain the entry id, which is what a reviewer can check.
+voice: en-US-AndrewNeural
+rate: +0%
+pause: 0.35
+segments:
+- lines: 1-28
+  say: The threshold and the margin are the refusal rule. The tracker start date only
+    creates due dates. Owners in the bank are a role, not a person.
+- lines: 35-54
+  say: Tokens drop short and common words. retrieve ranks entries and flags the question
+    when the best score is low or too close to the runner-up. That is the difference
+    between a hit and a guess.
+- lines: 57-89
+  say: draft_answer either cites the id inside the sentence or writes a flag that
+    says not to invent an answer. tracker assigns due dates from the start date. Nothing
+    is sent to a proposal tool.
+- lines: 92-106
+  say: answer_all is the score the test locks. A question is correct when the cite
+    matches the expected entry, or when an out-of-library question stays flagged.

@@ -1,0 +1,21 @@
+id: hold_partner_bcs_p8
+label: SYNTHETIC SIMULATION
+family: partner_gap
+seed: 228
+weeks: 20
+program_start_week: 14
+baseline_met:
+  hba1c_control: 0.62
+  bp_control: 0.66
+  breast_cancer_screening: 0.58
+held_out: true
+injection:
+  type: partner_drop
+  partner_index: 7
+  measure: breast_cancer_screening
+  met_prob_after: 0.26
+truth:
+  kind: care_gap
+  partner_index: 7
+  clinic: null
+  measure: breast_cancer_screening

@@ -1,0 +1,22 @@
+title: Session 2 · Local files into checked tables
+file: ../../../src/care_ops_agent/data/load.py
+overview: load.py is the only place that writes the raw tables. It reads local FHIR
+  files and the CMS csv, copies rows into PostgreSQL, then builds the views and runs
+  the SQL tests. CI does not call it, because the raw download is large and gitignored.
+  The unit tests prove the parser and the rate math on fixtures instead.
+voice: en-US-AndrewNeural
+rate: +0%
+pause: 0.35
+segments:
+- lines: 1-23
+  say: Column lists are the contract with the schema. The CMS rename map keeps only
+    name and place fields. Quality stars are not loaded, because they are not the
+    care-gap measures.
+- lines: 25-42
+  say: load connects, applies the schema, copies each table, creates the mart schema,
+    and applies the views. Counts come back from SQL. A failed copy stops the pipeline
+    before any rate is quoted.
+- lines: 45-58
+  say: The command-line entry is how a person with the raw files and a local database
+    rebuilds the marts. It is optional for the demo, which uses the committed roster
+    instead.

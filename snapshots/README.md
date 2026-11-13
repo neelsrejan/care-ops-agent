@@ -1,0 +1,1 @@
+Snapshots were cut from the final S4 tree by excluding later sessions' files (no git repo yet). Shared docs (PLAN, PRD, README, backlog) show their end-of-S4 state in every zip. Tag `session-N` once the public GitHub repo exists. Laptop copy → Grok_Bot\Project_Agent_2\Session N\ when the laptop is online.

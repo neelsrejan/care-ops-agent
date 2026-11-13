@@ -1,0 +1,25 @@
+title: Session 4 · A CRM shape without a login
+file: ../../../src/care_ops_agent/crm/mock.py
+overview: mock.py is the Salesforce-shaped store. Accounts, contacts, opportunities,
+  and stage history are ordinary rows so the same files can be imported later. Pipeline
+  metrics read these rows. The live HTTP client lives in a different module and is
+  not called. apply_pipeline_stall is how a held-out scenario forces one opportunity
+  to age in stage without changing the random draws of the other accounts.
+voice: en-US-AndrewNeural
+rate: +0%
+pause: 0.35
+segments:
+- lines: 1-19
+  say: Stages run from Prospect to Live. Agreement is labeled simulated in the stage
+    name because no contract was negotiated. Contacts are roles, not generated people.
+- lines: 22-48
+  say: build_crm gives every partner and a few prospects an opportunity and a stage
+    history. Time in the current stage is drawn so the book is not accidentally all
+    stalled. The label SYNTHETIC is on the account.
+- lines: 51-83
+  say: apply_pipeline_stall rewrites one opportunity when the scenario asks for it.
+    The stage and the entered date are set so aging will mark it stalled. Dev scenarios
+    omit the block, so their CRM is untouched.
+- lines: 86-99
+  say: export_salesforce_csv writes one file per object. Those files are what a Data
+    Import Wizard would load. Writing them does not contact Salesforce.

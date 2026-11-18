@@ -1,0 +1,11 @@
+# Streamlit Community Cloud installs this file, then runs streamlit_app.py.
+# The app adds ./src to sys.path, so the package does not need an editable install.
+streamlit>=1.40
+pandas>=2.2
+numpy>=1.26
+scipy>=1.11
+pyyaml>=6
+pydantic>=2
+psycopg[binary]>=3.1
+openpyxl>=3.1
+httpx>=0.27

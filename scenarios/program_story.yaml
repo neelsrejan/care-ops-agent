@@ -3,7 +3,7 @@ label: SYNTHETIC SIMULATION
 seed: 7
 weeks: 20
 program_start_week: 14
-baseline_met: {hba1c_control: 0.62, bp_control: 0.66, breast_cancer_screening: 0.58}
+baseline_met: {hba1c_control: 0.62, bp_control: 0.69, breast_cancer_screening: 0.56}
 # Three shocks on different partners, plus one stalled onboarding. This is the
 # weekly story the PDSA log reads. It is not one of the four dev scenarios, and
 # it is not in the held-out score.

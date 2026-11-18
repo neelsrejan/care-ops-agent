@@ -3,6 +3,14 @@ __pycache__/
 *.egg-info/
 *.pyc
 .env
+.env.local
+.neon
+.streamlit/secrets.toml
+# Neon CLI scaffolding. This repo does not ship a Node app.
+node_modules/
+neon.ts
+package.json
+package-lock.json
 out/
 data/raw/
 academy/build/

@@ -1,5 +1,9 @@
 # data/ (raw is gitignored)
 
+`data/raw/public/` is the hosted path: HRSA H80 2025, the CMS 2027 Star Ratings zip, and the CDC PLACES 2025 county file. `python -m care_ops_agent.public.load` downloads them and loads schema `published` on the Neon URL in `CARE_OPS_PG_DSN`. See [docs/HOSTING.md](../docs/HOSTING.md).
+
+The files below are the offline Synthea fallback.
+
 Downloaded 2026-11-03 (`python -m care_ops_agent.data.download`).
 
 | File | Rows | Source |

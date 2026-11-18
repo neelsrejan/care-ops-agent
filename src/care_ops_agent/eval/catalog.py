@@ -9,7 +9,11 @@ from __future__ import annotations
 
 from typing import Any
 
-BASELINE = {"hba1c_control": 0.62, "bp_control": 0.66, "breast_cancer_screening": 0.58}
+from care_ops_agent.public.baselines import program_baseline
+
+# bp_control and breast_cancer_screening are the HRSA pooled rates.
+# hba1c_control stays 0.62. See public/baselines.py.
+BASELINE = program_baseline()
 DEV_IDS = {"clinic_bp_drop", "missing_a1c_feed", "partner_screening_gap", "no_signal"}
 
 

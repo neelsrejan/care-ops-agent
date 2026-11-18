@@ -20,7 +20,7 @@ SYSTEM_PROMPT = (
 )
 
 
-def _ollama(settings: Settings, draft: str, facts: dict[str, Any]) -> str:
+def _ollama(settings: Settings, draft: str, facts: dict[str, Any], system_prompt: str) -> str:
     import json
 
     import httpx
@@ -30,7 +30,7 @@ def _ollama(settings: Settings, draft: str, facts: dict[str, Any]) -> str:
         "stream": False,
         "options": {"temperature": 0.1},
         "messages": [
-            {"role": "system", "content": SYSTEM_PROMPT},
+            {"role": "system", "content": system_prompt},
             {"role": "user", "content": f"FACTS:\n{json.dumps(facts, default=str)}\n\nDRAFT:\n{draft}"},
         ],
     }
@@ -39,16 +39,23 @@ def _ollama(settings: Settings, draft: str, facts: dict[str, Any]) -> str:
     return str(response.json()["message"]["content"])
 
 
-def narrate(draft: str, facts: dict[str, Any], settings: Settings | None = None) -> dict[str, Any]:
+def narrate(
+    draft: str,
+    facts: dict[str, Any],
+    settings: Settings | None = None,
+    *,
+    system_prompt: str | None = None,
+) -> dict[str, Any]:
     """Return {'text', 'backend', 'fidelity', 'fallback_reason'}."""
     settings = settings or load_settings()
+    prompt = system_prompt or SYSTEM_PROMPT
     base = check_narrative(draft, facts)
     if not base.ok:
         raise ValueError(f"template produced numbers not in facts: {base.unknown}")
     if settings.rules_only:
         return {"text": draft, "backend": "deterministic", "fidelity": base.to_dict(), "fallback_reason": None}
     try:
-        text = _ollama(settings, draft, facts)
+        text = _ollama(settings, draft, facts, prompt)
     except Exception as exc:  # network, model missing
         return {"text": draft, "backend": "deterministic", "fidelity": base.to_dict(), "fallback_reason": f"llm error: {exc}"}
     result = check_narrative(text, facts)

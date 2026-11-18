@@ -23,6 +23,9 @@ CMS_COLS = {"Facility ID": "facility_id", "Facility Name": "facility_name", "Cit
 
 
 def load(fhir_dir: Path, cms_csv: Path) -> dict:
+    from care_ops_agent.public.dsn import assert_synthetic_stays_local
+
+    assert_synthetic_stays_local(db.dsn())
     root = find_repo_root()
     rows = flatten_all(iter_bundles(fhir_dir))
     with db.connect() as con:

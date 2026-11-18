@@ -55,10 +55,13 @@ def checklist() -> list[dict[str, str]]:
             "required": "yes",
             "ready": "no" if "Asana" in gaps else "yes",
             "detail": (
-                "REQUIRED, pending owner credentials. Free personal access token: "
+                "REQUIRED. Connected. The public page only reads project Care-gap work plan "
+                "(task counts and statuses). The owner seeds tasks with "
+                "python -m care_ops_agent.pm.asana seed. Visitors cannot create tasks."
+                if "Asana" not in gaps else
+                "REQUIRED. Not connected. Free personal access token: "
                 "https://app.asana.com/0/my-apps. Set ASANA_BACKEND=live, ASANA_ACCESS_TOKEN, "
-                "and ASANA_WORKSPACE_GID. Until those are set, the demo raises PortfolioNotConfigured "
-                "and does not invent a sync. Once set, the demo reads the workspace and links it. "
+                "and ASANA_WORKSPACE_GID. Until those are set, the demo raises PortfolioNotConfigured. "
                 "CI still uses the offline CSV client and does not call Asana."
             ),
         },

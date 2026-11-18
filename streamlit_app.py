@@ -22,6 +22,7 @@ from care_ops_agent.public.dsn import HostedDatabaseRequired, redact, require_ho
 from care_ops_agent.public.integrations import credential_gaps, credential_message, live_status
 from care_ops_agent.public.parse import HRSA_PERCENT_NOTES
 from care_ops_agent.public.query import build_view
+from care_ops_agent.public.secrets import SECRET_NAMES, apply_secret_values
 
 st.set_page_config(page_title="Care-gap rates", layout="wide")
 st.title("Care-gap rates from public data")
@@ -40,30 +41,15 @@ def _secret(name: str) -> str:
     return str(value or "").strip()
 
 
-_SECRET_NAMES = (
-    "CARE_OPS_PG_DSN",
-    "DATABASE_URL",
-    "ASANA_BACKEND",
-    "ASANA_ACCESS_TOKEN",
-    "ASANA_WORKSPACE_GID",
-    "SALESFORCE_BACKEND",
-    "SF_LOGIN_URL",
-    "SF_CLIENT_ID",
-    "SF_CLIENT_SECRET",
-    "SF_USERNAME",
-    "SF_PASSWORD",
-    "SF_SECURITY_TOKEN",
-    "TABLEAU_PUBLIC_URL",
-)
+def _secret_map() -> dict[str, str]:
+    values: dict[str, str] = {}
+    for name in SECRET_NAMES:
+        values[name] = _secret(name)
+    return values
 
 
 def _apply_secrets() -> None:
-    for name in _SECRET_NAMES:
-        if os.environ.get(name, "").strip():
-            continue
-        value = _secret(name)
-        if value:
-            os.environ[name] = value
+    apply_secret_values(_secret_map())
 
 
 def _fingerprint() -> str:
@@ -72,7 +58,7 @@ def _fingerprint() -> str:
 
 
 def _integration_fingerprint() -> str:
-    blob = "\n".join(os.environ.get(name, "") for name in _SECRET_NAMES)
+    blob = "\n".join(os.environ.get(name, "") for name in SECRET_NAMES)
     return hashlib.sha256(blob.encode()).hexdigest()[:12]
 
 
@@ -203,6 +189,15 @@ for row in _probes(_integration_fingerprint()):
         st.success(row["summary"])
         if row.get("url"):
             st.link_button(row.get("link_label") or row["system"], row["url"])
+        if row.get("tasks"):
+            st.dataframe(
+                [
+                    {"name": task["name"], "status": "complete" if task["completed"] else "open"}
+                    for task in row["tasks"]
+                ],
+                width="stretch",
+                hide_index=True,
+            )
     else:
         st.error(f"{row['system']}: {row['summary']}")
 

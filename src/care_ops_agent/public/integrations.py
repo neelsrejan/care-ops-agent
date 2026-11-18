@@ -111,41 +111,22 @@ def tableau_url() -> str:
 
 
 def asana_status() -> dict[str, Any]:
-    """Read the workspace. Does not create tasks."""
+    """Read the Care-gap work plan. Does not create a project or a task."""
     missing = _missing(("ASANA_ACCESS_TOKEN", "ASANA_WORKSPACE_GID"), live_flag="ASANA_BACKEND")
     if missing:
         raise PortfolioNotConfigured(credential_message({"Asana": missing}))
-    import httpx
+    from care_ops_agent.pm.asana import LiveAsanaClient, read_plan
 
-    token = os.environ["ASANA_ACCESS_TOKEN"].strip()
-    workspace = os.environ["ASANA_WORKSPACE_GID"].strip()
-    headers = {"Authorization": f"Bearer {token}"}
+    client = LiveAsanaClient(
+        os.environ["ASANA_ACCESS_TOKEN"].strip(),
+        os.environ["ASANA_WORKSPACE_GID"].strip(),
+    )
     try:
-        workspace_response = httpx.get(
-            f"https://app.asana.com/api/1.0/workspaces/{workspace}",
-            headers=headers,
-            timeout=30,
-        )
-        workspace_response.raise_for_status()
-        name = str(workspace_response.json()["data"]["name"])
-        project_response = httpx.get(
-            "https://app.asana.com/api/1.0/projects",
-            params={"workspace": workspace, "limit": 100, "opt_fields": "name"},
-            headers=headers,
-            timeout=30,
-        )
-        project_response.raise_for_status()
-        count = len(project_response.json().get("data") or [])
+        status = read_plan(client)
     except Exception as exc:
-        return {"system": "Asana", "ok": False, "summary": _strip_secrets(str(exc)), "url": ""}
-    summary = f"Asana is connected. Workspace {name}. Projects returned: {count}."
-    return {
-        "system": "Asana",
-        "ok": True,
-        "summary": summary,
-        "url": f"https://app.asana.com/0/{workspace}/list",
-        "link_label": "Open the Asana workspace",
-    }
+        return {"system": "Asana", "ok": False, "summary": _strip_secrets(str(exc)), "url": "", "tasks": []}
+    status["system"] = "Asana"
+    return status
 
 
 def salesforce_status() -> dict[str, Any]:

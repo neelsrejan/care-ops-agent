@@ -78,14 +78,28 @@ def test_asana_probe_is_read_only_and_hides_the_token(monkeypatch):
 
     def fake_get(url, headers=None, params=None, timeout=None):
         calls.append((url, headers["Authorization"], params))
-        if url.endswith("/workspaces/123"):
-            return Response({"data": {"name": "Care Ops"}})
-        return Response({"data": [{"name": "Weekly"}]})
+        if url.endswith("/projects") and "/tasks" not in url:
+            return Response({"data": [{
+                "gid": "9",
+                "name": "Care-gap work plan",
+                "permalink_url": "https://app.asana.com/0/9/list",
+            }]})
+        if url.endswith("/tasks"):
+            return Response({"data": [
+                {"name": "A", "completed": False},
+                {"name": "B", "completed": True},
+            ]})
+        return Response({"data": []})
+
+    def fake_post(*_args, **_kwargs):
+        raise AssertionError("the public Asana read must not POST")
 
     monkeypatch.setattr("httpx.get", fake_get)
+    monkeypatch.setattr("httpx.post", fake_post)
     status = asana_status()
     assert status["ok"] is True
-    assert "Care Ops" in status["summary"]
+    assert status["open_count"] == 1 and status["complete_count"] == 1
+    assert status["url"] == "https://app.asana.com/0/9/list"
     assert "secret-asana-token" not in status["summary"]
     assert calls[0][1] == "Bearer secret-asana-token"
     assert all("post" not in url for url, _, _ in calls)

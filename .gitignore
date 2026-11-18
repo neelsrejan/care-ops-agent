@@ -3,6 +3,7 @@ __pycache__/
 *.egg-info/
 *.pyc
 .env
+.streamlit/secrets.toml
 out/
 data/raw/
 academy/build/

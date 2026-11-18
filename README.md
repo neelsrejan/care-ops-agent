@@ -1,14 +1,16 @@
-# care-ops-agent · SIMULATION
+# care-ops-agent
 
-A portfolio project for program, project-management, and healthcare-operations analytics roles. It runs a **simulated** care-gap closure program for a fictional payer, Harbor Health Plan. Eight partner groups are synthetic. Patients are synthetic. Nothing here is a live network, a real contract, or a clinical tool.
+A portfolio project for program, project-management, and healthcare-operations analytics roles. The hosted demo queries **real public care-gap rates**: HRSA health-center counts, CMS Medicare Advantage contract rates, and CDC PLACES county estimates. Python computes every rate. A language model, if one is turned on, may only rewrite prose, and the numeric-fidelity guard rejects numbers the code did not produce.
 
-The program tracks three simplified, HEDIS-style measures: diabetes control (HbA1c under 8.0%), blood-pressure control (under 140/90), and breast cancer screening. Each week is a PDSA cycle. The code separates a real care gap from a missing lab feed, keeps a Salesforce-shaped partner pipeline, writes the plan as an Asana import file, and puts the numbers in Excel and in Tableau-ready CSV extracts.
+The weekly Harbor Health Plan program is still a **labeled simulation**: eight synthetic partner groups, Synthea patients, outreach draws, a synthetic RFP, and synthetic budgets. It is the CI and offline fallback. It is not a live network, a real contract, or a clinical tool. Read [SIMULATION_DISCLAIMER.md](SIMULATION_DISCLAIMER.md).
 
-Every rate, interval, sample size, and p-value is computed in Python. A language model, if you turn one on, may only rewrite prose, and the numeric-fidelity guard rejects numbers that the code did not produce.
+The hosted path is not optional, and it is not wired up in this repository because the database URL is a secret. The ordered steps, the free tiers, and the env var names are in [docs/HOSTING.md](docs/HOSTING.md).
 
-Read [SIMULATION_DISCLAIMER.md](SIMULATION_DISCLAIMER.md), [PRD.md](PRD.md), [docs/EVAL_REPORT.md](docs/EVAL_REPORT.md), and [RESUME_BULLETS.md](RESUME_BULLETS.md).
+Read [PRD.md](PRD.md), [docs/EVAL_REPORT.md](docs/EVAL_REPORT.md), and [RESUME_BULLETS.md](RESUME_BULLETS.md).
 
 ## What a reviewer can run
+
+Offline, with the synthetic roster (no database, no download):
 
 ```bash
 python -m pip install -e ".[dev]"
@@ -17,7 +19,15 @@ python -m care_ops_agent.run_program
 python -m care_ops_agent.run_program --eval
 ```
 
-`pytest` and `run_program` use a small committed roster. They do not download data and they do not need PostgreSQL, Asana, Salesforce, or Tableau.
+Hosted, after `CARE_OPS_PG_DSN` is set to a Neon URL (see [docs/HOSTING.md](docs/HOSTING.md)):
+
+```bash
+python -m care_ops_agent.public.load
+python -m care_ops_agent.public.status
+streamlit run streamlit_app.py
+```
+
+`pytest` and `run_program` use a small committed roster. They do not download data and they do not need PostgreSQL, Asana, Salesforce, or Tableau. The public loader does not use that roster.
 
 `run_program` writes `out/`:
 
@@ -33,9 +43,9 @@ python -m care_ops_agent.run_program --eval
 
 Checked-in copies of those files are in [docs/samples](docs/samples). The held-out score is in [docs/EVAL_REPORT.md](docs/EVAL_REPORT.md). On this build the single-cause triage matched 11 of 11 held-out scenarios, with 1 false alarm on 5 quiet scenarios, so the scaling workbook's rule says **NO-GO**. That gate is doing the job it was given: zero chance flags, or do not scale.
 
-## Optional full data load
+## Offline Synthea load
 
-The CMS hospital file and the Synthea FHIR R4 sample are about 1.5 GB and are gitignored.
+The CMS hospital file and the Synthea FHIR R4 sample are about 1.5 GB and are gitignored. This load is the offline fallback. It refuses a non-local `CARE_OPS_PG_DSN` so synthetic patients are not written to the hosted database.
 
 ```bash
 python -m care_ops_agent.data.download
@@ -55,7 +65,7 @@ FHIR bundles stay in local files. The project does not upload them to a public F
 | Tableau Public | CSV extracts, a local HTML preview, and [docs/tableau/DASHBOARD_SPEC.md](docs/tableau/DASHBOARD_SPEC.md) | Tableau Public Desktop, then a manual publish from Neel's account |
 | Ollama | Optional prose rewrite | A local model. The default backend is `deterministic` and does not call one |
 
-Tokens are read from the environment. None are stored in the repo. See [.env.example](.env.example).
+Tokens are read from the environment. None are stored in the repo. See [.env.example](.env.example) and [docs/HOSTING.md](docs/HOSTING.md).
 
 ## Learning site
 

@@ -1,0 +1,16 @@
+name: Load published data
+on:
+  workflow_dispatch:
+jobs:
+  load:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install -e .
+      - name: Download public files and load Neon
+        env:
+          CARE_OPS_PG_DSN: ${{ secrets.CARE_OPS_PG_DSN }}
+        run: python -m care_ops_agent.public.load

@@ -20,6 +20,7 @@ import streamlit as st
 from care_ops_agent.public import catalog
 from care_ops_agent.public.dsn import HostedDatabaseRequired, redact, require_hosted_dsn
 from care_ops_agent.public.integrations import credential_gaps, credential_message, live_status
+from care_ops_agent.public.parse import HRSA_PERCENT_NOTES
 from care_ops_agent.public.query import build_view
 
 st.set_page_config(page_title="Care-gap rates", layout="wide")
@@ -149,6 +150,8 @@ if search.strip():
     shown = [row for row in shown if needle in (row.get("entity_name") or "").lower()]
 
 st.subheader(view["definition"]["measure_label"])
+if measure_id in HRSA_PERCENT_NOTES and source_id == "hrsa_uds":
+    st.info(HRSA_PERCENT_NOTES[measure_id])
 metric_cols = st.columns(4)
 metric_cols[0].metric("Comparator", _percent(summary["comparator"]) or "—", help="Percent. Computed in Python from the loaded rows.")
 metric_cols[1].metric("Entities with a rate", f"{summary['n_with_rate']} / {summary['n_entities']}")

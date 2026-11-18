@@ -34,9 +34,11 @@ Do these in order. Nothing below is stored in the repository.
 2. **Load — required.** From this repo, with the variable set:
 
    ```bash
-   python -m pip install -e .
+   python -m pip install -e ".[dev]"
    python -m care_ops_agent.public.load
    ```
+
+   The `dev` extra includes Streamlit. Streamlit Community Cloud installs `requirements.txt` from the repo root instead of the extra. Either install is enough to run `streamlit run streamlit_app.py` on a laptop.
 
    That downloads the three public files (no API key) and loads schema `published`. The command fails with the variable name if the URL is missing, and it refuses `localhost` unless `CARE_OPS_ALLOW_LOCAL=1` (CI and a laptop SQL check only). It also refuses to print the URL.
 3. **GitHub Actions secret — required for a repeatable load.** In the GitHub repo, Settings → Secrets and variables → Actions → New repository secret. Name: `CARE_OPS_PG_DSN`. Value: the same Neon URL. Then run the workflow **Load published data** (`workflow_dispatch`). An empty secret fails the load on purpose.
@@ -57,4 +59,4 @@ The page also has **Required connections**. Until steps 5–7 are in the Streaml
 
 `pytest` does not download the public files and does not need Neon. Set `CARE_OPS_PUBLIC_DIR` to a folder that already holds `places_county_2025.csv`, `cms_star_ratings.zip`, and `H80-2025.xlsx` to run `tests/test_public_live.py` against those files.
 
-The Socrata CSV export for PLACES carried a sunset date of 2026-12-22. If that URL starts failing, the loader’s error names the dataset page. Update `PLACES_CSV_URL` in `src/care_ops_agent/public/catalog.py` when CDC posts the replacement.
+The bulk Socrata CSV for PLACES carried a sunset date of 2026-12-22. The loader tries that URL, then the SODA CSV (`/resource/i46a-9kgh.csv`), then the pinned archive `data/published/places_county_2025.csv`. Headers are matched without case, because SODA lowercases them. Re-run the load after this change so Neon picks up `percent_status` on the HRSA rows.

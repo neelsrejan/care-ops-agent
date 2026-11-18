@@ -48,9 +48,14 @@ def test_hrsa_holyoke_mammogram_matches_the_published_percent():
     bp = next(row for row in rows if row["bhcmis_id"] == "010030" and row["measure_id"] == "bp_control")
     assert bp["numerator"] == 2817
     assert bp["denominator"] == 4741
+    assert bp["published_percent"] is None
+    assert bp["percent_status"] == "unavailable"
+    assert "no center-total percent" in bp["percent_note"]
     poor = next(row for row in rows if row["bhcmis_id"] == "010030" and row["measure_id"] == "diabetes_poor_control")
     assert poor["numerator"] == 433
     assert poor["denominator"] == 2282
+    assert poor["percent_status"] == "unavailable"
+    assert holyoke["percent_status"] == "published"
 
 
 def test_hrsa_national_rates_are_in_a_plausible_band():

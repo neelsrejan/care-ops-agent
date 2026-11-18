@@ -19,6 +19,22 @@ PLACES_IDS = {
     "BPMED": "bp_medication",
     "MAMMOUSE": "mammography",
 }
+# Table 7's health-center total is counts only. There is no percent column
+# next to T7_Li_C2a/C2c or T7_Li_C3a/C3f. Mammography's percent is Table 6B.
+HRSA_PERCENT_NOTES = {
+    "bp_control": (
+        "Unavailable. UDS Table 7 total columns are counts only "
+        "(T7_Li_C2a denominator, T7_Li_C2c controlled numerator). "
+        "There is no center-total percent column, so published_percent is empty on purpose. "
+        "The rate is the numerator divided by the denominator."
+    ),
+    "diabetes_poor_control": (
+        "Unavailable. UDS Table 7 total columns are counts only "
+        "(T7_Li_C3a denominator, T7_Li_C3f poor-control numerator). "
+        "There is no center-total percent column, so published_percent is empty on purpose. "
+        "The rate is the numerator divided by the denominator."
+    ),
+}
 _CI = re.compile(r"\(\s*([0-9]+(?:\.[0-9]+)?)\s*,\s*([0-9]+(?:\.[0-9]+)?)\s*\)")
 _CODE = re.compile(r"^(C\d+|D\d+)\s*:")
 
@@ -98,26 +114,30 @@ def parse_places_csv(source: Path | io.TextIOBase) -> list[dict[str, Any]]:
     handle, close = _open_text(source)
     try:
         reader = csv.DictReader(handle)
-        missing = [f"{code}_CrudePrev" for code in PLACES_IDS if f"{code}_CrudePrev" not in (reader.fieldnames or [])]
-        identity = ["StateAbbr", "StateDesc", "CountyName", "CountyFIPS", "TotalPopulation", "TotalPop18plus"]
-        missing += [name for name in identity if name not in (reader.fieldnames or [])]
+        fields = _field_index(reader.fieldnames)
+        needed = ["stateabbr", "statedesc", "countyname", "countyfips", "totalpopulation", "totalpop18plus"]
+        needed += [f"{code.lower()}_crudeprev" for code in PLACES_IDS]
+        missing = [name for name in needed if name not in fields]
         if missing:
             raise ValueError("CDC PLACES file is missing columns: " + ", ".join(missing))
         rows: list[dict[str, Any]] = []
         for record in reader:
-            fips = str(record["CountyFIPS"]).strip().zfill(5)
+            def cell(key: str, _record: dict[str, Any] = record) -> Any:
+                return _record.get(fields[key])
+
+            fips = str(cell("countyfips")).strip().zfill(5)
             if not fips.isdigit() or len(fips) != 5:
                 continue
-            population = parse_count(record["TotalPopulation"])
-            adults = parse_count(record["TotalPop18plus"])
+            population = parse_count(cell("totalpopulation"))
+            adults = parse_count(cell("totalpop18plus"))
             for code, measure_id in PLACES_IDS.items():
-                percent, _status = parse_percent_cell(record.get(f"{code}_CrudePrev"))
-                low, high = parse_ci(record.get(f"{code}_Crude95CI"))
+                percent, _status = parse_percent_cell(cell(f"{code.lower()}_crudeprev"))
+                low, high = parse_ci(cell(f"{code.lower()}_crude95ci") if f"{code.lower()}_crude95ci" in fields else None)
                 rows.append({
                     "county_fips": fips,
-                    "state_abbr": _text(record["StateAbbr"]),
-                    "state_name": _text(record["StateDesc"]),
-                    "county_name": _text(record["CountyName"]),
+                    "state_abbr": _text(cell("stateabbr")),
+                    "state_name": _text(cell("statedesc")),
+                    "county_name": _text(cell("countyname")),
                     "total_population": None if population is None else int(population),
                     "pop_18plus": None if adults is None else int(adults),
                     "measure_id": measure_id,
@@ -256,6 +276,13 @@ def _mammography(path: Path, centers: dict[str, dict[str, Any]]) -> list[dict[st
             continue
         numerator, denominator = pair
         published, _status = parse_percent_cell(record.get("%ofPatientswithMammogram"))
+        if published is None:
+            percent_status, percent_note = (
+                "unavailable",
+                "Unavailable. The Table 6B percent cell was blank or suppressed.",
+            )
+        else:
+            percent_status, percent_note = "published", "Table 6B published percent."
         rows.append({
             **center,
             "bhcmis_id": identifier,
@@ -263,6 +290,8 @@ def _mammography(path: Path, centers: dict[str, dict[str, Any]]) -> list[dict[st
             "numerator": numerator,
             "denominator": denominator,
             "published_percent": published,
+            "percent_status": percent_status,
+            "percent_note": percent_note,
         })
     return rows
 
@@ -310,8 +339,18 @@ def _table7_totals(
             "numerator": numerator,
             "denominator": denominator,
             "published_percent": None,
+            "percent_status": "unavailable",
+            "percent_note": HRSA_PERCENT_NOTES[measure_id],
         })
     return rows
+
+
+def _field_index(fieldnames: list[str] | None) -> dict[str, str]:
+    """Map a lowercased header to the header as it appears in the file.
+
+    The bulk CSV uses StateAbbr. The SODA CSV uses stateabbr. Both are accepted.
+    """
+    return {name.strip().lower(): name for name in (fieldnames or []) if name}
 
 
 def _open_text(source: Path | io.TextIOBase, encoding: str = "utf-8-sig") -> tuple[io.TextIOBase, bool]:

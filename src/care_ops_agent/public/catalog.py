@@ -19,6 +19,8 @@ PLACES_PAGE_URL = (
     "PLACES-County-Data-GIS-Friendly-Format-2025-releas/i46a-9kgh"
 )
 PLACES_CSV_URL = "https://data.cdc.gov/api/views/i46a-9kgh/rows.csv?accessType=DOWNLOAD"
+# SODA still serves this view. $limit must cover every county (about 3,200).
+PLACES_SODA_URL = "https://data.cdc.gov/resource/i46a-9kgh.csv?$limit=10000"
 
 HRSA_PAGE_URL = "https://data.hrsa.gov/topics/health-centers/uds"
 HRSA_XLSX_URL = "https://data.hrsa.gov/DataDownload/StaticDocuments/H80-2025.xlsx"
@@ -38,7 +40,10 @@ SOURCES = {
         "grain": "health center (BHCMIS ID), reporting year 2025",
         "notes": (
             "Numerators and denominators are the Table 6B and Table 7 health-center totals. "
-            "Python divides them. Diabetes is poor glycemic status (>9% or missing), so a "
+            "Python divides them. Table 7 has no center-total percent column, so "
+            "published_percent is empty for blood pressure and diabetes and percent_status "
+            "is unavailable. Mammography keeps the Table 6B published percent. "
+            "Diabetes is poor glycemic status (>9% or missing), so a "
             "higher rate is worse. Blood pressure is controlled under 140/90. Mammography is "
             "women age 52–74. These are UDS definitions, not certified HEDIS."
         ),
@@ -77,7 +82,8 @@ SOURCES = {
             "high blood pressure, and mammography among women 50–74. These are model-based "
             "BRFSS small-area estimates, not patient outcomes and not HEDIS. Python computes "
             "the adult-population-weighted mean and each county's gap. It does not recompute "
-            "the CDC model. The Socrata CSV export carried a sunset of 2026-12-22."
+            "the CDC model. The bulk CSV export carried a sunset of 2026-12-22. The loader "
+            "tries that URL, then the SODA CSV, then the pinned archive in data/published/."
         ),
     },
 }

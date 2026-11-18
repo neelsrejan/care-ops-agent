@@ -19,7 +19,7 @@ python -m care_ops_agent.run_program
 python -m care_ops_agent.run_program --eval
 ```
 
-Hosted, after `CARE_OPS_PG_DSN` is set to a Neon URL (see [docs/HOSTING.md](docs/HOSTING.md)):
+Hosted, after `CARE_OPS_PG_DSN` is set to a Neon URL (see [docs/HOSTING.md](docs/HOSTING.md)). `pip install -e ".[dev]"` includes Streamlit. Streamlit Community Cloud installs [requirements.txt](requirements.txt) instead.
 
 ```bash
 python -m care_ops_agent.public.load

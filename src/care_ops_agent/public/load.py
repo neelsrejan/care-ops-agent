@@ -24,6 +24,7 @@ from care_ops_agent.public.parse import parse_cms_zip, parse_hrsa_xlsx, parse_pl
 HRSA_COLS = [
     "reporting_year", "bhcmis_id", "health_center_name", "city", "state",
     "measure_id", "numerator", "denominator", "published_percent",
+    "percent_status", "percent_note",
 ]
 PLACES_COLS = [
     "release", "county_fips", "state_abbr", "state_name", "county_name",

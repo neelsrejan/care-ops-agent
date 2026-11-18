@@ -31,7 +31,13 @@ CREATE TABLE published.hrsa_measure (
   numerator double precision NOT NULL,
   denominator double precision NOT NULL,
   published_percent double precision,
+  percent_status text NOT NULL,
+  percent_note text NOT NULL,
   PRIMARY KEY (reporting_year, bhcmis_id, measure_id),
+  CHECK (
+    (percent_status = 'published' AND published_percent IS NOT NULL)
+    OR (percent_status = 'unavailable' AND published_percent IS NULL)
+  ),
   CHECK (denominator > 0),
   CHECK (numerator >= 0),
   CHECK (numerator <= denominator),

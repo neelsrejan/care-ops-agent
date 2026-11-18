@@ -56,14 +56,16 @@ python -m care_ops_agent.run_triage scenarios/*.yaml
 
 FHIR bundles stay in local files. The project does not upload them to a public FHIR server.
 
-## Accounts that are not connected
+## Required hosted connections
 
-| System | What is in the repo | What going live needs |
+These are part of the hosted portfolio. They are pending the owner's credentials. The demo names the missing variables and does not invent a sync. CI still uses the offline clients.
+
+| System | Free tier | What going live needs |
 |---|---|---|
-| Asana | CSV import and `OfflineAsanaClient` | `ASANA_BACKEND=live`, `ASANA_ACCESS_TOKEN`, `ASANA_WORKSPACE_GID` |
-| Salesforce | Data Import Wizard CSVs and `OfflineSalesforceClient` | `SALESFORCE_BACKEND=live` plus the `SF_*` variables in `.env.example` |
-| Tableau Public | CSV extracts, a local HTML preview, and [docs/tableau/DASHBOARD_SPEC.md](docs/tableau/DASHBOARD_SPEC.md) | Tableau Public Desktop, then a manual publish from Neel's account |
-| Ollama | Optional prose rewrite | A local model. The default backend is `deterministic` and does not call one |
+| Asana | Personal access token on a free account | `ASANA_BACKEND=live`, `ASANA_ACCESS_TOKEN`, `ASANA_WORKSPACE_GID` |
+| Salesforce | Developer Edition | `SALESFORCE_BACKEND=live` plus the `SF_*` variables in `.env.example` |
+| Tableau Public | Tableau Public account and Desktop | Publish the workbook, then `TABLEAU_PUBLIC_URL` (`https://public.tableau.com/...`) |
+| Ollama | Local only | A local model. The default backend is `deterministic` and does not call one |
 
 Tokens are read from the environment. None are stored in the repo. See [.env.example](.env.example) and [docs/HOSTING.md](docs/HOSTING.md).
 

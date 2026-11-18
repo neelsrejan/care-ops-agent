@@ -19,8 +19,8 @@ import streamlit as st
 
 from care_ops_agent.public import catalog
 from care_ops_agent.public.dsn import HostedDatabaseRequired, redact, require_hosted_dsn
+from care_ops_agent.public.integrations import credential_gaps, credential_message, live_status
 from care_ops_agent.public.query import build_view
-from care_ops_agent.public.status import checklist
 
 st.set_page_config(page_title="Care-gap rates", layout="wide")
 st.title("Care-gap rates from public data")
@@ -39,19 +39,46 @@ def _secret(name: str) -> str:
     return str(value or "").strip()
 
 
+_SECRET_NAMES = (
+    "CARE_OPS_PG_DSN",
+    "DATABASE_URL",
+    "ASANA_BACKEND",
+    "ASANA_ACCESS_TOKEN",
+    "ASANA_WORKSPACE_GID",
+    "SALESFORCE_BACKEND",
+    "SF_LOGIN_URL",
+    "SF_CLIENT_ID",
+    "SF_CLIENT_SECRET",
+    "SF_USERNAME",
+    "SF_PASSWORD",
+    "SF_SECURITY_TOKEN",
+    "TABLEAU_PUBLIC_URL",
+)
+
+
 def _apply_secrets() -> None:
-    if os.environ.get("CARE_OPS_PG_DSN", "").strip() or os.environ.get("DATABASE_URL", "").strip():
-        return
-    for name in ("CARE_OPS_PG_DSN", "DATABASE_URL"):
+    for name in _SECRET_NAMES:
+        if os.environ.get(name, "").strip():
+            continue
         value = _secret(name)
         if value:
             os.environ[name] = value
-            return
 
 
 def _fingerprint() -> str:
     raw = os.environ.get("CARE_OPS_PG_DSN", "") or os.environ.get("DATABASE_URL", "")
     return hashlib.sha256(raw.encode()).hexdigest()[:12]
+
+
+def _integration_fingerprint() -> str:
+    blob = "\n".join(os.environ.get(name, "") for name in _SECRET_NAMES)
+    return hashlib.sha256(blob.encode()).hexdigest()[:12]
+
+
+@st.cache_data(ttl=300, show_spinner=False)
+def _probes(fingerprint: str) -> list[dict]:
+    del fingerprint
+    return live_status()
 
 
 @st.cache_data(ttl=300, show_spinner=False)
@@ -97,12 +124,6 @@ with st.sidebar:
         measure_ids,
         format_func=lambda key: catalog.MEASURES[source_id][key]["label"],
     )
-    with st.expander("Connections still needed"):
-        for item in checklist():
-            if item["name"] in {"Streamlit Community Cloud", "GitHub Actions load"}:
-                continue
-            st.markdown(f"**{item['name']}** — {item['ready']}")
-            st.caption(item["detail"])
 
 try:
     view = _load(source_id, measure_id, _fingerprint())
@@ -169,6 +190,18 @@ st.download_button(
     file_name=f"{source_id}_{measure_id}.csv",
     mime="text/csv",
 )
+
+st.subheader("Required connections")
+gaps = credential_gaps()
+if gaps:
+    st.error(credential_message(gaps))
+for row in _probes(_integration_fingerprint()):
+    if row["ok"]:
+        st.success(row["summary"])
+        if row.get("url"):
+            st.link_button(row.get("link_label") or row["system"], row["url"])
+    else:
+        st.error(f"{row['system']}: {row['summary']}")
 
 source = view["source"]
 if source:

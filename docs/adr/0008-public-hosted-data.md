@@ -11,6 +11,8 @@ Python computes every rate, pooled comparator, gap, and Wilson interval. SQL sto
 
 Neon is the database because the free plan is $0 without a credit card and it is plain Postgres. Streamlit Community Cloud is the demo because a public app is free to view and can hold `CARE_OPS_PG_DSN` as a secret. The loader refuses a missing URL and refuses localhost unless `CARE_OPS_ALLOW_LOCAL=1`. It refuses to load Synthea into a non-local database.
 
-The weekly Harbor simulation, the outreach draws, the RFP bank, and the Asana and Salesforce offline clients stay the CI path. Asana, Salesforce, and Tableau Public still need the owner's accounts; those clients fail clearly when the variables are empty. No quiz question became false, because those modules still behave as the sessions describe. The hospital general-information file is still only a name seed. Star Ratings are a different CMS file.
+The weekly Harbor simulation stays the CI path for patient draws, outreach, the RFP, and budgets. Asana, Salesforce Developer Edition, and Tableau Public are required on the hosted demo, not optional. The demo raises `PortfolioNotConfigured` until the owner sets the variables, and it only then shows a read-only Asana workspace check, a read-only Salesforce login, and the Tableau Public link. CI still constructs the offline clients. No quiz question became false. The hospital general-information file is still only a name seed. Star Ratings are a different CMS file.
+
+`bp_control` 0.69 and `breast_cancer_screening` 0.56 in the weekly scenarios are the HRSA pooled rates from the 2026-11-18 load. `hba1c_control` stays 0.62 because the public diabetes figures are a different measure. See `public/baselines.py`.
 
 The connection string is never written into the repo.

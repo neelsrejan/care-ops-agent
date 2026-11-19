@@ -148,11 +148,21 @@ def direction_sentence(source_id: str, measure_id: str) -> str:
     raise ValueError(direction)
 
 
-def guide_copy(step_id: str, focus_id: str, source_id: str) -> dict[str, str]:
-    """Plain-language doing / why / look for one step. No computed rates."""
+def guide_copy(
+    step_id: str,
+    focus_id: str,
+    source_id: str,
+    measure_id: str | None = None,
+) -> dict[str, str]:
+    """Plain-language doing / why / look for one step. No computed rates.
+
+    ``measure_id`` is the measure on screen. Free explore can choose one that
+    is not the focus default, and the sentence has to describe that measure.
+    """
     focus = FOCUSES[focus_id]
     source = catalog.SOURCES[source_id]
-    measure_id = measure_for(focus_id, source_id)
+    if measure_id not in catalog.MEASURES[source_id]:
+        measure_id = measure_for(focus_id, source_id)
     measure = catalog.MEASURES[source_id][measure_id]["label"]
     short = SOURCE_SHORT[source_id]
     threshold = f"{catalog.GAP_THRESHOLD_PP:g}"

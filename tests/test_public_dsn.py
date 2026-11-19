@@ -3,6 +3,7 @@ import pytest
 from care_ops_agent.public.dsn import (
     HostedDatabaseRequired,
     assert_synthetic_stays_local,
+    public_text,
     redact,
     require_hosted_dsn,
 )
@@ -40,3 +41,16 @@ def test_redact_strips_the_password():
     text = "failed postgresql://owner:secret-token@ep-example.neon.tech/neondb"
     assert "secret-token" not in redact(text)
     assert "owner" in redact(text)
+
+
+def test_public_text_hides_server_paths_and_keeps_urls():
+    text = (
+        "Traceback /home/ubuntu/app/streamlit_app.py and /opt/cursor/artifacts/x. "
+        "See https://data.hrsa.gov/topics/health-centers/uds. "
+        "postgresql://owner:secret-token@ep-example.neon.tech/neondb"
+    )
+    shown = public_text(text)
+    assert "/home/ubuntu" not in shown
+    assert "/opt/cursor" not in shown
+    assert "secret-token" not in shown
+    assert "https://data.hrsa.gov/topics/health-centers/uds" in shown

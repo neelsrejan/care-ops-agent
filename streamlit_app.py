@@ -19,7 +19,7 @@ import pandas as pd
 import streamlit as st
 
 from care_ops_agent.public import catalog
-from care_ops_agent.public.dsn import HostedDatabaseRequired, redact, require_hosted_dsn
+from care_ops_agent.public.dsn import HostedDatabaseRequired, public_text, require_hosted_dsn
 from care_ops_agent.public.integrations import credential_gaps, credential_message, live_status
 from care_ops_agent.public.parse import HRSA_PERCENT_NOTES
 from care_ops_agent.public.query import build_view
@@ -93,7 +93,18 @@ def _percent(rate: float | None) -> str:
     return f"{rate * 100:.1f}"
 
 
+# Widget keys. Streamlit deletes a widget key at the end of a run that did not
+# render that widget. Re-assigning the key before any widget is created writes
+# it into this run's session state, which keeps the value. source_id and
+# measure_id are the free-explore query boxes. slice_state and slice_search are
+# the state and name filters, drawn on the slice step and in free explore.
+_KEPT_WIDGET_KEYS = ("source_id", "measure_id", "slice_state", "slice_search")
+
+
 def _init_state() -> None:
+    for key in _KEPT_WIDGET_KEYS:
+        if key in st.session_state:
+            st.session_state[key] = st.session_state[key]
     st.session_state.setdefault("step", 0)
     st.session_state.setdefault("focus_id", DEFAULT_FOCUS)
     st.session_state.setdefault("source_id", DEFAULT_SOURCE)
@@ -108,16 +119,6 @@ def _init_state() -> None:
         st.session_state.free_explore = True
     step = int(st.session_state.step)
     st.session_state.step = min(max(step, 0), len(STEPS) - 1)
-
-
-def _sync_measure() -> None:
-    """Guided mode takes the measure from the question and the file."""
-    if st.session_state.free_explore:
-        return
-    st.session_state.measure_id = measure_for(
-        st.session_state.focus_id,
-        st.session_state.source_id,
-    )
 
 
 def _apply(prompt: Prompt) -> None:
@@ -209,7 +210,12 @@ def _banner() -> None:
 
 
 def _render_copy(step_id: str) -> None:
-    copy = guide_copy(step_id, st.session_state.focus_id, st.session_state.source_id)
+    copy = guide_copy(
+        step_id,
+        st.session_state.focus_id,
+        st.session_state.source_id,
+        st.session_state.measure_id,
+    )
     st.markdown(f"**What the agent is doing.** {copy['doing']}")
     st.markdown(f"**Why.** {copy['why']}")
     st.markdown(f"**What to look at.** {copy['look']}")
@@ -223,11 +229,11 @@ def _load_view():
             _fingerprint(),
         ), None
     except Exception as exc:
-        return None, redact(str(exc))
+        return None, public_text(str(exc))
 
 
 def _data_error(message: str) -> None:
-    st.error(message)
+    st.error(public_text(message))
     st.info(
         "If the published tables are missing, run `python -m care_ops_agent.public.load` "
         "with CARE_OPS_PG_DSN set."
@@ -314,10 +320,10 @@ def _render_connections() -> None:
     )
     gaps = credential_gaps()
     if gaps:
-        st.error(credential_message(gaps))
+        st.error(public_text(credential_message(gaps)))
     for row in _probes(_integration_fingerprint()):
         if row["ok"]:
-            st.success(row["summary"])
+            st.success(public_text(row["summary"]))
             if row.get("url"):
                 st.link_button(row.get("link_label") or row["system"], row["url"])
             if row.get("tasks"):
@@ -330,7 +336,7 @@ def _render_connections() -> None:
                     hide_index=True,
                 )
         else:
-            st.error(f"{row['system']}: {row['summary']}")
+            st.error(public_text(f"{row['system']}: {row['summary']}"))
 
 
 def _render_source(view: dict) -> None:
@@ -489,13 +495,15 @@ def _render_explore() -> None:
             format_func=lambda key: catalog.SOURCES[key]["title"],
             key="source_id",
         )
-        measure_ids = list(catalog.MEASURES[st.session_state.source_id])
+        source_id = st.session_state.source_id
+        measure_ids = list(catalog.MEASURES[source_id])
         if st.session_state.measure_id not in measure_ids:
             st.session_state.measure_id = measure_ids[0]
+        labels = {key: catalog.MEASURES[source_id][key]["label"] for key in measure_ids}
         st.selectbox(
             "Measure",
             measure_ids,
-            format_func=lambda key: catalog.MEASURES[st.session_state.source_id][key]["label"],
+            format_func=labels.get,
             key="measure_id",
         )
     view, error = _load_view()
@@ -538,7 +546,6 @@ def main() -> None:
             key="free_explore",
             help="Leave the steps and use the source, measure, state, and name filters yourself.",
         )
-    _sync_measure()
     if st.session_state.free_explore:
         _render_explore()
         return

@@ -82,6 +82,12 @@ def test_every_step_says_what_the_agent_is_doing():
         assert prompts_for(step.id, focus_id="screening", source_id="cms_stars", rows=[])
 
 
+def test_guide_copy_follows_the_measure_on_screen():
+    national = guide_copy("national", "diabetes", "cdc_places", "mammography")
+    assert "Mammography among women 50–74" in national["doing"]
+    assert "higher rate is better" in national["look"]
+
+
 def test_diabetes_hrsa_tells_the_visitor_a_higher_rate_is_worse():
     sentence = direction_sentence("hrsa_uds", "diabetes_poor_control")
     assert "higher rate is worse" in sentence

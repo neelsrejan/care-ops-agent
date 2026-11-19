@@ -37,6 +37,21 @@ def redact(text: str) -> str:
     return _USERINFO.sub(r"://\1:[redacted]@", text)
 
 
+# Absolute paths a traceback or a client error might include. URL paths such as
+# https://data.hrsa.gov/... do not match, because those are not rooted at a
+# server directory.
+_SERVER_PATH = re.compile(
+    r"(?:[A-Za-z]:\\(?:[^\\\s\"']+\\)*[^\\\s\"']+)"
+    r"|(?:/(?:home|opt|usr|tmp|var|agent|app|mount|Users|private|workspace|src)"
+    r"(?:/[^\s\"'`,)]*)?)"
+)
+
+
+def public_text(text: str) -> str:
+    """Visitor-facing text. Passwords and server file paths are removed."""
+    return _SERVER_PATH.sub("[path]", redact(text))
+
+
 def require_hosted_dsn() -> str:
     """Return the hosted URL, or raise without echoing it."""
     dsn = os.environ.get("CARE_OPS_PG_DSN", "").strip() or os.environ.get("DATABASE_URL", "").strip()

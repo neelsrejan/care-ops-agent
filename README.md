@@ -27,6 +27,16 @@ python -m care_ops_agent.public.status
 streamlit run streamlit_app.py
 ```
 
+The public app is https://care-ops-agent.streamlit.app/. It opens on a seven-step walkthrough. Use **Next** and **Back**, or the buttons under “Suggested next move.” **Free explore** (the toggle, or the button on the last step) returns the source, measure, state, and name filters, the chart, the table, the CSV download, and the Asana, Salesforce, and Tableau status.
+
+1. **The brief.** Pick diabetes, blood pressure, or breast cancer screening. Diabetes is selected when the page opens.
+2. **Which file.** Pick HRSA health centers, CMS Medicare Advantage contracts, or CDC PLACES counties.
+3. **The national picture.** Read the comparator and how many entities are at least 5 points worse. Python computed those figures.
+4. **The widest gaps.** Read the bar chart. Start with the widest name, or with a state the buttons offer.
+5. **One slice.** Read that table. Download it as CSV if you want the rows.
+6. **Check the work.** Read the source, the direction of this measure, and the numeric-fidelity line.
+7. **The recommendation.** Read who to review first. The connection status under it is read-only.
+
 `pytest` and `run_program` use a small committed roster. They do not download data and they do not need PostgreSQL, Asana, Salesforce, or Tableau. The public loader does not use that roster.
 
 `run_program` writes `out/`:

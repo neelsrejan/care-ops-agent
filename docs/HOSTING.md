@@ -77,9 +77,11 @@ TABLEAU_PUBLIC_URL = ""
 
 ## What a visitor sees
 
-Open the Streamlit URL. Choose a source and a measure. Filter by state (HRSA and PLACES) or by name. The comparator is national even when the table is filtered. Download the filtered table as CSV. The note under the metrics is the deterministic narration; the caption says the fidelity check passed.
+The public app is https://care-ops-agent.streamlit.app/. It opens as a seven-step walkthrough: the brief, the file, the national picture, the widest gaps, one slice, a check of the source and the sentence, then the recommendation. **Next** and **Back** move through that order. Each step has a suggested button so the visitor does not have to invent a query. The comparator stays national when a step filters the table. The slice step downloads the filtered rows as CSV. The note and the recommendation are the deterministic narration unless a model is on; the caption says the fidelity check passed. A draft that adds a number is rejected.
 
-The page also has **Required connections**. Until steps 5–7 are in the Streamlit secrets, that section is an error naming the variables. After they are set, it shows the Asana project link plus each task’s open or complete status, the Salesforce org and Account count, and the Tableau Public link. The page does not create Asana tasks. Turning on `LLM_BACKEND=ollama` is a local prose option. A draft that adds a number is rejected.
+**Free explore** is a toggle on every step and a button on the last step. It puts back the source and measure selectors, the state and name filters, the chart, the full table, the CSV download, and the source citation.
+
+The last step, and free explore, include **Required connections**. Until steps 5–7 are in the Streamlit secrets, that section is an error naming the variables. After they are set, it shows the Asana project link plus each task’s open or complete status, the Salesforce org and Account count, and the Tableau Public link. The page does not create Asana tasks. Turning on `LLM_BACKEND=ollama` is a local prose option.
 
 ## What stays offline
 
